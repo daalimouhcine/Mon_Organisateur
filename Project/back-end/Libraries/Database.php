@@ -4,7 +4,7 @@
         private $host = 'localhost';
         private $user = "root";
         private $pass = "";
-        private $dbname = "MonOrganisateur";
+        private $dbname = "mon_organisateur";
         private $dbh;
         private $error;
         private $stmt;

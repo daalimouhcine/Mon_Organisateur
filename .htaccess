@@ -1,0 +1,7 @@
+# Go directly to the Project/Back-end folder.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteRule ^$Project/Back-end/Libraries/Core.php [L]
+    RewriteRule (.*) Project/Back-end/Libraries/Core.php?url=$1 [L]
+</IfModule>

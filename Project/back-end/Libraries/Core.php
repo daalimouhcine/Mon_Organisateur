@@ -1,5 +1,8 @@
 <?php
 
+    require_once 'Controller.php';
+    require_once 'Database.php';
+
     class Core {
         protected $currentApi ='Errors';
         protected $currentController = 'index';
@@ -50,4 +53,7 @@
                 return $url;
             }
         }
+
     }
+
+?>

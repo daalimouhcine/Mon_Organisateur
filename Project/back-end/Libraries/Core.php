@@ -5,7 +5,7 @@
 
     class Core {
         protected $currentApi ='Errors';
-        protected $currentController = 'index';
+        protected $currentMethod = 'index';
         protected $apiParams = [];
 
         public function __construct() {
@@ -13,33 +13,33 @@
 
             if(!empty($url[0])) {
                 // Look in controllers for first value
-                if(file_exists('../APIs' . $url[0] . '.php')) {
+                if(file_exists('../APIs/' . ucwords($url[0]) . '.php')) {
                     // If exists, set as controller
-                    $this->currentApi = $url[0];
+                    $this->currentApi = ucwords($url[0]);
                     // Unset 0 Index
                     unset($url[0]);
                 }
             }
 
             // Require the controller
-            require '../APIs' . $this->currentApi . '.php';
+            require '../APIs/' . $this->currentApi . '.php';
 
             // Instantiate controller class
             $this->currentApi = new $this->currentApi;
 
-            // Check for the Method in the controller
-            if(isset($url[1])) {
+            // Check for second part of url
+            if(!empty($url[1])) {
                 if(method_exists($this->currentApi, $url[1])) {
                     $this->currentMethod = $url[1];
-                    // Unset 1 Index
+                    // Unset 1 index
                     unset($url[1]);
                 }
             }
 
-            // Set params
+            // Get params 
             $this->apiParams = $url ? array_values($url) : [];
 
-            // Call the method
+            // Call a callback with array of params
             call_user_func_array([$this->currentApi, $this->currentMethod], $this->apiParams);
 
         }
@@ -56,4 +56,7 @@
 
     }
 
+    // Instantiate Core Class
+    new Core();
 ?>
+

@@ -2,6 +2,6 @@
 
 <IfModule mod_rewrite.c>
     RewriteEngine on
-    RewriteRule ^$Project/Back-end/Libraries/Core.php [L]
-    RewriteRule (.*) Project/Back-end/Libraries/Core.php?url=$1 [L]
+    RewriteRule ^$Project/back-end/Libraries/Core.php [L]
+    RewriteRule (.*) Project/back-end/Libraries/Core.php?url=$1 [L]
 </IfModule>

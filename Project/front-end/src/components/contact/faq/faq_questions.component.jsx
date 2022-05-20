@@ -4,6 +4,7 @@ import "./faq.component.css";
 
 const FaqQuestions: React.FC = () => {
   let [show, setShow] = useState(false);
+  let [qua]
 
   return (
     <div className="w-full max-w-2xl px-8 pb-24 mx-auto lg:mx-0 lg:w-1/2 lg:pb-0 lg:pl-14 xl:pl-24 lg:pr-4 xl:pr-6">

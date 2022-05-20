@@ -1,34 +1,34 @@
-import { useState } from "react";
+import { useState } from 'react';
+import type { FAQ } from '../../../types';
 
 import "./faq.component.css";
 
 const FaqQuestions: React.FC = () => {
-  let [show, setShow] = useState(false);
-  let [questions, setQuestions] = useState([
+  let [questions, setQuestions] = useState<FAQ>([
     {
       question: "Where do I go to upgrade my account?",
       answer: "You can upgrade your account by visiting The Pro Upgrade Page. You will also gain access to many other applications and sections of the site.",
-      show: false
+      status: false
     },
     {
       question: "How do I use Tails in my project?",
       answer: "Implementation in your project is very simple. You can use the exported page as a starting point, or you can copy and paste the HTML into your own page.",
-      show: false
+      status: false
     },
     {
       question: "How long will I have access to Tails?",
       answer: "You will have unlimited access to all your pre-built pages; however, if you want to be able to download and export your pages, you'll need a pro account. Paddle for processing payments.",
-      show: false
+      status: false
     },
     {
       question: "What is the license on the pages?",
       answer: "You have unlimited use to the templates used in Tails; however, you cannot re-use the templates to sell for others to use.",
-      show: false
+      status: false
     },
     {
       question: "What is the refund policy for tails?",
       answer: "If you were charged on accident we can issue you a refund, however due to the nature of the product we cannot offer a refund, but you can cancel anytime.",
-      show: false
+      status: false
     }
   ])
 
@@ -40,9 +40,44 @@ const FaqQuestions: React.FC = () => {
       <div className="w-20 h-1 bg-green-400 md:w-24" />
       <div className="relative mt-7">
 
+        {
+          questions.map((question, index) => {
+            return (
+              <div key={index} className="relative mt-6">
+                <div className="flex items-center">
+                  <div className="w-1/3">
+                    <div className="relative">
+                      <div className="absolute w-full h-full bg-green-400" />
+                      <div className="absolute w-full h-full bg-green-600" />
+                      <div className="absolute w-full h-full bg-green-800" />
+                      <div className="absolute w-full h-full bg-green-900" />
+                      <div className="absolute w-full h-full bg-green-800" />
+                      <div className="absolute w-full h-full bg-green-600" />
+                      <div className="absolute w-full h-full bg-green-400" />
+                    </div>
+                  </div>
+                  <div className="w-2/3">
+                    <h3 className="text-lg font-bold text-green-900">
+                      {question.question}
+                    </h3>
+                    <p className="text-sm text-green-600">
+                      {question.answer}
+                    </p>
+                  </div>
+                </div>
+                <div className="absolute w-full h-full bg-green-400" />
+                <div className="absolute w-full h-full bg-green-600" />
+                <div className="absolute w-full h-full bg-green-800" />
+                <div className="absolute w-full h-full bg-green-900" />
+                <div className="absolute w-full h-full bg-green-800" />
+                <div className="absolute w-full h-full bg-green-600" />
+                <div className="absolute w-full h-full bg-green-400" />
+              </div>
+            )
+          })
+        }
 
-        {/* Question 5 */}
-        <div
+        {/* <div
           x-data="{ show: false }"
           className="relative overflow-hidden select-none"
         >
@@ -82,7 +117,7 @@ const FaqQuestions: React.FC = () => {
             due to the nature of the product we cannot offer a refund, but you
             can cancel anytime.
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

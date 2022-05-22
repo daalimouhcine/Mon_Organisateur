@@ -31,12 +31,10 @@ CREATE TABLE IF NOT EXISTS clients (
     nom VARCHAR(255) NOT NULL,
     prenom VARCHAR(255) NOT NULL,
     image_profile VARCHAR(255) NOT NULL,
-    gender VARCHAR(255) NOT NULL,
     nom_utilisateur VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     mot_de_passe VARCHAR(255) NOT NULL,
     telephone VARCHAR(255) NOT NULL,
-    date_naissance DATE NOT NULL,
     role VARCHAR(255) NOT NULL
 );
 

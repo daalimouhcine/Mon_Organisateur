@@ -7,8 +7,9 @@ import About from '../../pages/about/about.page';
 import Contact from '../../pages/contact/contact.page';
 import Login from '../../pages/auth/login/login.page';
 import Register from '../../pages/auth/register/register.page';
+import Footer from '../footer/footer.component';
 
-import '../../lib/common/styles/index';
+import '../../common/styles/index';
 import './app.component.css';
 
 const App: React.FC = () => {
@@ -22,6 +23,7 @@ const App: React.FC = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
             </Routes>
+            <Footer />
         </Router>
     );
 }

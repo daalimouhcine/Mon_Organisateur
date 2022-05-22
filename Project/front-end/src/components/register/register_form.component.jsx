@@ -1,13 +1,15 @@
-
+import { NavLink } from 'react-router-dom';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 
 const RegisterForm: React.FC = () => {
 
     return (
-        <div className="flex md:w-1/2 justify-center py-10 items-center bg-white">
+        <div className="flex md:w-1/2 justify-center pb-10 items-center bg-white">
         <form className="bg-white">
           <h1 className="text-gray-800 font-bold text-2xl mb-1">Hello Again!</h1>
           <p className="text-sm font-normal text-gray-600 mb-7">Welcome Back</p>
-          <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+          <div className="flex items-center border-2 py-2 px-3 rounded-md mb-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 text-gray-400"
@@ -25,7 +27,13 @@ const RegisterForm: React.FC = () => {
               type="text"
               name=""
               id=""
-              placeholder="Full name"
+              placeholder="Nom"
+            />
+            <input
+              className="pl-2 border-l border-l-slate-300 outline-none "
+              name=""
+              id=""
+              placeholder="Prenom"
             />
           </div>
           <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
@@ -48,7 +56,7 @@ const RegisterForm: React.FC = () => {
               type="text"
               name=""
               id=""
-              placeholder="Username"
+              placeholder="Nom d'utilisateur"
             />
           </div>
           <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
@@ -92,17 +100,17 @@ const RegisterForm: React.FC = () => {
               type="text"
               name=""
               id=""
-              placeholder="Password"
+              placeholder="mot_de_passe"
             />
           </div>
           <button
             type="submit"
             className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
           >
-            Login
+            Register
           </button>
-          <span className="text-sm ml-2 hover:text-blue-500 cursor-pointer">
-            Forgot Password ?
+          <span className="text-sm ml-2">
+            Have an account? <NavLink to="/login" className="text-blue-500">Login</NavLink>
           </span>
         </form>
       </div>

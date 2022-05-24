@@ -9,6 +9,7 @@ import Login from '../../pages/auth/login/login.page';
 import Register from '../../pages/auth/register/register.page';
 import Footer from '../footer/footer.component';
 
+
 import '../../common/styles/index';
 import './app.component.css';
 

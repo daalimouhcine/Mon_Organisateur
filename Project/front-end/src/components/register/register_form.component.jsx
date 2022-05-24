@@ -1,8 +1,19 @@
 import { NavLink } from 'react-router-dom';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const RegisterForm: React.FC = () => {
+
+  const formik = useFormik({
+    initialValues: {
+      nom: '',
+      prenom: '',
+      telephone: '',
+      email: '',
+      nom_utilisateur: '',
+      mot_de_passe: '',
+    }
+  })
 
     return (
         <div className="flex md:w-1/2 justify-center pb-10 items-center bg-white">

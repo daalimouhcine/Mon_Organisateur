@@ -4,6 +4,3 @@ export interface FAQ {
     show: boolean
 }
 
-export interface TodoModel {
-    
-}

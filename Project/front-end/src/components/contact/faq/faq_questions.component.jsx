@@ -1,10 +1,10 @@
 import { useState } from "react";
-// import type { FAQ } from "../../../types";
+import type { FAQ } from "../../../models/index";
 
 import "./faq.component.css";
 
 const FaqQuestions: React.FC = () => {
-  let [questions, setQuestions] = useState([
+  let [questions, setQuestions] = useState<Array<FAQ>>([
     {
       question: "Where do I go to upgrade my account?",
       answer:

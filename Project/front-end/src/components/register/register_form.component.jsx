@@ -1,21 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import { Formik, Form, Field, useFormik } from 'formik';
+import { useForm, ErrorMessage } from 'react-hook-form'
 import * as Yup from 'yup';
 
 import { PhoneIcon } from '../icons/contact/phone-icon';
 
 const RegisterForm: React.FC = () => {
+    const { register, errors, handleSubmit } = useForm();
 
-  const formik = useFormik({
-    initialValues: {
-      nom: '',
-      prenom: '',
-      telephone: '',
-      email: '',
-      nom_utilisateur: '',
-      mot_de_passe: '',
-    }
-  })
 
     return (
         <div className="flex md:w-1/2 justify-center pb-10 items-center bg-white">
@@ -89,11 +80,17 @@ const RegisterForm: React.FC = () => {
             </svg>
             <input
               className="pl-2 outline-none border-none"
-              type="text"
-              name=""
-              id=""
+              name="email"
               placeholder="Email Address"
+              ref={register({
+                required: 'Email is required',
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: 'Invalid email address format',
+                },
+              })}
             />
+            
           </div>
           <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
             <PhoneIcon className='w-4 text-gray-400' />

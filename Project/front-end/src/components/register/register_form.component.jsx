@@ -2,6 +2,8 @@ import { NavLink } from 'react-router-dom';
 import { Formik, Form, Field, useFormik } from 'formik';
 import * as Yup from 'yup';
 
+import { PhoneIcon } from '../icons/contact/phone-icon';
+
 const RegisterForm: React.FC = () => {
 
   const formik = useFormik({
@@ -91,6 +93,16 @@ const RegisterForm: React.FC = () => {
               name=""
               id=""
               placeholder="Email Address"
+            />
+          </div>
+          <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+            <PhoneIcon className='w-4 text-gray-400' />
+            <input
+              className="pl-2 outline-none border-none"
+              type="text"
+              name=""
+              id=""
+              placeholder="Numero de telephone"
             />
           </div>
           <div className="flex items-center border-2 py-2 px-3 rounded-2xl">

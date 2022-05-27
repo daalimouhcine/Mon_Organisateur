@@ -75,63 +75,15 @@ const FaqQuestions: React.FC = () => {
                 </svg>
               </h4>
               <p
-                className={`px-1 pt-0 mt-1 ${ !question.status && "hidden"} text-gray-500 sm:text-lg py-7`}
-                // x-transition:enter="transition-all ease-out duration-300"
-                // x-transition:enter-start="opacity-0 transform -translate-y-4"
-                // x-transition:enter-end="opacity-100 transform -translate-y-0"
-                // x-transition:leave="transition-all ease-out hidden duration-200"
-                // x-transition:leave-start="opacity-100 transform -translate-y-0"
-                // x-transition:leave-end="opacity-0 transform -translate-y-4"
-                // x-show="show"
-                // x-cloak
+                className={`px-1 pt-0 mt-1 ${
+                  !question.status && "hidden"
+                } text-gray-500 sm:text-lg py-7`}
               >
-                { question.answer }
+                {question.answer}
               </p>
             </div>
           );
         })}
-
-        {/* <div
-          x-data="{ show: false }"
-          className="relative overflow-hidden select-none"
-        >
-          <h4
-            onClick={() => (setShow = !show)}
-            className="flex items-center justify-between py-3 text-lg font-medium text-gray-900 cursor-pointer xl:py-5 sm:text-xl hover:text-green-500"
-          >
-            <span>What is the refund policy for tails?</span>
-            <svg
-              className={`w-6 h-6 text-green-400 transition-all duration-200 ease-out transform rotate-0 fill-current ${
-                show && "-rotate-45"
-              } `}
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              />
-            </svg>
-          </h4>
-          <p
-            className="px-1 pt-0 mt-1 text-gray-500 sm:text-lg py-7"
-            x-transition:enter="transition-all ease-out duration-300"
-            x-transition:enter-start="opacity-0 transform -translate-y-4"
-            x-transition:enter-end="opacity-100 transform -translate-y-0"
-            x-transition:leave="transition-all ease-out hidden duration-200"
-            x-transition:leave-start="opacity-100 transform -translate-y-0"
-            x-transition:leave-end="opacity-0 transform -translate-y-4"
-            x-show="show"
-            x-cloak
-          >
-            If you were charged on accident we can issue you a refund; however
-            due to the nature of the product we cannot offer a refund, but you
-            can cancel anytime.
-          </p>
-        </div> */}
       </div>
     </div>
   );

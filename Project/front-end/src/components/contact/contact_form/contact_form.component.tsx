@@ -49,7 +49,6 @@ const ContactForm: React.FC = () => {
                   Message
                 </label>
                 <textarea
-                  type="text"
                   className="h-40 text-base leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 bg-gray-800 border-0 rounded"
                 ></textarea>
               </div>

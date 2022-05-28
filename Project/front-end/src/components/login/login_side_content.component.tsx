@@ -4,7 +4,7 @@ import "./login.component.css";
 const LoginSideContent: React.FC = () => {
 
     return (
-        <div id='bg_content_img' className="lg:flex w-1/2 hidden bg-gray-500 bg-no-repeat bg-cover relative items-center">
+        <div id='bg_content_img' className="md:flex w-1/2 hidden bg-gray-500 bg-no-repeat bg-cover relative items-center text-white">
             <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
             <div className="w-full px-24 z-10">
                 <h1 className="text-5xl font-bold text-left tracking-wide">Keep it special</h1>

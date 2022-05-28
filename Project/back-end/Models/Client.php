@@ -13,7 +13,7 @@
             // Bind Data
             $this->db->bind(':nom', $data->nom);
             $this->db->bind(':prenom', $data->prenom);
-            $data->image_profile ? $this->db->bind(':image_profile', $data->image_profile) : $this->db->bind(':image_profile', 'default.png');
+            property_exists($data, 'image_profile') ? $this->db->bind(':image_profile', $data->image_profile) : $this->db->bind(':image_profile', 'default.png');
             $this->db->bind(':nom_utilisateur', $data->nom_utilisateur);
             $this->db->bind(':email', $data->email);
             $this->db->bind(':mot_de_passe', $data->mot_de_passe);

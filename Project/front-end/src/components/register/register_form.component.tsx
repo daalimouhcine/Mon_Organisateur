@@ -1,31 +1,40 @@
 import axios from "axios";
+import { useState } from 'react';
 import { NavLink } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import type { RegisterInputs } from "../../models";
+import type { RegisterInputs, RegisterMessage } from "../../models";
 
 import { PhoneIcon } from "../icons/contact/phone-icon";
 
 const RegisterForm: React.FC = () => {
 
+  const [registerMessage, setRegisterMessage] = useState<RegisterMessage>({
+    message: "",
+    type: "",
+  });
+
   const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
+    register, // register the input
+    handleSubmit, // <- needed to bind the form
+    watch, // to watch the value of a specific input
+    formState: { errors }, // to get the form state
   } = useForm<RegisterInputs>();
 
   const onSubmit: SubmitHandler<RegisterInputs> = (data) => {
     axios.post("http://localhost/mon_organisateur/clients/register", data).then((res) => {
+      res.data.error ? setRegisterMessage({message: res.data.error, type:'error'})  : setRegisterMessage({message:'Votre compte a été créé avec succès', type:'success'}) ;
       console.log(res);
     });
   };
+
 
   // console.log(watch()); // Src: https://react-hook-form.com/get-started/ , watch input value by passing the name of it
   // console.log(errors);
 
   return (
     <div className="flex md:w-1/2 justify-center pb-10 items-center bg-white mt-12">
-      <form className="bg-white" onSubmit={handleSubmit(onSubmit)}>
+      <form className="bg-white mx-5" onSubmit={handleSubmit(onSubmit)}>
+      <h3 className={`font-bold text-xl mb-7 ${registerMessage.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>{registerMessage.message}</h3>
         <h1 className="text-gray-800 font-bold text-2xl mb-1">Hello Again!</h1>
         <p className="text-sm font-normal text-gray-600 mb-7">Welcome Back</p>
         <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
@@ -42,14 +51,14 @@ const RegisterForm: React.FC = () => {
             />
           </svg>
           <input
-            className="pl-2 outline-none border-none"
+            className="pl-2 w-1/2 outline-none border-none"
             type="text"
             id=""
             placeholder="Nom"
             {...register("nom", { required: "Nom est obligatoire" })}
           />
           <input
-            className="pl-2 border-l border-l-slate-300 outline-none "
+            className="pl-2 w-1/2 border-l border-l-slate-300 outline-none "
             id=""
             placeholder="Prenom"
             {...register("prenom", { required: "prenom est obligatoire" })}
@@ -58,7 +67,7 @@ const RegisterForm: React.FC = () => {
         <p className="text-red-500">
           {errors.nom?.message} {(errors.nom?.message && errors.prenom?.message) && " et "} {errors.prenom?.message}
         </p>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mt-4">
+        <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-gray-400"
@@ -82,7 +91,7 @@ const RegisterForm: React.FC = () => {
           />
         </div>
           <p className="text-red-500">{errors.nom_utilisateur?.message}</p>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mt-4">
+        <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-gray-400"
@@ -105,7 +114,7 @@ const RegisterForm: React.FC = () => {
           />
         </div>
           <p className="text-red-500">{errors.email?.message}</p>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mt-4">
+        <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
           <PhoneIcon className="w-4 text-gray-400" />
           <input
             className="pl-2 outline-none border-none"
@@ -116,7 +125,7 @@ const RegisterForm: React.FC = () => {
           />
         </div>
           <p className="text-red-500">{errors.telephone?.message}</p>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mt-4">
+        <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-gray-400"
@@ -140,7 +149,7 @@ const RegisterForm: React.FC = () => {
           <p className="text-red-500">{errors.mot_de_passe?.message}</p>
         <input
           type="submit"
-          className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2 cursor-pointer"
+          className="block w-full bg-indigo-600 mt-4 py-2 rounded-md text-white font-semibold mb-2 cursor-pointer"
           value="S'inscrire"
         />
         <span className="text-sm ml-2">

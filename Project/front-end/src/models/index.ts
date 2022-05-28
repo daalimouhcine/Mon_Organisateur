@@ -12,3 +12,8 @@ export interface RegisterInputs {
   email: string;
   mot_de_passe: string;
 }
+
+export interface RegisterMessage {
+  message: string;
+  type: string;
+}

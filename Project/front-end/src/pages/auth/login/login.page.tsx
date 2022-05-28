@@ -5,7 +5,7 @@ import "./login.page.css";
 
 const Login: React.FC = () => {
   return (
-    <section className="min-h-screen flex items-stretch text-white ">
+    <section className="h-screen md:flex">
       <LoginSideContent />
       <LoginForm />
     </section>

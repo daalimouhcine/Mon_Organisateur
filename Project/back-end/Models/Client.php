@@ -13,12 +13,12 @@
             // Bind Data
             $this->db->bind(':nom', $data->nom);
             $this->db->bind(':prenom', $data->prenom);
-            $this->db->bind(':image_profile', $data->image_profile);
+            $data->image_profile ? $this->db->bind(':image_profile', $data->image_profile) : $this->db->bind(':image_profile', 'default.png');
             $this->db->bind(':nom_utilisateur', $data->nom_utilisateur);
             $this->db->bind(':email', $data->email);
             $this->db->bind(':mot_de_passe', $data->mot_de_passe);
             $this->db->bind(':telephone', $data->telephone);
-            $this->db->bind(':role', $data->role);
+            $this->db->bind(':role', 'client');
             
             // Execute Query
             if($this->db->execute()) {

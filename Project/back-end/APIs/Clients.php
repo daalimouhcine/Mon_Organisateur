@@ -19,11 +19,11 @@ class Clients extends Controller {
 
             // check if user already exists 
             if($this->clientModel->getClientByEmail($data->email)) {
-                echo json_encode(['message' => 'email already exists']);
+                echo json_encode(['error' => 'email already exists']);
                 return;
                 
             } else if($this->clientModel->getClientByTelephone($data->telephone)) {
-                echo json_encode(['message' => 'number already exists']);
+                echo json_encode(['error' => 'number already exists']);
                 return;
         
             } else {
@@ -31,9 +31,9 @@ class Clients extends Controller {
                 $data->mot_de_passe = password_hash($data->mot_de_passe, PASSWORD_DEFAULT);
                 // add client
                 if($this->clientModel->addClient($data)) {
-                    echo json_encode(['message' => 'Client added']);
+                    echo json_encode(['done' => 'Client added']);
                 } else {
-                    echo json_encode(['message' => 'Client not added']);
+                    echo json_encode(['error' => 'Client not added please try again']);
                 }
             }
         }
@@ -48,12 +48,14 @@ class Clients extends Controller {
             if($client) {
                 // check if the password is correct
                 if(password_verify($data->mot_de_passe, $client->mot_de_passe)) {
-                    echo json_encode(['message' => 'Login successful', 'client' => $client]);
+                    // delete the password from the user object
+                    unset($client->mot_de_passe);
+                    echo json_encode(['done' => 'Login successful', 'client' => $client]);
                 } else {
-                    echo json_encode(['message' => 'Password incorrect']);
+                    echo json_encode(['error' => 'Password incorrect']);
                 }
             } else {
-                echo json_encode(['message' => 'Email incorrect']);
+                echo json_encode(['error' => 'Email incorrect']);
             }
             
         }

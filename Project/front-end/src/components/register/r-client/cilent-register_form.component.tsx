@@ -2,11 +2,11 @@ import axios from "axios";
 import { useState } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import type { RegisterInputs, RegisterMessage } from "../../models";
+import type { RegisterInputs, RegisterMessage } from "../../../models";
 
-import { PhoneIcon } from "../icons/contact/phone-icon";
+import { PhoneIcon } from "../../icons/contact/phone-icon";
 
-const RegisterForm: React.FC = () => {
+const ClientRegisterForm: React.FC = () => {
 
   const [registerMessage, setRegisterMessage] = useState<RegisterMessage>({
     message: "",
@@ -174,4 +174,4 @@ const RegisterForm: React.FC = () => {
   );
 };
 
-export default RegisterForm;
+export default ClientRegisterForm;

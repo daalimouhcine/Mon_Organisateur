@@ -13,44 +13,23 @@
             $this->adminModel = $this->model('Admin');
         }
 
-        public function index() {
-            // get admins
-            $admins = $this->adminModel->getAdmins();
-
-            // turn to json and output
-            echo json_encode($admins);
-        }
-
-        public function add() {
-            // get data
-            $data = json_decode(file_get_contents('php://input'));
-
-            // add admin
-            if($this->adminModel->addAdmin($data)) {
-                echo json_encode(['message' => 'Admin added']);
-            } else {
-                echo json_encode(['message' => 'Admin not added']);
-            }
-        }
-
         public function login() {
             // get data
             $data = json_decode(file_get_contents('php://input'));
-
             // get the user by email and then check the password
             $admin = $this->adminModel->getAdminByEmail($data->email);
 
             // check for user
             if($admin) {
                 // check password
-                if(password_verify($data->password, $admin->password)) {
-                    echo json_encode(['message' => 'Login successful']);
+                if(password_verify($data->mot_de_passe, $admin->mot_de_passe)) {
+                    echo json_encode(['done' => 'Login successful', 'user' => $admin]);
                 } else {
-                    echo json_encode(['message' => 'Password incorrect']);
+                    echo json_encode(['error' => 'Password incorrect', 'type' => 'password']);
                 }
 
             } else {
-                echo json_encode(['message' => 'Admin not found']);
+                echo json_encode(['error' => 'Admin not found']);
             }
         }
 

@@ -50,7 +50,7 @@ class Clients extends Controller {
                 if(password_verify($data->mot_de_passe, $client->mot_de_passe)) {
                     // delete the password from the user object
                     unset($client->mot_de_passe);
-                    echo json_encode(['done' => 'Login successful', 'client' => $client]);
+                    echo json_encode(['done' => 'Login successful', 'user' => $client]);
                 } else {
                     echo json_encode(['error' => 'Password incorrect']);
                 }

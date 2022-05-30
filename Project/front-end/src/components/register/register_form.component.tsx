@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from 'react';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import type { RegisterInputs, RegisterMessage } from "../../models";
 
@@ -13,6 +13,8 @@ const RegisterForm: React.FC = () => {
     type: "",
   });
 
+  const navigate = useNavigate();
+
   const {
     register, // register the input
     handleSubmit, // <- needed to bind the form
@@ -22,7 +24,16 @@ const RegisterForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<RegisterInputs> = (data) => {
     axios.post("http://localhost/mon_organisateur/clients/register", data).then((res) => {
-      res.data.error ? setRegisterMessage({message: res.data.error, type:'error'})  : setRegisterMessage({message:'Votre compte a été créé avec succès', type:'success'}) ;
+      if(!res.data.error) {
+        setRegisterMessage({message:'Votre compte a été créé avec succès', type:'success'});
+        
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
+        
+      } else {
+        setRegisterMessage({message: res.data.error, type:'error'});
+      }
       console.log(res);
     });
   };
@@ -140,7 +151,7 @@ const RegisterForm: React.FC = () => {
           </svg>
           <input
             className="pl-2 outline-none border-none"
-            type="text"
+            type="password"
             id=""
             placeholder="********"
             {...register("mot_de_passe", { required: "Mot de passe est obligatoire" })}

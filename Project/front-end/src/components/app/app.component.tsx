@@ -6,7 +6,9 @@ import Home from '../../pages/home/home.page';
 import About from '../../pages/about/about.page';
 import Contact from '../../pages/contact/contact.page';
 import Login from '../../pages/auth/login/login.page';
-import Register from '../../pages/auth/register/register.page';
+import RegisterPage from '../../pages/auth/register/register.page';
+import ClientRegisterPage from '../../pages/auth/register/r-client/client-register.page';
+import OrganisateurRegisterPage from '../../pages/auth/register/r-organisateur/organisateur-register.page';
 import Footer from '../footer/footer.component';
 
 
@@ -22,7 +24,9 @@ const App: React.FC = () => {
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/register/client" element={<ClientRegisterPage />} />
+                <Route path="/register/organisateur" element={<OrganisateurRegisterPage />} />
             </Routes>
             <Footer />
         </Router>

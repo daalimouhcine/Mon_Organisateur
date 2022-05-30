@@ -18,7 +18,7 @@ const RegisterForm: React.FC = () => {
   const {
     register, // register the input
     handleSubmit, // <- needed to bind the form
-    watch, // to watch the value of a specific input
+    // watch, // to watch the value of a specific input
     formState: { errors }, // to get the form state
   } = useForm<RegisterInputs>();
 

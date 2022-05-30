@@ -22,15 +22,30 @@ const LoginForm: React.FC = () => {
   const navigate = useNavigate();
 
   const requestLogin: SubmitHandler<LoginInputs> = async (data) => {
-    await axios.post("http://localhost/mon_organisateur/clients/login", data)
-    .then(res => {
-      if(res.data.error) {
-        setLoginMessage({ message: res.data.error, type: "error" });
-      } else {
-        localStorage.setItem("token", res.data.token);
-        navigate("/");
-      }
-    });
+    await axios
+      .post("http://localhost/mon_organisateur/admins/login", data)
+      .then((res) => {
+        console.log(res);
+        if (res.data.user) {
+          localStorage.setItem("user", JSON.stringify(res.data.user));
+          navigate("/admin/dashboard");
+
+        } else if(res.data.type === 'password') {
+          setLoginMessage({ message: res.data.error, type: 'error' });
+
+        } else {
+          axios
+            .post("http://localhost/mon_organisateur/clients/login", data)
+            .then((res) => {
+              if (res.data.error) {
+                setLoginMessage({ message: res.data.error, type: "error" });
+              } else {
+                localStorage.setItem("user", JSON.stringify(res.data.user));
+                navigate("/");
+              }
+            });
+        }
+      });
   };
 
   const onSubmit: SubmitHandler<LoginInputs> = (data) => {
@@ -87,7 +102,7 @@ const LoginForm: React.FC = () => {
           </svg>
           <input
             className="pl-2 outline-none border-none"
-            type="text"
+            type="password"
             id=""
             placeholder="********"
             {...register("mot_de_passe", {

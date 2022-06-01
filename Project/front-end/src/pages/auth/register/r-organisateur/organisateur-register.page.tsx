@@ -7,7 +7,7 @@ import "./organisateur-register.page.css";
 
 const OrganisateurRegisterPage: React.FC = () => { 
     return (
-        <div className="h-screen md:flex">
+        <div className="min-h-screen h-fit md:flex">
             <OrganisateurRegisterSideContent />
             <OgranisateurRegisterForm />
         </div>

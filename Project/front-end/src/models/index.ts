@@ -23,7 +23,7 @@ export interface OrganiserRegisterInputs {
   nom_entreprise: string;
   cin: string;
   adresse: string;
-  logo: string;
+  avatar: string;
   facebook?: string;
   twitter?: string;
   instagram?: string;

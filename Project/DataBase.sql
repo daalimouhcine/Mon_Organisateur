@@ -13,17 +13,20 @@ CREATE TABLE IF NOT EXISTS organisateurs (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nom VARCHAR(255) NOT NULL,
     prenom VARCHAR(255) NOT NULL,
+    cin VARCHAR(255) NOT NULL,
+    adresse VARCHAR(255) NOT NULL,
     image_profile VARCHAR(255) NOT NULL,
-    gender VARCHAR(255) NOT NULL,
     nom_utilisateur VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     mot_de_passe VARCHAR(255) NOT NULL,
     telephone VARCHAR(255) NOT NULL,
-    date_naissance DATE NOT NULL,
-    step INT NOT NULL,
+    status INT NOT NULL,
     nom_entreprise VARCHAR(255) NOT NULL,
     role VARCHAR(255) NOT NULL,
-    suspendu BOOLEAN NOT NULL
+    facebook VARCHAR(255),
+    twitter VARCHAR(255),
+    linkedin VARCHAR(255),
+    instagram VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS clients (

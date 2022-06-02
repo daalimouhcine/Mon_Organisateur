@@ -16,14 +16,14 @@ export interface RegisterInputs {
 export interface OrganiserRegisterInputs {
   nom: string;
   prenom: string;
-  nom_utilisateur: string;
-  telephone: string;
+  image_profile: Array<File>;
   email: string;
   mot_de_passe: string;
-  nom_entreprise: string;
+  telephone: string;
   cin: string;
+  nom_utilisateur: string;
+  nom_entreprise: string;
   adresse: string;
-  avatar: string;
   facebook?: string;
   twitter?: string;
   instagram?: string;

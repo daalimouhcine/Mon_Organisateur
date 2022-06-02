@@ -13,61 +13,39 @@
             $this->organisateurModel = $this->model('Organisateur');
         }
 
-        public function index() {
-            // get organisateurs
-            $organisateurs = $this->organisateurModel->getOrganisateurs();
-
-            // turn to json and output
-            echo json_encode($organisateurs);
-        }
-
-        public function add() {
+        public function register() {
             // get data
             $data = json_decode(file_get_contents('php://input'));
 
-            // add organisateur
-            if($this->organisateurModel->addOrganisateur($data)) {
-                echo json_encode(['message' => 'Organisateur added']);
+            // check if organizer already exists
+            if($this->organisateurModel->getOrganisateurByEmail($data->email)) {
+                echo json_encode(['error' => 'email already exists']);
+                return;
+
+            } else if($this->organisateurModel->getOrganisateurByTelephone($data->telephone)) {
+                echo json_encode(['error' => 'number already exists']);
+                return;
+
+            } else if($this->organisateurModel->getOrganisateurByCin($data->cin)) {
+                echo json_encode(['error' => 'cin already exists']);
+                return;
+                
+            } else if($this->organisateurModel->getOrganisateurByNomEntreprise($data->nom_entreprise)) {
+                echo json_encode([ 'error' => "Nom de l'entreprise already exists"]);
+                return;
+
             } else {
-                echo json_encode(['message' => 'Organisateur not added']);
+                // hash password
+                $data->mot_de_passe = password_hash($data->mot_de_passe, PASSWORD_DEFAULT);
+                // add organizer
+                if($this->organisateurModel->addOrganisateur($data)) {
+                    echo json_encode(['done' => 'Organisateur registered successfully']);
+                } else {
+                    echo json_encode(['error' => 'Organisateur not added please try again']);
+                }
             }
-        }
 
-        public function update($id) {
-            // get data
-            $data = json_decode(file_get_contents('php://input'));
 
-            // update organisateur
-            if($this->organisateurModel->updateOrganisateur($data, $id)) {
-                echo json_encode(['message' => 'Organisateur updated']);
-            } else {
-                echo json_encode(['message' => 'Organisateur not updated']);
-            }
-        }
-
-        public function delete($id) {
-            // delete organisateur
-            if($this->organisateurModel->deleteOrganisateur($id)) {
-                echo json_encode(['message' => 'Organisateur deleted']);
-            } else {
-                echo json_encode(['message' => 'Organisateur not deleted']);
-            }
-        }
-
-        public function getOrganisateur($id) {
-            // get organisateur
-            $organisateur = $this->organisateurModel->getOrganisateur($id);
-
-            // turn to json and output
-            echo json_encode($organisateur);
-        }
-
-        public function getOrganisateurByEmail($email) {
-            // get organisateur
-            $organisateur = $this->organisateurModel->getOrganisateurByEmail($email);
-
-            // turn to json and output
-            echo json_encode($organisateur);
         }
 
     }

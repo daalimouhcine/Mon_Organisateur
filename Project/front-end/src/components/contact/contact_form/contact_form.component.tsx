@@ -4,7 +4,7 @@ import "./contact.component.css";
 
 const ContactForm: React.FC = () => {
   return (
-    <div className="w-full bg-gray-800 h-screen">
+    <div className="w-full bg-gray-800 min-h-screen h-fit">
       <div className="bg-gradient-to-b from-blue-800 to-blue-600 h-96"></div>
       <div className="max-w-5xl mx-auto px-6 sm:px-6 lg:px-8 mb-12">
         <div className="bg-gray-900 w-full shadow rounded p-8 sm:p-12 -mt-72">

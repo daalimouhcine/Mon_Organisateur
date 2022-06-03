@@ -7,7 +7,6 @@ export interface FAQ {
 export interface RegisterInputs {
   nom: string;
   prenom: string;
-  nom_utilisateur: string;
   telephone: string;
   email: string;
   mot_de_passe: string;
@@ -16,18 +15,16 @@ export interface RegisterInputs {
 export interface OrganiserRegisterInputs {
   nom: string;
   prenom: string;
-  image_profile: Array<File>;
+  image_profile: File;
   email: string;
   mot_de_passe: string;
-  telephone: string;
+  telephone: number;
   cin: string;
-  nom_utilisateur: string;
   nom_entreprise: string;
   adresse: string;
   facebook?: string;
   twitter?: string;
   instagram?: string;
-  linkedin?: string;
 }
 
 export interface RegisterMessage {

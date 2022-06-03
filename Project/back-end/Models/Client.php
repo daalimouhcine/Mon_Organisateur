@@ -8,13 +8,12 @@
 
         public function addClient($data) {
             // Prepare Query
-            $this->db->query('INSERT INTO clients (nom, prenom, image_profile, nom_utilisateur, email, mot_de_passe, telephone, role) VALUES (:nom, :prenom, :image_profile, :nom_utilisateur, :email, :mot_de_passe, :telephone, :role)');
+            $this->db->query('INSERT INTO clients (nom, prenom, image_profile, email, mot_de_passe, telephone, role) VALUES (:nom, :prenom, :image_profile, :email, :mot_de_passe, :telephone, :role)');
             
             // Bind Data
             $this->db->bind(':nom', $data->nom);
             $this->db->bind(':prenom', $data->prenom);
             property_exists($data, 'image_profile') ? $this->db->bind(':image_profile', $data->image_profile) : $this->db->bind(':image_profile', 'default.png');
-            $this->db->bind(':nom_utilisateur', $data->nom_utilisateur);
             $this->db->bind(':email', $data->email);
             $this->db->bind(':mot_de_passe', $data->mot_de_passe);
             $this->db->bind(':telephone', $data->telephone);

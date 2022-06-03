@@ -25,7 +25,6 @@ CREATE TABLE IF NOT EXISTS organisateurs (
     role VARCHAR(255) NOT NULL,
     facebook VARCHAR(255),
     twitter VARCHAR(255),
-    linkedin VARCHAR(255),
     instagram VARCHAR(255)
 );
 

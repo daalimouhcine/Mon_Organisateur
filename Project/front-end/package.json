@@ -14,6 +14,7 @@
     "alpinejs": "^3.10.2",
     "are-passive-events-supported": "^1.1.1",
     "axios": "^0.27.2",
+    "firebase": "^9.8.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.31.2",

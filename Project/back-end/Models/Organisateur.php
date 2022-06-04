@@ -1,6 +1,5 @@
 <?php
 
-
     class Organisateur extends Database {
 
         public function __construct() {
@@ -9,7 +8,7 @@
 
         public function addOrganisateur($data) {
             // Prepare Query
-            $this->db->query('INSERT INTO organisateurs (nom, prenom, image_profile, nom_entreprise, email, mot_de_passe, telephone, cin, nom_utilisateur, nom_entreprise, adresse, facebook, twitter, instagram, linkedin, status, role) VALUES (:nom, :prenom, :image_profile, :nom_entreprise, :email, :mot_de_passe, :telephone, :cin, :nom_utilisateur, :nom_entreprise, :adresse, :facebook, :twitter, :instagram, :linkedin, :status, :role)');
+            $this->db->query('INSERT INTO organisateurs (nom, prenom, image_profile, email, mot_de_passe, telephone, cin, nom_entreprise, adresse, facebook, twitter, instagram, status, role) VALUES (:nom, :prenom, :image_profile, :nom_entreprise, :email, :mot_de_passe, :telephone, :cin, :adresse, :facebook, :twitter, :instagram, :status, :role)');
 
             // Bind Data
             $this->db->bind(':nom', $data->nom);
@@ -20,13 +19,11 @@
             $this->db->bind(':mot_de_passe', $data->mot_de_passe);
             $this->db->bind(':telephone', $data->telephone);
             $this->db->bind(':cin', $data->cin);
-            $this->db->bind(':nom_utilisateur', $data->nom_utilisateur);
             $this->db->bind(':nom_entreprise', $data->nom_entreprise);
             $this->db->bind(':adresse', $data->adresse);
             $this->db->bind(':facebook', $data->facebook);
             $this->db->bind(':twitter', $data->twitter);
             $this->db->bind(':instagram', $data->instagram);
-            $this->db->bind(':linkedin', $data->linkedin);
             $this->db->bind(':status', 0);
             $this->db->bind(':role', 'organisateur');
 
@@ -58,6 +55,8 @@
                 return false;
             }
         }
+
+
 
         public function getOrganisateurByTelephone($telephone) {
             $this->db->query('SELECT * FROM organisateurs WHERE telephone = :telephone');

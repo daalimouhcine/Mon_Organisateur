@@ -11,6 +11,8 @@ class Organisateurs extends Controller {
 
         public function __construct() {
             $this->organisateurModel = $this->model('Organisateur');
+            $this->clientModel = $this->model('Client');
+
         }
 
         public function register() {
@@ -30,11 +32,11 @@ class Organisateurs extends Controller {
                 );
                 return;
 
-            } else if($this->organisateurModel->getOrganisateurByTelephone($data->telephone)) {
+            } else if($this->organisateurModel->getOrganisateurByTelephone($data->telephone) || $this->clientModel->getClientByTelephone($data->telephone)) {
                 echo json_encode(['error' => 'number already exists']);
                 return;
 
-            } else if($this->organisateurModel->getOrganisateurByEmail($data->email)) {
+            } else if($this->organisateurModel->getOrganisateurByEmail($data->email) || $this->clientModel->getClientByEmail($data->email)) {
                 echo json_encode(['error' => 'email already exists']);
                 return;
         

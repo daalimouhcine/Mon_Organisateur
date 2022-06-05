@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { OrganiserRegisterInputs } from "../../../models";
+import { OrganiserRegisterInputs, RegisterMessage } from "../../../models";
 import axios from "axios";
 import * as fireStorage from "firebase/storage";
 
@@ -26,6 +26,11 @@ const OrganisateurRegisterForm = () => {
   const handleStepCompletion = () => {
     isValid && setFormStep((cur) => cur + 1);
   };
+
+  const [registerMessage, setRegisterMessage] = React.useState<RegisterMessage>({
+    message: "",
+    type: "",
+  });
 
   const RegisterRequest = async (data: Object) => {
     let dataInput: any = { ...data };
@@ -73,7 +78,18 @@ const OrganisateurRegisterForm = () => {
         dataOrganisateur
       )
       .then((res) => {
+        if(!res.data.error) {
+          setRegisterMessage({message:'Votre compte a été créé avec succès', type:'success'});
+          
+          // setTimeout(() => {
+          //   navigate("/login");
+          // }, 1000);
+          
+        } else {
+          setRegisterMessage({message: res.data.error, type:'error'});
+        }
         console.log(res);
+
       });
   };
 
@@ -107,6 +123,7 @@ const OrganisateurRegisterForm = () => {
           </div>
         )}
         <div className="px-16 py-10">
+        <h3 className={`font-bold text-xl mb-7 ${registerMessage.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>{registerMessage.message}</h3>
           {formStep < 3 && (
             <div
               className={`flex ${

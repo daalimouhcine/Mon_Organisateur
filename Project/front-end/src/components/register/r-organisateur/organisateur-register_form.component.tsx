@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { OrganiserRegisterInputs, RegisterMessage } from "../../../models";
 import axios from "axios";
+import { NavLink, useNavigate } from "react-router-dom";
 import * as fireStorage from "firebase/storage";
 
 import { PhoneIcon } from "../../icons/contact/phone-icon";
@@ -13,7 +14,7 @@ import { FacebookIcon, TwitterIcon, InstagramIcon } from "../../icons/social";
 
 const MAX_STEPS = 3;
 
-const OrganisateurRegisterForm = () => {
+const OrganisateurRegisterForm: React.FC = () => {
   const {
     register,
     // watch,
@@ -31,6 +32,8 @@ const OrganisateurRegisterForm = () => {
     message: "",
     type: "",
   });
+
+  const navigate = useNavigate();
 
   const RegisterRequest = async (data: Object) => {
     let dataInput: any = { ...data };
@@ -81,9 +84,9 @@ const OrganisateurRegisterForm = () => {
         if(!res.data.error) {
           setRegisterMessage({message:'Votre compte a été créé avec succès', type:'success'});
           
-          // setTimeout(() => {
-          //   navigate("/login");
-          // }, 1000);
+          setTimeout(() => {
+            navigate("/login");
+          }, 1000);
           
         } else {
           setRegisterMessage({message: res.data.error, type:'error'});
@@ -249,12 +252,15 @@ const OrganisateurRegisterForm = () => {
                   <PhoneIcon className="w-4 text-gray-400" />
                   <input
                     className="pl-2 outline-none border-none"
-                    type="number"
+                    type="text"
                     id=""
                     placeholder="Numero de telephone"
                     {...register("telephone", {
                       required: "Numero de telephone est obligatoir",
-                      valueAsNumber: true,
+                      pattern: {
+                        value: /^[0-9]+$/,
+                        message: "Numero invalide",
+                      },
                     })}
                   />
                 </div>

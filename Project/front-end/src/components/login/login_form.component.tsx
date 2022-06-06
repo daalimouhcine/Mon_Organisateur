@@ -3,6 +3,8 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import type { LoginInputs, LoginMessage } from "../../models";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import "./login.component.css";
 
@@ -21,6 +23,8 @@ const LoginForm: React.FC = () => {
 
   const navigate = useNavigate();
 
+  const MySwal = withReactContent(Swal);
+
   const requestLogin: SubmitHandler<LoginInputs> = async (data) => {
     await axios
       .post("http://localhost/mon_organisateur/admins/login", data)
@@ -28,9 +32,18 @@ const LoginForm: React.FC = () => {
         console.log(res);
         if (res.data.user) {
           localStorage.setItem("user", JSON.stringify(res.data.user));
-          navigate("/admin/dashboard");
 
-        } else if(res.data.type === 'password') {
+          MySwal.fire(
+            'Good job!',
+            'You clicked the button!',
+            'success'
+          ).then(() => {
+            return setTimeout(() => {
+              navigate("/");
+            }, 500);
+          });
+
+        } else if(res.data.type) {
           setLoginMessage({ message: res.data.error, type: 'error' });
 
         } else {
@@ -39,14 +52,34 @@ const LoginForm: React.FC = () => {
             .then((res) => {
               if (res.data.user) {
                 localStorage.setItem("user", JSON.stringify(res.data.user));
-                navigate("/");
+
+                MySwal.fire(
+                  'Good job!',
+                  'You clicked the button!',
+                  'success'
+                ).then(() => {
+                  return setTimeout(() => {
+                    navigate("/");
+                  }, 500);
+                });
+
               } else {
                 axios
                 .post("http://localhost/mon_organisateur/organisateurs/login", data)
                 .then((res) => {
                   if (res.data.user) {
                     localStorage.setItem("user", JSON.stringify(res.data.user));
-                    navigate("/");
+                    
+                    MySwal.fire(
+                      'Good job!',
+                      'You clicked the button!',
+                      'success'
+                    ).then(() => {
+                      return setTimeout(() => {
+                        navigate("/");
+                      }, 500);
+                    });
+
                   } else {
                     setLoginMessage({ message: res.data.error, type: "error" });
                   }

@@ -3,8 +3,8 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import type { LoginInputs, LoginMessage } from "../../models";
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 import "./login.component.css";
 
@@ -33,19 +33,15 @@ const LoginForm: React.FC = () => {
         if (res.data.user) {
           localStorage.setItem("user", JSON.stringify(res.data.user));
 
-          MySwal.fire(
-            'Good job!',
-            'You clicked the button!',
-            'success'
-          ).then(() => {
-            return setTimeout(() => {
-              navigate("/");
-            }, 500);
-          });
-
-        } else if(res.data.type) {
-          setLoginMessage({ message: res.data.error, type: 'error' });
-
+          MySwal.fire("Good job!", "You clicked the button!", "success").then(
+            () => {
+              return setTimeout(() => {
+                navigate("/");
+              }, 500);
+            }
+          );
+        } else if (res.data.type) {
+          setLoginMessage({ message: res.data.error, type: "error" });
         } else {
           axios
             .post("http://localhost/mon_organisateur/clients/login", data)
@@ -54,39 +50,47 @@ const LoginForm: React.FC = () => {
                 localStorage.setItem("user", JSON.stringify(res.data.user));
 
                 MySwal.fire(
-                  'Good job!',
-                  'You clicked the button!',
-                  'success'
+                  "You created an account!",
+                  "Login to your account",
+                  "success"
                 ).then(() => {
                   return setTimeout(() => {
                     navigate("/");
                   }, 500);
                 });
-
-              } else if(res.data.type) {
-                setLoginMessage({ message: res.data.error, type: 'error' });
-      
+              } else if (res.data.type) {
+                setLoginMessage({ message: res.data.error, type: "error" });
               } else {
                 axios
-                .post("http://localhost/mon_organisateur/organisateurs/login", data)
-                .then((res) => {
-                  if (res.data.user) {
-                    localStorage.setItem("user", JSON.stringify(res.data.user));
-                    
-                    MySwal.fire(
-                      'Good job!',
-                      'You clicked the button!',
-                      'success'
-                    ).then(() => {
-                      return setTimeout(() => {
-                        navigate("/");
-                      }, 500);
-                    });
+                  .post(
+                    "http://localhost/mon_organisateur/organisateurs/login",
+                    data
+                  )
+                  .then((res) => {
+                    if (res.data.user) {
+                      localStorage.setItem(
+                        "user",
+                        JSON.stringify(res.data.user)
+                      );
 
-                  } else {
-                    setLoginMessage({ message: res.data.error, type: "error" });
-                  }
-                })
+                      if (res.data.user.statu === 0) {
+                        MySwal.fire(
+                          "Good job!",
+                          "You clicked the button!",
+                          "success"
+                        );
+                      } else {
+                        setTimeout(() => {
+                          navigate("/");
+                        }, 500);
+                      }
+                    } else {
+                      setLoginMessage({
+                        message: res.data.error,
+                        type: "error",
+                      });
+                    }
+                  });
               }
             });
         }

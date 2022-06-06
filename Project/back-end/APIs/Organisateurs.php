@@ -52,6 +52,27 @@ class Organisateurs extends Controller {
             }
         }
 
+        public function login() {
+            // get data
+            $data = json_decode(file_get_contents('php://input'));
+            // get the user by email and then check the password
+            $organisateur = $this->organisateurModel->getOrganisateurByEmail($data->email);
+        
+            // check if the user exists
+            if($organisateur) {
+                // check if the password is correct
+                if(password_verify($data->mot_de_passe, $organisateur->mot_de_passe)) {
+                    // delete the password from the user object
+                    unset($organisateur->mot_de_passe);
+                    echo json_encode(['done' => 'Login successful', 'user' => $organisateur]);
+                } else {
+                    echo json_encode(['error' => 'Mot de passe est incorrect', 'type' => 'email']);
+                }
+            } else {
+                echo json_encode(['error' => 'Email incorrect', 'type' => 'email']);
+            }
+            
+        }
 
 
 

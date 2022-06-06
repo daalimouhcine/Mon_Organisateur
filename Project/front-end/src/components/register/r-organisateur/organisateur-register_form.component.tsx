@@ -3,9 +3,10 @@ import { useForm } from "react-hook-form";
 import { OrganiserRegisterInputs, RegisterMessage } from "../../../models";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
-import * as fireStorage from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import storage from "../../../services/firebase";
 
 import { PhoneIcon } from "../../icons/contact/phone-icon";
 import { UserIcon } from "../../icons/user-icon";
@@ -41,8 +42,7 @@ const OrganisateurRegisterForm: React.FC = () => {
 
   const MySwal = withReactContent(Swal);
 
-  const RegisterRequest = async (data: Object) => 
-  {
+  const RegisterRequest = async (data: Object) => {
     let dataInput: any = { ...data };
 
     let newImageName: string = "default.png";
@@ -76,13 +76,17 @@ const OrganisateurRegisterForm: React.FC = () => {
       instagram: dataInput.instagram,
     };
 
-    let storageRef = fireStorage.ref(
-      fireStorage.getStorage(),
-      "Profil/" + newImageName + ".png"
-    );  
-    await fireStorage.uploadBytes(storageRef, dataInput.file).then(function () {
-      console.log("uploaded");
-    });
+    // let storageRef = fireStorage.ref(
+    //   fireStorage.getStorage(),
+    //   "Profil/" + newImageName + ".png"
+    // );
+    // await fireStorage.uploadBytes(storageRef, dataInput.file).then(function () {
+    //   console.log("uploaded");
+    // });
+
+
+     
+
 
     await axios
       .post(
@@ -91,12 +95,43 @@ const OrganisateurRegisterForm: React.FC = () => {
       )
       .then((res) => {
         if (!res.data.error) {
+          // store image in firebase storage
+          const storagRef = ref(storage, `Orga/${dataOrganisateur.image_profile}`);
+          const uploadTask = uploadBytesResumable(storagRef, dataInput.image_profile[0]);
+      
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+              // Observe state change events such as progress, pause, and resume
+              // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+              var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log("Upload is " + progress + "% done");
+              switch (snapshot.state) {
+                case "paused": // or 'paused'
+                  console.log("Upload is paused");
+                  break;
+                case "running": // or 'running'
+                  console.log("Upload is running");
+                  break;
+              }
+            },
+            (error) => {
+              // Handle unsuccessful uploads
+              console.log(error);
+            },
+            () => {
+              getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                console.log(url);
+              });
+              }
+          );   
+
           setRegisterMessage({
             message: "Votre compte a été créé avec succès",
             type: "success",
           });
 
-          MySwal.fire("Good job!", "You clicked the button!", "success").then(
+          MySwal.fire("Demande est faite avec succes", "Votre demande est encoure de traitment", "success").then(
             () => {
               return setTimeout(() => {
                 navigate("/login");

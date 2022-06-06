@@ -11,6 +11,8 @@ class Clients extends Controller {
 
         public function __construct() {
             $this->clientModel = $this->model('Client');
+            $this->organisateurModel = $this->model('Organisateur');
+
         }
         
         public function register() {
@@ -18,11 +20,11 @@ class Clients extends Controller {
             $data = json_decode(file_get_contents('php://input'));
 
             // check if user already exists 
-            if($this->clientModel->getClientByEmail($data->email)) {
+            if($this->clientModel->getClientByEmail($data->email) || $this->organisateurModel->getOrganisateurByEmail($data->email)) {
                 echo json_encode(['error' => 'email already exists']);
                 return;
                 
-            } else if($this->clientModel->getClientByTelephone($data->telephone)) {
+            } else if($this->clientModel->getClientByTelephone($data->telephone) || $this->organisateurModel->getOrganisateurByTelephone($data->telephone)) {
                 echo json_encode(['error' => 'number already exists']);
                 return;
         
@@ -52,10 +54,10 @@ class Clients extends Controller {
                     unset($client->mot_de_passe);
                     echo json_encode(['done' => 'Login successful', 'user' => $client]);
                 } else {
-                    echo json_encode(['error' => 'Password incorrect']);
+                    echo json_encode(['error' => 'Mot de passe est incorrect', 'type' => 'password']);
                 }
             } else {
-                echo json_encode(['error' => 'Email incorrect']);
+                echo json_encode(['error' => 'Email incorrect', 'type' => 'email']);
             }
             
         }

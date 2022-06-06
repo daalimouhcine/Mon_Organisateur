@@ -3,8 +3,8 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import type { RegisterInputs, RegisterMessage } from "../../../models";
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 import { PhoneIcon } from "../../icons/contact/phone-icon";
 
@@ -36,15 +36,14 @@ const ClientRegisterForm: React.FC = () => {
           });
 
           MySwal.fire(
-            'Good job!',
-            'You clicked the button!',
-            'success'
+            "Vous avez créé un compte !",
+            "accéder à votre compte",
+            "success"
           ).then(() => {
             return setTimeout(() => {
               navigate("/login");
             }, 1000);
           });
-          
         } else {
           setRegisterMessage({ message: res.data.error, type: "error" });
         }

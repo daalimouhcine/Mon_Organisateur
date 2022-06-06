@@ -63,6 +63,9 @@ const LoginForm: React.FC = () => {
                   }, 500);
                 });
 
+              } else if(res.data.type) {
+                setLoginMessage({ message: res.data.error, type: 'error' });
+      
               } else {
                 axios
                 .post("http://localhost/mon_organisateur/organisateurs/login", data)

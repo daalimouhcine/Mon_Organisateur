@@ -57,7 +57,7 @@ class Clients extends Controller {
                     echo json_encode(['error' => 'Mot de passe est incorrect', 'type' => 'password']);
                 }
             } else {
-                echo json_encode(['error' => 'Email incorrect', 'type' => 'email']);
+                echo json_encode(['error' => 'Email incorrect']);
             }
             
         }

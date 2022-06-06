@@ -1,13 +1,14 @@
 import axios from "axios";
-import { useState } from 'react';
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import type { RegisterInputs, RegisterMessage } from "../../../models";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import { PhoneIcon } from "../../icons/contact/phone-icon";
 
 const ClientRegisterForm: React.FC = () => {
-
   const [registerMessage, setRegisterMessage] = useState<RegisterMessage>({
     message: "",
     type: "",
@@ -22,22 +23,34 @@ const ClientRegisterForm: React.FC = () => {
     formState: { errors }, // to get the form state
   } = useForm<RegisterInputs>();
 
-  const onSubmit: SubmitHandler<RegisterInputs> = (data) => {
-    axios.post("http://localhost/mon_organisateur/clients/register", data).then((res) => {
-      if(!res.data.error) {
-        setRegisterMessage({message:'Votre compte a été créé avec succès', type:'success'});
-        
-        setTimeout(() => {
-          navigate("/login");
-        }, 1000);
-        
-      } else {
-        setRegisterMessage({message: res.data.error, type:'error'});
-      }
-      console.log(res);
-    });
-  };
+  const MySwal = withReactContent(Swal);
 
+  const onSubmit: SubmitHandler<RegisterInputs> = (data) => {
+    axios
+      .post("http://localhost/mon_organisateur/clients/register", data)
+      .then((res) => {
+        if (!res.data.error) {
+          setRegisterMessage({
+            message: "Votre compte a été créé avec succès",
+            type: "success",
+          });
+
+          MySwal.fire(
+            'Good job!',
+            'You clicked the button!',
+            'success'
+          ).then(() => {
+            return setTimeout(() => {
+              navigate("/login");
+            }, 1000);
+          });
+          
+        } else {
+          setRegisterMessage({ message: res.data.error, type: "error" });
+        }
+        console.log(res);
+      });
+  };
 
   // console.log(watch()); // Src: https://react-hook-form.com/get-started/ , watch input value by passing the name of it
   // console.log(errors);
@@ -45,7 +58,13 @@ const ClientRegisterForm: React.FC = () => {
   return (
     <div className="flex md:w-1/2 justify-center pb-10 items-center bg-white mt-12">
       <form className="bg-white mx-5" onSubmit={handleSubmit(onSubmit)}>
-      <h3 className={`font-bold text-xl mb-7 ${registerMessage.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>{registerMessage.message}</h3>
+        <h3
+          className={`font-bold text-xl mb-7 ${
+            registerMessage.type === "error" ? "text-red-500" : "text-green-500"
+          }`}
+        >
+          {registerMessage.message}
+        </h3>
         <h1 className="text-gray-800 font-bold text-2xl mb-1">Hello Again!</h1>
         <p className="text-sm font-normal text-gray-600 mb-7">Welcome Back</p>
         <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
@@ -76,7 +95,9 @@ const ClientRegisterForm: React.FC = () => {
           />
         </div>
         <p className="text-red-500">
-          {errors.nom?.message} {(errors.nom?.message && errors.prenom?.message) && " et "} {errors.prenom?.message}
+          {errors.nom?.message}{" "}
+          {errors.nom?.message && errors.prenom?.message && " et "}{" "}
+          {errors.prenom?.message}
         </p>
         <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
           <svg
@@ -94,24 +115,30 @@ const ClientRegisterForm: React.FC = () => {
             />
           </svg>
           <input
-            className="pl-2 outline-none border-none"
+            className="pl-2 w-full outline-none border-none"
             placeholder="Email Address"
             type="email"
-            {...register("email", { required: 'Email est obligatoire' })}
+            {...register("email", { required: "Email est obligatoire" })}
           />
         </div>
-          <p className="text-red-500">{errors.email?.message}</p>
+        <p className="text-red-500">{errors.email?.message}</p>
         <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
           <PhoneIcon className="w-4 text-gray-400" />
           <input
             className="pl-2 outline-none border-none"
             type="text"
             id=""
-            placeholder="Numero de telephone"
-            {...register("telephone", { required: 'Numero de telephone est obligatoir' })}
+            placeholder="06..."
+            {...register("telephone", {
+              required: "Numero de telephone est obligatoir",
+              pattern: {
+                value: /^[0-9]+$/,
+                message: "Numero invalide",
+              },
+            })}
           />
         </div>
-          <p className="text-red-500">{errors.telephone?.message}</p>
+        <p className="text-red-500">{errors.telephone?.message}</p>
         <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -130,10 +157,12 @@ const ClientRegisterForm: React.FC = () => {
             type="password"
             id=""
             placeholder="********"
-            {...register("mot_de_passe", { required: "Mot de passe est obligatoire" })}
+            {...register("mot_de_passe", {
+              required: "Mot de passe est obligatoire",
+            })}
           />
         </div>
-          <p className="text-red-500">{errors.mot_de_passe?.message}</p>
+        <p className="text-red-500">{errors.mot_de_passe?.message}</p>
         <input
           type="submit"
           className="block w-full bg-indigo-600 mt-4 py-2 rounded-md text-white font-semibold mb-2 cursor-pointer"

@@ -37,11 +37,20 @@ const LoginForm: React.FC = () => {
           axios
             .post("http://localhost/mon_organisateur/clients/login", data)
             .then((res) => {
-              if (res.data.error) {
-                setLoginMessage({ message: res.data.error, type: "error" });
-              } else {
+              if (res.data.user) {
                 localStorage.setItem("user", JSON.stringify(res.data.user));
                 navigate("/");
+              } else {
+                axios
+                .post("http://localhost/mon_organisateur/organisateurs/login", data)
+                .then((res) => {
+                  if (res.data.user) {
+                    localStorage.setItem("user", JSON.stringify(res.data.user));
+                    navigate("/");
+                  } else {
+                    setLoginMessage({ message: res.data.error, type: "error" });
+                  }
+                })
               }
             });
         }

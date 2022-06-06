@@ -21,6 +21,8 @@
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "sweetalert2": "^11.4.17",
+    "sweetalert2-react-content": "^5.0.0",
     "typescript": "^4.6.4",
     "use-latest": "^1.2.1",
     "web-vitals": "^2.1.4",

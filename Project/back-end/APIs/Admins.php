@@ -23,13 +23,14 @@
             if($admin) {
                 // check password
                 if(password_verify($data->mot_de_passe, $admin->mot_de_passe)) {
+                    unset($admin->mot_de_passe);
                     echo json_encode(['done' => 'Login successful', 'user' => $admin]);
                 } else {
                     echo json_encode(['error' => 'Password incorrect', 'type' => 'password']);
                 }
 
             } else {
-                echo json_encode(['error' => 'Admin not found']);
+                echo json_encode(['error' => 'Email incorrect']);
             }
         }
 

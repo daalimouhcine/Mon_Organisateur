@@ -76,18 +76,6 @@ const OrganisateurRegisterForm: React.FC = () => {
       instagram: dataInput.instagram,
     };
 
-    // let storageRef = fireStorage.ref(
-    //   fireStorage.getStorage(),
-    //   "Profil/" + newImageName + ".png"
-    // );
-    // await fireStorage.uploadBytes(storageRef, dataInput.file).then(function () {
-    //   console.log("uploaded");
-    // });
-
-
-     
-
-
     await axios
       .post(
         "http://localhost/mon_organisateur/organisateurs/register",
@@ -101,24 +89,24 @@ const OrganisateurRegisterForm: React.FC = () => {
       
           uploadTask.on(
             "state_changed",
-            (snapshot) => {
-              // Observe state change events such as progress, pause, and resume
-              // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-              var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              console.log("Upload is " + progress + "% done");
-              switch (snapshot.state) {
-                case "paused": // or 'paused'
-                  console.log("Upload is paused");
-                  break;
-                case "running": // or 'running'
-                  console.log("Upload is running");
-                  break;
-              }
-            },
-            (error) => {
-              // Handle unsuccessful uploads
-              console.log(error);
-            },
+            // (snapshot) => {
+            //   // Observe state change events such as progress, pause, and resume
+            //   // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            //   var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            //   console.log("Upload is " + progress + "% done");
+            //   switch (snapshot.state) {
+            //     case "paused": // or 'paused'
+            //       console.log("Upload is paused");
+            //       break;
+            //     case "running": // or 'running'
+            //       console.log("Upload is running");
+            //       break;
+            //   }
+            // },
+            // (error) => {
+            //   // Handle unsuccessful uploads
+            //   console.log(error);
+            // },
             () => {
               getDownloadURL(uploadTask.snapshot.ref).then((url) => {
                 console.log(url);
@@ -134,8 +122,8 @@ const OrganisateurRegisterForm: React.FC = () => {
           MySwal.fire("Demande est faite avec succes", "Votre demande est encoure de traitment", "success").then(
             () => {
               return setTimeout(() => {
-                navigate("/login");
-              }, 1000);
+                navigate("/");
+              }, 500);
             }
           );
         } else {

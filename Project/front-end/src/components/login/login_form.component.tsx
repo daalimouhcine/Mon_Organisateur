@@ -68,18 +68,17 @@ const LoginForm: React.FC = () => {
                   )
                   .then((res) => {
                     if (res.data.user) {
-                      localStorage.setItem(
-                        "user",
-                        JSON.stringify(res.data.user)
-                      );
-
-                      if (res.data.user.statu === 0) {
+                      if (res.data.user.status === 0) {
                         MySwal.fire(
-                          "Good job!",
-                          "You clicked the button!",
-                          "success"
+                          "Votre compte pas encore activé!",
+                          "Nous vous informerons lorsque votre compte est activé",
+                          "warning"
                         );
                       } else {
+                        localStorage.setItem(
+                          "user",
+                          JSON.stringify(res.data.user)
+                        );
                         setTimeout(() => {
                           navigate("/");
                         }, 500);

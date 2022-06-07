@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
   
 import './header.component.css';
@@ -5,6 +6,13 @@ import './header.component.css';
 
 
 const Header: React.FC = () => {
+
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    const toggle = () => {
+        setIsOpen(!isOpen);
+        console.log(isOpen);
+    }
 
 
   return (
@@ -16,57 +24,47 @@ const Header: React.FC = () => {
               </NavLink>
 
               <nav className="items-center justify-center hidden space-x-8 text-gray-200 md:flex">
-                  <NavLink to='/' x-data="{ hover: false }" 
-                  // @mouseenter="hover = true" @mouseleave="hover = false"
-                   className="relative inline-block text-base font-bold text-gray-200 uppercase transition duration-150 ease hover:text-white">
+                  <NavLink to='/' 
+                    className="relative inline-block text-base font-bold text-gray-200 uppercase transition duration-150 ease hover:text-white">
                       <span className="block">Home</span>
                       <span className="absolute bottom-0 left-0 inline-block w-full h-1 -mb-1 overflow-hidden">
-                          <span x-show="hover" className="absolute inset-0 inline-block w-full h-full transform border-t-2 border-blue-600" 
-                          // x-transition:enter="transition ease-out duration-300" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-out duration-300" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
+                          <span className="absolute inset-0 inline-block w-full h-full transform border-t-2 border-blue-600" 
                           ></span>
                       </span>
                   </NavLink>
-                  <NavLink to='/features' x-data="{ hover: false }" 
-                  // @mouseenter="hover = true" @mouseleave="hover = false"
+                  <NavLink to='/features'
                    className="relative inline-block text-base font-bold text-gray-200 uppercase transition duration-150 ease hover:text-white">
                       <span className="block">Features</span>
                       <span className="absolute bottom-0 left-0 inline-block w-full h-1 -mb-1 overflow-hidden">
-                          <span x-show="hover" className="absolute inset-0 inline-block w-full h-full transform border-t-2 border-blue-600" 
-                          // x-transition:enter="transition ease-out duration-300" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-out duration-300" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
+                          <span className="absolute inset-0 inline-block w-full h-full transform border-t-2 border-blue-600" 
                           ></span>
                       </span>
                   </NavLink>
                   <NavLink to='/about' x-data="{ hover: false }" 
-                  // @mouseenter="hover = true" @mouseleave="hover = false"
                    className="relative inline-block text-base font-bold text-gray-200 uppercase transition duration-150 ease hover:text-white">
                       <span className="block">About</span>
                       <span className="absolute bottom-0 left-0 inline-block w-full h-1 -mb-1 overflow-hidden">
-                          <span x-show="hover" className="absolute inset-0 inline-block w-full h-full transform border-t-2 border-blue-600" 
-                          // x-transition:enter="transition ease-out duration-300" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-out duration-300" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
+                          <span className="absolute inset-0 inline-block w-full h-full transform border-t-2 border-blue-600" 
                           ></span>
                       </span>
                   </NavLink>
                   <NavLink to='/contact' x-data="{ hover: false }" 
-                  // @mouseenter="hover = true" @mouseleave="hover = false"
                    className="relative inline-block text-base font-bold text-gray-200 uppercase transition duration-150 ease hover:text-white">
                       <span className="block">Contact Us</span>
                       <span className="absolute bottom-0 left-0 inline-block w-full h-1 -mb-1 overflow-hidden">
-                          <span x-show="hover" className="absolute inset-0 inline-block w-full h-full transform border-t-2 border-blue-600" 
-                          // x-transition:enter="transition ease-out duration-300" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-out duration-300" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
+                          <span className="absolute inset-0 inline-block w-full h-full transform border-t-2 border-blue-600" 
                           ></span>
                       </span>
                   </NavLink>
                   <div className="w-0 h-5 border border-r border-gray-700"></div>
                   <NavLink to='/login' x-data="{ hover: false }" 
-                  // @mouseenter="hover = true" @mouseleave="hover = false"
                    className="relative inline-block ml-5 text-base font-bold text-gray-200 uppercase transition duration-150 ease hover:text-white">
                       <span className="block">Login</span>
                       <span className="absolute bottom-0 left-0 inline-block w-full h-1 -mb-1 overflow-hidden">
                           <span className="absolute inset-0 inline-block w-full h-full transform translate-x-0 border-t-2 border-gray-100"></span>
                       </span>
                       <span className="absolute bottom-0 left-0 inline-block w-full h-1 -mb-1 overflow-hidden">
-                          <span x-show="hover" className="absolute inset-0 inline-block w-full h-full transform border-t-2 border-blue-600" 
-                          // x-transition:enter="transition ease-out duration-300" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-out duration-300" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
+                          <span className="absolute inset-0 inline-block w-full h-full transform border-t-2 border-blue-600" 
                           ></span>
                       </span>
                   </NavLink>
@@ -76,7 +74,7 @@ const Header: React.FC = () => {
               </nav>
 
                {/* Mobile Button */}
-              <div className="flex items-center justify-center h-full text-white md:hidden">
+              <div className="flex items-center justify-center h-full text-white cursor-pointer md:hidden" onClick={() => toggle()}>
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8h16M4 16h16"></path>
                   </svg>

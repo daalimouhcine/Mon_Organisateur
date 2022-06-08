@@ -5,9 +5,8 @@ import CSS from 'csstype';
 
 import "./contact.page.css";
 
-const contactStyle: CSS.Properties = {
+const style: CSS.Properties = {
   backgroundImage: `url(${'https://cdn.devdojo.com/images/february2021/directory-bg.jpg'})`,
-  
  }
 
 const Contact: React.FC = () => {
@@ -15,7 +14,7 @@ const Contact: React.FC = () => {
     <>
       <section
         className="relative"
-        style={contactStyle}
+        style={style}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-30"></div>
 

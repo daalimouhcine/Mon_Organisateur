@@ -3888,6 +3888,11 @@ csstype@^3.0.2:
   resolved "https://registry.npmjs.org/csstype/-/csstype-3.1.0.tgz"
   integrity sha512-uX1KG+x9h5hIJsaKR9xHUeUraxf8IODOwq9JLNPq6BwB04a/xgpq3rcx47l5BZu5zBPlgD342tdke3Hom/nJRA==
 
+csstype@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.0.tgz#4ddcac3718d787cf9df0d1b7d15033925c8f29f2"
+  integrity sha512-uX1KG+x9h5hIJsaKR9xHUeUraxf8IODOwq9JLNPq6BwB04a/xgpq3rcx47l5BZu5zBPlgD342tdke3Hom/nJRA==
+
 damerau-levenshtein@^1.0.7:
   version "1.0.8"
   resolved "https://registry.npmjs.org/damerau-levenshtein/-/damerau-levenshtein-1.0.8.tgz"
@@ -5136,6 +5141,16 @@ he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/he/-/he-1.2.0.tgz"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
+
+headlessui@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/headlessui/-/headlessui-0.0.0.tgz#bffbc91c40e9a6fa09c1e6064caaa670cabc68c0"
+  integrity sha512-CHvacVPbl8AqIg2sBNKySUmumu7o15jSrCaTrIh9GW2Eq4y/krCN/vZFOsKCwlrhWQbO4267a8xvvP8bs+qREQ==
+
+heroicons@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/heroicons/-/heroicons-1.0.6.tgz#1c2b2e0935a46516c3513afacfcaea71f0b68dd7"
+  integrity sha512-5bxTsG2hyNBF0l+BrFlZlR5YngQNMfl0ggJjIRkMSADBQbaZMoTg47OIQzq6f1mpEZ85HEIgSC4wt5AeFM9J2Q==
 
 history@^5.2.0:
   version "5.3.0"

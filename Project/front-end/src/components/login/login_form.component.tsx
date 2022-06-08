@@ -29,17 +29,12 @@ const LoginForm: React.FC = () => {
     await axios
       .post("http://localhost/mon_organisateur/admins/login", data)
       .then((res) => {
-        console.log(res);
         if (res.data.user) {
           localStorage.setItem("user", JSON.stringify(res.data.user));
-
-          MySwal.fire("Good job!", "You clicked the button!", "success").then(
-            () => {
-              return setTimeout(() => {
-                navigate("/");
-              }, 500);
-            }
-          );
+          return setTimeout(() => {
+            navigate("/");
+          }, 500);
+          
         } else if (res.data.type) {
           setLoginMessage({ message: res.data.error, type: "error" });
         } else {
@@ -48,16 +43,10 @@ const LoginForm: React.FC = () => {
             .then((res) => {
               if (res.data.user) {
                 localStorage.setItem("user", JSON.stringify(res.data.user));
+                return setTimeout(() => {
+                  navigate("/");
+                }, 500);
 
-                MySwal.fire(
-                  "You created an account!",
-                  "Login to your account",
-                  "success"
-                ).then(() => {
-                  return setTimeout(() => {
-                    navigate("/");
-                  }, 500);
-                });
               } else if (res.data.type) {
                 setLoginMessage({ message: res.data.error, type: "error" });
               } else {
@@ -101,7 +90,7 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="flex md:w-1/2 justify-center pb-10 items-center bg-white mt-12">
+    <div className="flex md:w-1/2 justify-center pb-10 items-center bg-white mt-12 mx-auto">
       <form className="bg-white mx-5" onSubmit={handleSubmit(onSubmit)}>
         <h3
           className={`font-bold text-xl mb-7 ${

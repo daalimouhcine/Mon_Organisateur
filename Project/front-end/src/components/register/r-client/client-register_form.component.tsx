@@ -55,7 +55,7 @@ const ClientRegisterForm: React.FC = () => {
   // console.log(errors);
 
   return (
-    <div className="flex md:w-1/2 justify-center pb-10 items-center bg-white mt-12">
+    <div className="flex md:w-1/2 justify-center pb-10 items-center bg-white mt-12 mx-auto">
       <form className="bg-white mx-5" onSubmit={handleSubmit(onSubmit)}>
         <h3
           className={`font-bold text-xl mb-7 ${

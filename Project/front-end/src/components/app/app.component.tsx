@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
 import Header from '../header/header.component';
 import Home from '../../pages/home/home.page';
+import AdminHomePage from '../../pages/home/admin/admin.home.page';
 import About from '../../pages/about/about.page';
 import Contact from '../../pages/contact/contact.page';
 import Login from '../../pages/auth/login/login.page';
@@ -16,11 +16,26 @@ import '../../common/styles/index';
 import './app.component.css';
 
 const App: React.FC = () => {
+
+    const homePage = () => {
+        let user = JSON.parse(localStorage.getItem('user')!) || '';
+        
+        if(user.role === 'admin') {
+            return <AdminHomePage />
+        } else if(user.role === 'client') {
+            return <Home />
+        } else if(user.role === 'organisateur') {
+            return <Home />
+        } else {
+            return <Home />
+        }
+    }
+
     return (
         <Router>
             <Header />
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={homePage()} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<Login />} />

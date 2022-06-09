@@ -1,5 +1,6 @@
 <?php 
 
+
     class Organisateur extends Database {
         
         public function __construct() {
@@ -80,6 +81,25 @@
             }
         }
 
+        public function getAllOrganisateurs() {
+            $this->db->query('SELECT * FROM organisateurs');
+            if($this->db->execute()) {
+                return $this->db->resultSet();
+
+            } else {
+                return false;
+            }
+        }
+
+        public function validateOrganisateur($OrId) {
+            $this->db->query('UPDATE organisateurs SET status = 1 WHERE id = :id');
+            $this->db->bind(':id', $OrId);
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
 
 

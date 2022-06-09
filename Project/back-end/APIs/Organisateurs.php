@@ -1,5 +1,7 @@
 <?php 
 
+require_once '../helpers/sendEmail.php';
+
 // set headers
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json ; charset=utf-8');
@@ -72,6 +74,25 @@ class Organisateurs extends Controller {
                 echo json_encode(['error' => 'Email incorrect', 'type' => 'email']);
             }
             
+        }
+
+        public function getAllOrganisateurs() {
+            $organisateurs = $this->organisateurModel->getAllOrganisateurs();
+            echo json_encode($organisateurs);
+        }
+
+        public function validateOrganisateur() {
+            // get data
+            $data = json_decode(file_get_contents('php://input'));
+
+            $validate = $this->organisateurModel->validateOrganisateur($data->id);
+            
+            if($validate) {
+                echo json_encode('done');
+                // sendEmail();
+            } else {
+                echo json_encode('error');
+            }
         }
 
 

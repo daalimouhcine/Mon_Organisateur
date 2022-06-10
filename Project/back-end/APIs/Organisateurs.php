@@ -1,6 +1,5 @@
 <?php 
 
-require_once '../helpers/sendEmail.php';
 
 // set headers
 header('Access-Control-Allow-Origin: *');
@@ -81,18 +80,29 @@ class Organisateurs extends Controller {
             echo json_encode($organisateurs);
         }
 
-        public function validateOrganisateur() {
+        public function changeOrganisateurStatus() {
+
             // get data
             $data = json_decode(file_get_contents('php://input'));
+            echo json_encode($data);
 
-            $validate = $this->organisateurModel->validateOrganisateur($data->id);
-            
-            if($validate) {
-                echo json_encode('done');
-                // sendEmail();
-            } else {
-                echo json_encode('error');
+            switch($data->status) {
+                case 0:
+                    $this->organisateurModel->validateOrganisateur($data->id);
+                    echo json_encode('Organisateur accepted');
+                    break;
+                case 1:
+                    $this->organisateurModel->suspendOrganisateur($data->id);
+                    echo json_encode('Organisateur suspended');
+                    break;
+                case -1:
+                    $this->organisateurModel->unSuspendOrganisateur($data->id);
+                    echo json_encode('Organisateur unsuspend');
+                    break;
+
             }
+            
+
         }
 
 

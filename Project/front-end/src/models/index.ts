@@ -41,3 +41,20 @@ export interface LoginMessage {
   message: string;
   type: string;
 }
+
+export interface OrganisateurData {
+  id: number;
+  nom: string;
+  prenom: string;
+  image_profile: string;
+  email: string;
+  telephone: number;
+  cin: string;
+  nom_entreprise: string;
+  role: string;
+  status: number;
+  adresse: string;
+  facebook?: string;
+  twitter?: string;
+  instagram?: string;
+}

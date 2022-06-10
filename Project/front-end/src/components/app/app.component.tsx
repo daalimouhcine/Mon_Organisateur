@@ -16,6 +16,7 @@ import "../../common/styles/index";
 import "./app.component.css";
 
 
+
 const homePage = () => {
   let user = JSON.parse(localStorage.getItem("user")!) || "";
   

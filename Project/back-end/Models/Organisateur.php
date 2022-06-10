@@ -91,9 +91,9 @@
             }
         }
 
-        public function validateOrganisateur($OrId) {
+        public function validateOrganisateur($orgId) {
             $this->db->query('UPDATE organisateurs SET status = 1 WHERE id = :id');
-            $this->db->bind(':id', $OrId);
+            $this->db->bind(':id', $orgId);
             if($this->db->execute()) {
                 return true;
             } else {
@@ -101,6 +101,25 @@
             }
         }
 
+        public function suspendOrganisateur($orgId) {
+            $this->db->query('UPDATE organisateurs SET status = -1 WHERE id = :id');
+            $this->db->bind(':id', $orgId);
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function unSuspendOrganisateur($orgId) {
+            $this->db->query('UPDATE organisateurs SET status = 1 WHERE id = :id');
+            $this->db->bind(':id', $orgId);
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
 
 

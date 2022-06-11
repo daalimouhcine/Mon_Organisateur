@@ -58,3 +58,19 @@ export interface OrganisateurData {
   twitter?: string;
   instagram?: string;
 }
+
+export interface Type {
+  id: number;
+  nom: string;
+}
+
+export interface SalleDetail {
+  organisateur_id: number;
+  ville: string;
+  address: string;
+  nombre_places: number;
+  type_id: number;
+  description: string;
+  images: File;
+  prix: number;
+}

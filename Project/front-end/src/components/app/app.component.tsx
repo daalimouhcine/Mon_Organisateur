@@ -1,9 +1,8 @@
-import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "../header/header.component";
 import Home from "../../pages/home/home.page";
 import AdminHomePage from "../../pages/home/admin/admin.home.page";
-import OrganisateurHomePage from '../../pages/home/organisateur/organisateur.home.page';
+import OrganisateurHomePage from "../../pages/home/organisateur/organisateur.home.page";
 import About from "../../pages/about/about.page";
 import Contact from "../../pages/contact/contact.page";
 import Login from "../../pages/auth/login/login.page";
@@ -14,31 +13,29 @@ import Footer from "../footer/footer.component";
 
 import "../../common/styles/index";
 import "./app.component.css";
+import useLocalStorage from "../../common/hooks/useLocaleStorage";
+import { OrganisateurData } from "../../models";
 
+const homePage = (user?: OrganisateurData) => {
+  switch (user?.role) {
+    case "admin":
+      return <AdminHomePage />;
 
+    case "client":
+      return <Home />;
 
-const homePage = () => {
-  let user = JSON.parse(localStorage.getItem("user")!) || "";
-  
-  switch(user.role) {
-      case "admin":
-          return <AdminHomePage />;
+    case "organisateur":
+      return <OrganisateurHomePage />;
 
-      case "client":
-          return <Home />;
-          
-      case "organisateur":
-          return <OrganisateurHomePage />;
-
-      default:
-          return <Home />;
+    default:
+      return <Home />;
   }
 };
 
-const user = JSON.parse(localStorage.getItem("user")!) ? true : false;
+// const user = JSON.parse(localStorage.getItem("user")!) ? true : false;
 
 const App = () => {
-
+  const [user] = useLocalStorage<OrganisateurData>("user");
 
   return (
     <Router>
@@ -46,7 +43,7 @@ const App = () => {
 
       {/* <Header /> */}
       <Routes>
-        <Route path="/" element={homePage()} />
+        <Route path="/" element={homePage(user)} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />

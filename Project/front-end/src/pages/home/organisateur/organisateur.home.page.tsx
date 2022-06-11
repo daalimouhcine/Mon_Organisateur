@@ -1,4 +1,4 @@
-import OrganisateurHome from '../../../components/organisateur/organisateur.home.component';
+import OrganisateurHome from '../../../components/organisateur/organisateur.component';
 
 
 const OrganisateurHomePage: React.FC = () => {

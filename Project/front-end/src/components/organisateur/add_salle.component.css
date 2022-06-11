@@ -1,0 +1,336 @@
+
+.modal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: rgba(0, 0, 0, 0.309);
+  height: 1px;
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-transition: width 0.5s ease 0.5s, height 0.5s ease;
+  transition: width 0.5s ease 0.5s, height 0.5s ease;
+  width: 0;
+  z-index: 3;
+}
+
+.content {
+  color: transparent;
+  font-family: "Consolas", arial, sans-serif;
+  font-size: 2em;
+  position: absolute;
+  top: 50%;
+  text-align: center;
+  -webkit-transform: translate3d(0, -50%, 0);
+          transform: translate3d(0, -50%, 0);
+  -webkit-transition: color 0.5s ease;
+  transition: color 0.5s ease;
+  width: 100%;
+}
+
+input#button {
+  cursor: pointer;
+  height: 0;
+  opacity: 0;
+  width: 0;
+}
+
+input#button:focus {
+  outline: none;
+}
+
+input#button:checked {
+  height: 40px;
+  opacity: 1;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  z-index: 4;
+  -webkit-appearance: none;
+  width: 40px;
+}
+
+input#button:checked::after, input#button:checked:before {
+  border-top: 3px solid #fff;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  width: 100%;
+}
+
+input#button:checked::after {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+input#button:checked:checked {
+  -webkit-animation: outofform 2s linear infinite;
+          animation: outofform 2s linear infinite;
+}
+
+@-webkit-keyframes outofform {
+  0% {
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+  }
+  50% {
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+  }
+  100% {
+    -webkit-transform: rotate(225deg);
+            transform: rotate(225deg);
+  }
+}
+
+@keyframes outofform {
+  0% {
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+  }
+  50% {
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+  }
+  100% {
+    -webkit-transform: rotate(225deg);
+            transform: rotate(225deg);
+  }
+}
+
+input#button:checked + label#label_button {
+  color: #fff;
+  -webkit-transition: color 0.5s ease;
+  transition: color 0.5s ease;
+}
+
+input#button:checked ~ .modal {
+  height: 100%;
+  width: 100%;
+  -webkit-transition: width 0.5s ease, height 0.5s ease 0.5s;
+  transition: width 0.5s ease, height 0.5s ease 0.5s;
+}
+
+input#button:checked ~ .modal .content {
+  color: #fff;
+  -webkit-transition: color 0.5s ease 0.5s;
+  transition: color 0.5s ease 0.5s;
+}
+
+.modal form {
+  width: 500px;
+  margin: auto;
+  background-color: #0b121b;
+  padding: 3rem;
+}
+
+.modal .user-box {
+  position: relative;
+}
+
+.modal .user-box input, .modal .user-box textarea {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.modal .user-box label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.modal .user-box input:focus ~ label,
+.modal .user-box input:valid ~ label,
+.modal .user-box textarea:focus ~ label,
+.modal .user-box textarea:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #6366f1;
+  font-size: 12px;
+}
+
+.modal form button {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #6366f1;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  margin-top: 40px;
+  letter-spacing: 4px;
+}
+
+.modal button:hover {
+  background: #6366f1;
+  color: #fff;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 5px #6366f1, 0 0 25px #6366f1, 0 0 50px #6366f1,
+ 0 0 100px #6366f1;
+          box-shadow: 0 0 5px #6366f1, 0 0 25px #6366f1, 0 0 50px #6366f1,
+ 0 0 100px #6366f1;
+}
+
+.modal button span {
+  position: absolute;
+  display: block;
+}
+
+.modal button span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: -webkit-gradient(linear, left top, right top, from(transparent), to(#6366f1));
+  background: linear-gradient(90deg, transparent, #6366f1);
+  -webkit-animation: btn-anim1 1s linear infinite;
+          animation: btn-anim1 1s linear infinite;
+}
+
+@-webkit-keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,
+  100% {
+    left: 100%;
+  }
+}
+
+.modal button span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(#6366f1));
+  background: linear-gradient(180deg, transparent, #6366f1);
+  -webkit-animation: btn-anim2 1s linear infinite;
+          animation: btn-anim2 1s linear infinite;
+  -webkit-animation-delay: 0.25s;
+          animation-delay: 0.25s;
+}
+
+@-webkit-keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,
+  100% {
+    top: 100%;
+  }
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,
+  100% {
+    top: 100%;
+  }
+}
+
+.modal button span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: -webkit-gradient(linear, right top, left top, from(transparent), to(#6366f1));
+  background: linear-gradient(270deg, transparent, #6366f1);
+  -webkit-animation: btn-anim3 1s linear infinite;
+          animation: btn-anim3 1s linear infinite;
+  -webkit-animation-delay: 0.5s;
+          animation-delay: 0.5s;
+}
+
+@-webkit-keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,
+  100% {
+    right: 100%;
+  }
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,
+  100% {
+    right: 100%;
+  }
+}
+
+.modal button span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: -webkit-gradient(linear, left bottom, left top, from(transparent), to(#6366f1));
+  background: linear-gradient(360deg, transparent, #6366f1);
+  -webkit-animation: btn-anim4 1s linear infinite;
+          animation: btn-anim4 1s linear infinite;
+  -webkit-animation-delay: 0.75s;
+          animation-delay: 0.75s;
+}
+
+@-webkit-keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,
+  100% {
+    bottom: 100%;
+  }
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,
+  100% {
+    bottom: 100%;
+  }
+}
+/*# sourceMappingURL=app.css.map */

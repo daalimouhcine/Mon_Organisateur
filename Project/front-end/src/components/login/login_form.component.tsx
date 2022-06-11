@@ -63,6 +63,12 @@ const LoginForm: React.FC = () => {
                           "Nous vous informerons lorsque votre compte est activé",
                           "warning"
                         );
+                      } else if (res.data.user.status === -1) {
+                        MySwal.fire(
+                          "Votre compte est banni!",
+                          "Contactez nous pour plus d'information",
+                          "error"
+                        );
                       } else {
                         localStorage.setItem(
                           "user",

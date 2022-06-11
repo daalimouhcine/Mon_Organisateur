@@ -5,6 +5,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import type { LoginInputs, LoginMessage } from "../../models";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import useLocalStorage from '../../common/hooks/useLocaleStorage';
+import { OrganisateurData } from '../../models';
 
 import "./login.component.css";
 
@@ -25,12 +27,15 @@ const LoginForm: React.FC = () => {
 
   const MySwal = withReactContent(Swal);
 
+  const [user, setUser] = useLocalStorage<OrganisateurData>('user');
+
   const requestLogin: SubmitHandler<LoginInputs> = async (data) => {
     await axios
       .post("http://localhost/mon_organisateur/admins/login", data)
       .then((res) => {
         if (res.data.user) {
-          localStorage.setItem("user", JSON.stringify(res.data.user));
+          let user = res.data.user;
+          setUser(user);
           return setTimeout(() => {
             navigate("/");
           }, 500);
@@ -42,7 +47,8 @@ const LoginForm: React.FC = () => {
             .post("http://localhost/mon_organisateur/clients/login", data)
             .then((res) => {
               if (res.data.user) {
-                localStorage.setItem("user", JSON.stringify(res.data.user));
+                let user = res.data.user;
+                setUser(user);
                 return setTimeout(() => {
                   navigate("/");
                 }, 500);
@@ -70,10 +76,8 @@ const LoginForm: React.FC = () => {
                           "error"
                         );
                       } else {
-                        localStorage.setItem(
-                          "user",
-                          JSON.stringify(res.data.user)
-                        );
+                        let user = res.data.user;
+                        setUser(user);
                         setTimeout(() => {
                           navigate("/");
                         }, 500);

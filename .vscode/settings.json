@@ -2,6 +2,7 @@
   "cSpell.words": [
     "adresse",
     "entreprise",
+    "nombre",
     "Orga",
     "organisateur",
     "organisateurs",
@@ -12,6 +13,7 @@
     "semibold",
     "storag",
     "Swal",
-    "sweetalert"
+    "sweetalert",
+    "ville"
   ]
 }

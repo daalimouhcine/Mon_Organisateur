@@ -1,14 +1,30 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { OrganisateurData } from "../../models";
+import OrganisateurProfile from "./organisateur_profile";
 import { Default_image } from "../../common/images";
-
 
 const default_image: string = Default_image;
 
 const OrganisateurPart = () => {
-  const [organisateurs, setOrganisateurs] = useState<Array<OrganisateurData>>([]);
+  const [organisateurs, setOrganisateurs] = useState<Array<OrganisateurData>>(
+    []
+  );
   const [changeStatus, setChangeStatus] = useState<boolean>(false);
+  const [openMore, setOpenMore] = useState<boolean>(false);
+  const [person, setPerson] = useState<OrganisateurData>({
+    id: NaN,
+    nom: '',
+    prenom: '',
+    image_profile: '',
+    email: '',
+    telephone: NaN ,
+    cin: '',
+    nom_entreprise: '',
+    role: '',
+    status: NaN,
+    adresse: '',
+  });
 
   const response = async () => {
     await axios
@@ -17,7 +33,7 @@ const OrganisateurPart = () => {
       )
       .then((data) => {
         setOrganisateurs(data.data);
-      })
+      });
   };
 
   useEffect(() => {
@@ -26,14 +42,31 @@ const OrganisateurPart = () => {
 
   const updateStatus = (id: number, status: number, index: number) => {
     axios
-        .post(`http://localhost/mon_organisateur/organisateurs/changeOrganisateurStatus`, { status, id })
-        .then((res) => {
-            setChangeStatus(!changeStatus);
-        })
-}
+      .post(
+        `http://localhost/mon_organisateur/organisateurs/changeOrganisateurStatus`,
+        { status, id }
+      )
+      .then((res) => {
+        setChangeStatus(!changeStatus);
+      });
+  };
+
+  const openMoreProfile = (person: OrganisateurData) => {
+    setPerson(person);
+    setOpenMore(!openMore);
+    console.log(openMore);
+
+  };
+
+  const closeMoreProfile = () => {
+    setOpenMore(!openMore);
+    console.log(openMore);
+  }
+
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
+      <OrganisateurProfile person={person} openMore={openMore} setOpenMore={() => {closeMoreProfile()}} />
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold text-gray-900">Organisateurs</h1>
@@ -134,7 +167,9 @@ const OrganisateurPart = () => {
                       </td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                         <button
-                          onClick={() => {updateStatus(person.id, person.status, index)}}
+                          onClick={() => {
+                            updateStatus(person.id, person.status, index);
+                          }}
                           className="text-indigo-600 hover:text-indigo-900"
                         >
                           {person.status === 0
@@ -142,6 +177,15 @@ const OrganisateurPart = () => {
                             : person.status === -1
                             ? "unsuspend"
                             : "Suspend"}
+                          <span className="sr-only">, {person.nom}</span>
+                        </button>
+                        <button
+                          onClick={() => {
+                            openMoreProfile(person);
+                          }}
+                          className="text-indigo-600 hover:text-indigo-900"
+                        >
+                          More Info
                           <span className="sr-only">, {person.nom}</span>
                         </button>
                       </td>

@@ -38,17 +38,26 @@ CREATE TABLE IF NOT EXISTS clients (
     role VARCHAR(255) NOT NULL
 );
 
+
+CREATE TABLE IF NOT EXISTS types (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nom VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS salles (
     id INT PRIMARY KEY AUTO_INCREMENT,
     organisateur_id INT NOT NULL,
     ville VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
     nombre_places INT NOT NULL,
-    type VARCHAR(255) NOT NULL,
+    type_id INT NOT NULL,
     description VARCHAR(255) NOT NULL,
     images VARCHAR(255) NOT NULL,
     prix INT NOT NULL,
     FOREIGN KEY (organisateur_id) REFERENCES organisateurs (id) 
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE,
+    FOREIGN KEY (type_id) REFERENCES types (id)
         ON UPDATE CASCADE 
         ON DELETE CASCADE
 );
@@ -88,7 +97,6 @@ CREATE TABLE IF NOT EXISTS app_feedbacks (
     rool VARCHAR(255) NOT NULL,
     date_creation VARCHAR(255) NOT NULL
 );
-
 
 
 

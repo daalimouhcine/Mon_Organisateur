@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import OrganisateurPart from './organisateur.part';
+import OrganisateurPart from "./organisateur.part";
 import { Dialog, Transition } from "@headlessui/react";
 import {
   CalendarIcon,
@@ -10,7 +10,11 @@ import {
   MenuIcon,
   UsersIcon,
   XIcon,
+  LogoutIcon,
 } from "@heroicons/react/outline";
+import { logout } from "../../services/logout";
+import { useNavigate } from "react-router-dom";
+
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
@@ -26,8 +30,8 @@ function classNames(...classes: string[]) {
 }
 
 
-
 const AdminHome: React.FC = () => {
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <>
@@ -195,7 +199,7 @@ const AdminHome: React.FC = () => {
               </nav>
             </div>
             <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
-              <a href="_#" className="flex-shrink-0 w-full group block">
+              <div className="flex justify-between flex-shrink-0 w-full group">
                 <div className="flex items-center">
                   <div>
                     <img
@@ -213,7 +217,15 @@ const AdminHome: React.FC = () => {
                     </p>
                   </div>
                 </div>
-              </a>
+                <div
+                  className="w-fit p-3 text-gray-400 group-hover:text-gray-500 cursor-pointer"
+                  onClick={() => {
+                    logout() && navigate("/login");
+                  }}
+                >
+                  <LogoutIcon className="flex-shrink-0 h-6 w-6" />
+                </div>
+              </div>
             </div>
           </div>
         </div>

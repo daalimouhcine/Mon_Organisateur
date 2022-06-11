@@ -1,6 +1,14 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@services/*": ["services/*"],
+      "@models/*": ["models/*"],
+      "@hooks/*": ["common/hooks/*"],
+      "@icons/*": ["components/icons/*"],
+      "@pages/*": ["pages/*"],
+    },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -17,9 +25,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "paths": {
-      "@/*": ["./src/*"],
-    }
   },
   "include": [
     "next-env.d.ts",

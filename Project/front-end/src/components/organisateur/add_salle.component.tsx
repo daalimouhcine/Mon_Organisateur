@@ -8,13 +8,12 @@ import withReactContent from "sweetalert2-react-content";
 
 import "./add_salle.component.css";
 
-const AddSalle = () => {
+const AddSalle = (props: any) => {
   const [types, setTypes] = useState<Array<Type>>();
   const response = async () => {
     await axios
       .get("http://localhost/mon_organisateur/salles/getTypes")
       .then((data) => {
-        console.log(data.data);
         setTypes(data.data);
       });
   };
@@ -49,12 +48,13 @@ const AddSalle = () => {
       organisateur_id: user.id,
       images: newImageName,
     };
-    console.log(salleData);
+
     axios
       .post("http://localhost/mon_organisateur/salles/addSalle", salleData)
       .then((res) => {
         if (res.data) {
           handleCloseForm();
+          props.close();
           MySwal.fire(
             "Vous avez ajouter un salle !",
             "Vous pouvez editer la salle dans la liste des salles",

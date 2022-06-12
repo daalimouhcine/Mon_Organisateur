@@ -15,6 +15,22 @@
                 return false;
             }
         }
+
+        public function addSalle($data) {
+            $this->db->query('INSERT INTO salles (organisateur_id, ville, address, nombre_places, type_id, description, images, prix) VALUES (:organisateur_id, :ville, :address, :nombre_places, :type_id, :description, :images, :prix)');
+            $this->db->bind(':organisateur_id', $data->organisateur_id);
+            $this->db->bind(':ville', $data->ville);
+            $this->db->bind(':address', $data->address);
+            $this->db->bind(':type_id', $data->type_id);
+            $this->db->bind(':nombre_places', $data->nombre_places);
+            $this->db->bind(':description', $data->description);
+            $this->db->bind(':images', $data->images);
+            $this->db->bind(':prix', $data->prix);
+            return $this->db->execute();
+
+        }
+
+
     }
 
 ?>

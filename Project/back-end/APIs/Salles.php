@@ -18,6 +18,12 @@
             echo json_encode($types);
         }
 
+        public function addSalle() {
+            $data = json_decode(file_get_contents('php://input'));
+            $salle = $this->salleModel->addSalle($data);
+            echo json_encode($salle);
+        }
+
        
 
     }

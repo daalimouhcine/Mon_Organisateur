@@ -50,13 +50,9 @@ const OrganisateurRegisterForm: React.FC = () => {
     // change name of the image to start with org_ and add random number to avoid duplicate name and add extension
 
     if (dataInput.image_profile[0] !== undefined) {
-      let image: any = dataInput.image_profile[0];
+      let image = dataInput.image_profile[0];
       let imageName: string = image.name;
-      let imageExtension: any = imageName.split(".").pop();
-      let imageNameWithoutExtension: string = imageName
-        .split(".")
-        .slice(0, -1)
-        .join(".");
+      let imageExtension = imageName.split(".").pop();
       newImageName = `org_${Math.floor(
         Math.random() * 100000
       )}.${imageExtension}`;
@@ -359,7 +355,7 @@ const OrganisateurRegisterForm: React.FC = () => {
                   <label
                     htmlFor="fileInput"
                     // type="button"
-                    className="cursor-pointer w-fit mx-auto inine-flex justify-between items-center focus:outline-none border py-2 px-4 rounded-lg shadow-sm text-left text-gray-600 bg-white hover:bg-gray-100 font-medium"
+                    className="cursor-pointer w-fit mx-auto inline-flex justify-between items-center focus:outline-none border py-2 px-4 rounded-lg shadow-sm text-left text-gray-600 bg-white hover:bg-gray-100 font-medium"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

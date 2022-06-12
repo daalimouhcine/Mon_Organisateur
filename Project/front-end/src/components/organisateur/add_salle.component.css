@@ -11,7 +11,7 @@
           justify-content: center;
   background: rgba(0, 0, 0, 0.309);
   height: 1px;
-  overflow: hidden;
+  overflow-x: hidden;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -22,6 +22,17 @@
   width: 0;
   z-index: 3;
 }
+
+.modal::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.modal {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
 
 .content {
   color: transparent;
@@ -134,6 +145,7 @@ input#button:checked ~ .modal .content {
   margin: auto;
   background-color: #0b121b;
   padding: 3rem;
+  overflw-y: auto;
 }
 
 .modal .user-box {

@@ -124,7 +124,6 @@
 }
 
 .openForm button#label_button {
-  color: #fff;
   -webkit-transition: color 0.5s ease;
   transition: color 0.5s ease;
 }

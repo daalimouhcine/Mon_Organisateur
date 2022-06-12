@@ -1,14 +1,13 @@
-
 .modal {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   background: rgba(0, 0, 0, 0.309);
   height: 1px;
   overflow-x: hidden;
@@ -16,7 +15,7 @@
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   -webkit-transition: width 0.5s ease 0.5s, height 0.5s ease;
   transition: width 0.5s ease 0.5s, height 0.5s ease;
   width: 0;
@@ -28,11 +27,9 @@
 }
 /* Hide scrollbar for IE, Edge and Firefox */
 .modal {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
-
-
 
 .content {
   color: transparent;
@@ -42,24 +39,23 @@
   top: 50%;
   text-align: center;
   -webkit-transform: translate3d(0, -50%, 0);
-          transform: translate3d(0, -50%, 0);
+  transform: translate3d(0, -50%, 0);
   -webkit-transition: color 0.5s ease;
   transition: color 0.5s ease;
   width: 100%;
 }
 
-input#button {
-  cursor: pointer;
+.openForm {
   height: 0;
   opacity: 0;
   width: 0;
 }
 
-input#button:focus {
+.openForm:focus {
   outline: none;
 }
 
-input#button:checked {
+.openForm {
   height: 40px;
   opacity: 1;
   position: fixed;
@@ -70,71 +66,77 @@ input#button:checked {
   width: 40px;
 }
 
-input#button:checked::after, input#button:checked:before {
+.openForm::after,
+.openForm::before {
   border-top: 3px solid #fff;
   content: "";
   display: block;
   position: absolute;
   top: 50%;
+  z-index: 100;
   -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
+  transform: rotate(45deg);
   width: 100%;
+  pointer-events: none;
+  
 }
 
-input#button:checked::after {
+.openForm::after {
   -webkit-transform: rotate(-45deg);
-          transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  
 }
 
-input#button:checked:checked {
-  -webkit-animation: outofform 2s linear infinite;
-          animation: outofform 2s linear infinite;
+.openForm button {
+  z-index: 50;
+  -webkit-appearance: none;
+  opacity: 0;
 }
 
 @-webkit-keyframes outofform {
   0% {
     -webkit-transform: rotate(45deg);
-            transform: rotate(45deg);
+    transform: rotate(45deg);
   }
   50% {
     -webkit-transform: rotate(135deg);
-            transform: rotate(135deg);
+    transform: rotate(135deg);
   }
   100% {
     -webkit-transform: rotate(225deg);
-            transform: rotate(225deg);
+    transform: rotate(225deg);
   }
 }
 
 @keyframes outofform {
   0% {
     -webkit-transform: rotate(45deg);
-            transform: rotate(45deg);
+    transform: rotate(45deg);
   }
   50% {
     -webkit-transform: rotate(135deg);
-            transform: rotate(135deg);
+    transform: rotate(135deg);
   }
   100% {
     -webkit-transform: rotate(225deg);
-            transform: rotate(225deg);
+    transform: rotate(225deg);
   }
 }
 
-input#button:checked + label#label_button {
+.openForm button#label_button {
   color: #fff;
   -webkit-transition: color 0.5s ease;
   transition: color 0.5s ease;
 }
 
-input#button:checked ~ .modal {
+.openForm .modal {
   height: 100%;
   width: 100%;
   -webkit-transition: width 0.5s ease, height 0.5s ease 0.5s;
   transition: width 0.5s ease, height 0.5s ease 0.5s;
 }
 
-input#button:checked ~ .modal .content {
+.openForm .modal .content {
   color: #fff;
   -webkit-transition: color 0.5s ease 0.5s;
   transition: color 0.5s ease 0.5s;
@@ -152,7 +154,8 @@ input#button:checked ~ .modal .content {
   position: relative;
 }
 
-.modal .user-box input, .modal .user-box textarea {
+.modal .user-box input,
+.modal .user-box textarea {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
@@ -206,9 +209,9 @@ input#button:checked ~ .modal .content {
   color: #fff;
   border-radius: 5px;
   -webkit-box-shadow: 0 0 5px #6366f1, 0 0 25px #6366f1, 0 0 50px #6366f1,
- 0 0 100px #6366f1;
-          box-shadow: 0 0 5px #6366f1, 0 0 25px #6366f1, 0 0 50px #6366f1,
- 0 0 100px #6366f1;
+    0 0 100px #6366f1;
+  box-shadow: 0 0 5px #6366f1, 0 0 25px #6366f1, 0 0 50px #6366f1,
+    0 0 100px #6366f1;
 }
 
 .modal button span {
@@ -221,10 +224,16 @@ input#button:checked ~ .modal .content {
   left: -100%;
   width: 100%;
   height: 2px;
-  background: -webkit-gradient(linear, left top, right top, from(transparent), to(#6366f1));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(transparent),
+    to(#6366f1)
+  );
   background: linear-gradient(90deg, transparent, #6366f1);
   -webkit-animation: btn-anim1 1s linear infinite;
-          animation: btn-anim1 1s linear infinite;
+  animation: btn-anim1 1s linear infinite;
 }
 
 @-webkit-keyframes btn-anim1 {
@@ -252,12 +261,18 @@ input#button:checked ~ .modal .content {
   right: 0;
   width: 2px;
   height: 100%;
-  background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(#6366f1));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(transparent),
+    to(#6366f1)
+  );
   background: linear-gradient(180deg, transparent, #6366f1);
   -webkit-animation: btn-anim2 1s linear infinite;
-          animation: btn-anim2 1s linear infinite;
+  animation: btn-anim2 1s linear infinite;
   -webkit-animation-delay: 0.25s;
-          animation-delay: 0.25s;
+  animation-delay: 0.25s;
 }
 
 @-webkit-keyframes btn-anim2 {
@@ -285,12 +300,18 @@ input#button:checked ~ .modal .content {
   right: -100%;
   width: 100%;
   height: 2px;
-  background: -webkit-gradient(linear, right top, left top, from(transparent), to(#6366f1));
+  background: -webkit-gradient(
+    linear,
+    right top,
+    left top,
+    from(transparent),
+    to(#6366f1)
+  );
   background: linear-gradient(270deg, transparent, #6366f1);
   -webkit-animation: btn-anim3 1s linear infinite;
-          animation: btn-anim3 1s linear infinite;
+  animation: btn-anim3 1s linear infinite;
   -webkit-animation-delay: 0.5s;
-          animation-delay: 0.5s;
+  animation-delay: 0.5s;
 }
 
 @-webkit-keyframes btn-anim3 {
@@ -318,12 +339,18 @@ input#button:checked ~ .modal .content {
   left: 0;
   width: 2px;
   height: 100%;
-  background: -webkit-gradient(linear, left bottom, left top, from(transparent), to(#6366f1));
+  background: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    from(transparent),
+    to(#6366f1)
+  );
   background: linear-gradient(360deg, transparent, #6366f1);
   -webkit-animation: btn-anim4 1s linear infinite;
-          animation: btn-anim4 1s linear infinite;
+  animation: btn-anim4 1s linear infinite;
   -webkit-animation-delay: 0.75s;
-          animation-delay: 0.75s;
+  animation-delay: 0.75s;
 }
 
 @-webkit-keyframes btn-anim4 {

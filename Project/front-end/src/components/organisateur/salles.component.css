@@ -1,0 +1,12 @@
+.options {
+    right: -50%;
+    top: -70%;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 500ms ease-in-out;
+}
+.post-display-options .options {
+    opacity: 1;
+    top: 100%;
+    pointer-events: all;
+}

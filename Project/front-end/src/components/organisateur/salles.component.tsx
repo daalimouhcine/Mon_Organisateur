@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import {
   AcademicCapIcon,
   BadgeCheckIcon,
@@ -10,8 +12,28 @@ import {
   XIcon,
 } from "@heroicons/react/outline";
 import AddSalle from "./add_salle.component";
+import { SalleDetail } from "src/models";
 
 const SallesComponent = () => {
+  const [addSalle, setAddSalle] = useState(false);
+  const addedSalle = () => {
+    setAddSalle(!addSalle);
+  };
+
+  const [salles, setSalles] = useState<Array<SalleDetail>>();
+
+  const fetchSalles = async () => {
+    console.log('fetch');
+    const response = await axios.get(
+      "http://localhost/mon_organisateur/salles/getSalles"
+    );
+    setSalles(response.data);
+  };
+
+  useEffect(() => {
+    fetchSalles();
+  }, [addSalle]);
+
   const actions = [
     {
       icon: ClockIcon,
@@ -72,7 +94,7 @@ const SallesComponent = () => {
           </p>
         </div>
         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-        <AddSalle />
+          <AddSalle close={() => {addedSalle()}} />
         </div>
       </div>
       <div className="rounded-lg bg-gray-200 overflow-hidden shadow divide-y divide-gray-200 sm:divide-y-0 sm:grid sm:grid-cols-2 sm:gap-px">

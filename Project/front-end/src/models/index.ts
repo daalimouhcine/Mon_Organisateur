@@ -66,12 +66,13 @@ export interface Type {
 
 export interface SalleInputs {
   organisateur_id: number;
+  titre: string;
   ville: string;
   address: string;
   nombre_places: number;
   type_id: number;
   description: string;
-  images: File;
+  images?: File | any;
   prix: number;
 }
 

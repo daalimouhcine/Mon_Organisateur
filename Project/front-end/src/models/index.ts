@@ -64,7 +64,7 @@ export interface Type {
   nom: string;
 }
 
-export interface SalleDetail {
+export interface SalleInputs {
   organisateur_id: number;
   ville: string;
   address: string;
@@ -72,5 +72,25 @@ export interface SalleDetail {
   type_id: number;
   description: string;
   images: File;
+  prix: number;
+}
+
+export interface SalleDetails {
+  id: number;
+  organisateur_id: number;
+  titre: string;
+  nom: string;
+  prenom: string;
+  image_profile: string;
+  nom_entreprise: string;
+  telephone: number;
+  email: string;
+  ville: string;
+  address: string;
+  nombre_places: number;
+  type: string;
+  type_id: number;
+  description: string;
+  images: string;
   prix: number;
 }

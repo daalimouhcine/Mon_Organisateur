@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS types (
 CREATE TABLE IF NOT EXISTS salles (
     id INT PRIMARY KEY AUTO_INCREMENT,
     organisateur_id INT NOT NULL,
+    titre VARCHAR(255) NOT NULL,
     ville VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
     nombre_places INT NOT NULL,

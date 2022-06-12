@@ -27,13 +27,13 @@ const AddSalle = (props: any) => {
     // watch, // to watch the value of a specific input
     reset, // to reset the form
     formState: { errors }, // to get the form state
-  } = useForm<any>();
+  } = useForm<SalleInputs>();
 
   const [user] = useLocalStorage<OrganisateurData>("user");
   const MySwal = withReactContent(Swal);
 
   const onSubmit: SubmitHandler<SalleInputs> = (data) => {
-    let dataInput: any = { ...data };
+    let dataInput: SalleInputs = { ...data };
 
     // change name of the image to start with org_ and add random number to avoid duplicate name and add extension
     let image = dataInput.images[0];

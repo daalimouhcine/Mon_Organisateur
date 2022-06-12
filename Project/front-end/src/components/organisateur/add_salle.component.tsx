@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { SalleDetail, Type, OrganisateurData } from "src/models";
+import { SalleInputs, Type, OrganisateurData } from "src/models";
 import useLocalStorage from "../../common/hooks/useLocaleStorage";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -32,7 +32,7 @@ const AddSalle = (props: any) => {
   const [user] = useLocalStorage<OrganisateurData>("user");
   const MySwal = withReactContent(Swal);
 
-  const onSubmit: SubmitHandler<SalleDetail> = (data) => {
+  const onSubmit: SubmitHandler<SalleInputs> = (data) => {
     let dataInput: any = { ...data };
 
     // change name of the image to start with org_ and add random number to avoid duplicate name and add extension
@@ -99,6 +99,16 @@ const AddSalle = (props: any) => {
           className="flex flex-col"
           onSubmit={handleSubmit(onSubmit)}
         >
+          <div className="user-box">
+            {/* <svg/> */}
+            <input
+              className="pl-2 w-full outline-none border-none"
+              placeholder="Titre"
+              type="text"
+              {...register("titre", { required: "Titre est obligatoire" })}
+            />
+          </div>
+          <p className="text-red-500">{errors.titre?.message}</p>
           <div className="user-box">
             {/* <svg/> */}
             <input

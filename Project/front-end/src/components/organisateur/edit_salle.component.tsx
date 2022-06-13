@@ -25,11 +25,15 @@ const AddSalle = (salle: any) => {
     register, // register the input
     handleSubmit, // <- needed to bind the form
     // watch, // to watch the value of a specific input
-    reset, // to reset the form
+    // reset, // to reset the form
     formState: { errors }, // to get the form state
-  } = useForm<SalleInputs>();
+  } = useForm<SalleInputs>({defaultValues: salle});
 
+  const [salleUpdate, setSalleUpdate] = useState<SalleInputs>(salle);
 
+  const viewSalle = () => {
+    console.log(salleUpdate);
+  };
 
   const [user] = useLocalStorage<OrganisateurData>("user");
   const MySwal = withReactContent(Swal);
@@ -56,7 +60,7 @@ const AddSalle = (salle: any) => {
       .then((res) => {
         if (res.data) {
           handleCloseForm();
-          
+
           MySwal.fire(
             "Vous avez ajouter un salle !",
             "Vous pouvez editer la salle dans la liste des salles",
@@ -76,7 +80,7 @@ const AddSalle = (salle: any) => {
 
   const handleCloseForm = () => {
     // reset the form
-    openForm && reset();
+    // openForm && reset();
     setOpenForm(!openForm);
   };
 
@@ -85,13 +89,16 @@ const AddSalle = (salle: any) => {
       className={`flex align-middle justify-center rounded-md ${
         openForm && "openForm"
       }`}
+      onClick={() => {
+        viewSalle();
+      }}
     >
       {/* <input id="button" type="checkbox" /> */}
       <button
         onClick={() => handleCloseForm()}
         type="button"
         id="label_button"
-        className="w-full m-1 p-2 text-sm bg-green-400 rounded-md hover:bg-green-500"
+        className="w-full m-1 p-2 text-sm bg-green-400 rounded-md hover:bg-green-500 cursor-pointer"
       >
         edit
       </button>

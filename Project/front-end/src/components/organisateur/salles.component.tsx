@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  UserGroupIcon,
-  CakeIcon,
-  CogIcon,
-} from "@heroicons/react/outline";
+import { UserGroupIcon, CakeIcon, CogIcon } from "@heroicons/react/outline";
 import AddSalle from "./add_salle.component";
 import { SalleDetails, SalleInputs } from "src/models";
 import { Default_image } from "src/common/images";
-import {
-  DotsVerticalIcon,
-  LocationMarkerIcon,
-} from "@heroicons/react/solid";
+import { DotsVerticalIcon, LocationMarkerIcon } from "@heroicons/react/solid";
 
 import "./salles.component.css";
 import EditSalle from "./edit_salle.component";
@@ -27,16 +20,15 @@ const SallesComponent = () => {
   const [salles, setSalles] = useState<Array<SalleDetails>>();
 
   const fetchSalles = async () => {
-    console.log("fetch");
     const response = await axios.get(
       "http://localhost/mon_organisateur/salles/getSalles"
     );
     setSalles(response.data);
   };
 
+
   useEffect(() => {
     fetchSalles();
-    console.log(salles);
   }, [addSalle]);
 
   const displayOptionsCondition = (e: any) => {
@@ -44,7 +36,7 @@ const SallesComponent = () => {
     postDisplayOptions.classList.toggle("post-display-options");
   };
 
-  const editSalle = (salle: SalleInputs) => {
+  const editSalle = (salle: any) => {
     let data: SalleInputs = {
       organisateur_id: salle.organisateur_id,
       titre: salle.titre,
@@ -137,7 +129,7 @@ const SallesComponent = () => {
                         >
                           <DotsVerticalIcon className=" rounded-md hover:opacity-80 hover:shadow-xl text-white shadow-slate-900 transition-all" />
                           <div className="options flex absolute flex-col">
-                          <EditSalle salle={editSalle(salle)} />
+                            <EditSalle salle={editSalle(salle)} />
                             <button
                               className="m-1 p-2 text-sm bg-red-400 rounded-md hover:bg-red-500"
                               onClick={() => {

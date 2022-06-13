@@ -11,7 +11,6 @@ import storage from "../../../services/firebase";
 
 import { PhoneIcon } from "../../icons/contact/phone-icon";
 import { UserIcon } from "../../icons/user-icon";
-import { UserIconAlt } from "../../icons/user-icon-alt";
 import { MapPinIcon } from "../../icons/map-pin-icon";
 import { HomeIcon } from "../../icons/home-icon";
 import { FacebookIcon, TwitterIcon, InstagramIcon } from "../../icons/social";
@@ -21,7 +20,6 @@ const MAX_STEPS = 3;
 const OrganisateurRegisterForm: React.FC = () => {
   const {
     register,
-    // watch,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<OrganiserRegisterInputs>({ mode: "all" });

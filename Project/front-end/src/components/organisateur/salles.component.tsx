@@ -25,7 +25,6 @@ const SallesComponent = () => {
   };
 
   const [salles, setSalles] = useState<Array<SalleDetails>>();
-  const [salleEdit, setSalleEdit] = useState<SalleInputs>();
 
   const fetchSalles = async () => {
     console.log("fetch");
@@ -42,7 +41,6 @@ const SallesComponent = () => {
 
   const displayOptionsCondition = (e: any) => {
     let postDisplayOptions = e.target.parentElement.parentElement;
-    console.log(postDisplayOptions);
     postDisplayOptions.classList.toggle("post-display-options");
   };
 
@@ -57,16 +55,14 @@ const SallesComponent = () => {
       description: salle.description,
       images: salle.images,
       prix: salle.prix,
-    }
-    setSalleEdit(data);
-    console.log(salle);
+    };
+    return data;
   };
 
   const deleteSalle = (salleId: number) => {
     axios
       .post("http://localhost/mon_organisateur/salles/deleteSalle", salleId)
       .then((response) => {
-        console.log(response);
         addedSalle();
       });
   };
@@ -141,7 +137,7 @@ const SallesComponent = () => {
                         >
                           <DotsVerticalIcon className=" rounded-md hover:opacity-80 hover:shadow-xl text-white shadow-slate-900 transition-all" />
                           <div className="options flex absolute flex-col">
-                          <EditSalle salle={salleEdit} />
+                          <EditSalle salle={editSalle(salle)} />
                             <button
                               className="m-1 p-2 text-sm bg-red-400 rounded-md hover:bg-red-500"
                               onClick={() => {

@@ -6,9 +6,9 @@ import useLocalStorage from "src/common/hooks/useLocaleStorage";
 import { logout } from "../../services/logout";
 import { OrganisateurData } from "src/models";
 import { Default_image } from "src/common/images";
-import { boolean } from "yup";
 import SallesComponent from "./salles.component";
 import ClientReservations from "./client.reservations";
+import OrgProfile from "./org.profile.component";
 
 let default_image: string = Default_image;
 
@@ -22,7 +22,8 @@ const OrganisateurHome: React.FC = () => {
   const [user] = useLocalStorage<OrganisateurData>("user");
 
   const [navigation, setNavigation] = useState<Array<links>>([
-    { name: "Salles", component: "SallesComponent", current: false },
+    { name: "Home", component: "SallesComponent", current: true },
+    { name: "Profile", component: "OrgProfile", current: false },
   ]);
 
   const changeNavigationCurrent = (name: string) => {
@@ -36,11 +37,7 @@ const OrganisateurHome: React.FC = () => {
     setNavigation([...navigation]);
   };
 
-  const userNavigation = [
-    { name: "Your Profile", href: "#" },
-    { name: "Settings", href: "#" },
-    { name: "Sign out", href: "#" },
-  ];
+  const userNavigation = [{ name: "Sign out", href: "#" }];
   const stats = [
     { label: "Vacation days left", value: 12 },
     { label: "Sick days left", value: 4 },
@@ -83,14 +80,6 @@ const OrganisateurHome: React.FC = () => {
 
                   {/* Right section on desktop */}
                   <div className="hidden lg:ml-4 lg:flex lg:items-center lg:py-5 lg:pr-0.5">
-                    <button
-                      type="button"
-                      className="flex-shrink-0 p-1 text-cyan-200 rounded-full hover:text-white hover:bg-white hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white"
-                    >
-                      <span className="sr-only">View notifications</span>
-                      <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
-
                     {/* Profile dropdown */}
                     <Menu as="div" className="ml-4 relative flex-shrink-0">
                       <div>
@@ -124,8 +113,7 @@ const OrganisateurHome: React.FC = () => {
                                     "block px-4 py-2 text-sm text-gray-700"
                                   )}
                                   onClick={() => {
-                                    item.name === "Sign out" &&
-                                    logout();
+                                    item.name === "Sign out" && logout();
                                   }}
                                 >
                                   {item.name}
@@ -148,7 +136,7 @@ const OrganisateurHome: React.FC = () => {
                               key={item.name}
                               className={classNames(
                                 item.current
-                                  ? "text-white bg-opacity-10"
+                                  ? "text-white bg-opacity-20"
                                   : "text-cyan-100",
                                 "text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10 cursor-pointer"
                               )}
@@ -254,9 +242,9 @@ const OrganisateurHome: React.FC = () => {
                             {navigation.map((item) => (
                               <div
                                 key={item.name}
-                                className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
+                                className={`block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800 cursor-pointer ${item.current && "bg-gray-100"}`}
                                 onClick={() => {
-                                  console.log(item.name);
+                                  changeNavigationCurrent(item.name);
                                 }}
                               >
                                 {item.name}
@@ -288,28 +276,15 @@ const OrganisateurHome: React.FC = () => {
                                 {user.email}
                               </div>
                             </div>
-                            <button
-                              type="button"
-                              className="ml-auto flex-shrink-0 bg-white p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
-                            >
-                              <span className="sr-only">
-                                View notifications
-                              </span>
-                              <BellIcon
-                                className="h-6 w-6"
-                                aria-hidden="true"
-                              />
-                            </button>
-                          </div>
+                            </div>
                           <div className="mt-3 px-2 space-y-1">
                             {userNavigation.map((item) => (
                               <a
                                 key={item.name}
                                 href={item.href}
-                                className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
+                                className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800 cursor-pointer"
                                 onClick={() => {
-                                  item.name === "Sign out" &&
-                                  logout();
+                                  item.name === "Sign out" && logout();
                                 }}
                               >
                                 {item.name}
@@ -368,14 +343,6 @@ const OrganisateurHome: React.FC = () => {
                               </p>
                             </div>
                           </div>
-                          <div className="mt-5 flex justify-center sm:mt-0">
-                            <a
-                              href="_#"
-                              className="flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
-                            >
-                              View profile
-                            </a>
-                          </div>
                         </div>
                       </div>
                       <div className="border-t border-gray-200 bg-gray-50 grid grid-cols-1 divide-y divide-gray-200 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
@@ -392,8 +359,13 @@ const OrganisateurHome: React.FC = () => {
                     </div>
                   </section>
 
-                  <SallesComponent />
-                  {/* <OrgProfile /> */}
+                  {
+                    navigation[0].current ? (
+                       <SallesComponent />
+                    ) : navigation[1].current ? (
+                      <OrgProfile />
+                    ) : ''
+                  }
                 </>
               </div>
 

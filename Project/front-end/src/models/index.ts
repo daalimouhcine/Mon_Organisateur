@@ -15,7 +15,7 @@ export interface RegisterInputs {
 export interface OrganiserRegisterInputs {
   nom: string;
   prenom: string;
-  image_profile: File;
+  image_profile: any;
   email: string;
   mot_de_passe: string;
   telephone: number;
@@ -72,7 +72,7 @@ export interface SalleInputs {
   nombre_places: number;
   type_id: number;
   description: string;
-  images?: File | any;
+  images?: any;
   prix: number;
 }
 

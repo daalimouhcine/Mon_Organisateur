@@ -5,6 +5,7 @@ import { Default_image } from "src/common/images";
 import { OrganisateurData, OrganiserRegisterInputs } from "src/models";
 import { MapPinIcon } from "../icons/map-pin-icon";
 import { FacebookIcon, TwitterIcon, InstagramIcon } from "../icons/social";
+import OrganisateurRegisterForm from "../register/r-organisateur/organisateur-register_form.component";
 
 const default_image = Default_image;
 
@@ -15,10 +16,18 @@ const OrgProfile = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<OrganiserRegisterInputs>();
+  } = useForm<OrganiserRegisterInputs>({defaultValues: user});
+
+  const onSubmit = (data: OrganiserRegisterInputs) => {
+    console.log(data);
+  };
 
   return (
-    <form className="space-y-8 divide-y divide-gray-200">
+    <form
+      action=""
+      className="space-y-8 divide-y divide-gray-200"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="space-y-8 divide-y divide-gray-200">
         <div>
           <div>
@@ -229,23 +238,14 @@ const OrgProfile = () => {
       </div>
 
       <div className="pt-5">
-        <div className="flex justify-end">
-          <button
-            type="button"
-            className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Save
-          </button>
-        </div>
+        <input
+          type="submit"
+          value="Save"
+          className="ml-3 cursor-pointer inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        />
       </div>
     </form>
   );
 };
-
+ 
 export default OrgProfile;

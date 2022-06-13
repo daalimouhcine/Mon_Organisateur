@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { SalleInputs, Type, OrganisateurData, SalleDetails } from "src/models";
+import { SalleInputs, Type, OrganisateurData } from "src/models";
 import useLocalStorage from "../../common/hooks/useLocaleStorage";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 import "./add_salle.component.css";
 
-const AddSalle = (salle: any) => {
+const EditSalle = (salle: any) => {
   const [types, setTypes] = useState<Array<Type>>();
   const response = async () => {
     await axios
@@ -21,19 +21,17 @@ const AddSalle = (salle: any) => {
     response();
   }, []);
 
+  const [salleUpdate] = useState<SalleInputs>({
+    ...salle.salle,
+  });
+
   const {
     register, // register the input
     handleSubmit, // <- needed to bind the form
     // watch, // to watch the value of a specific input
     // reset, // to reset the form
     formState: { errors }, // to get the form state
-  } = useForm<SalleInputs>({defaultValues: salle});
-
-  const [salleUpdate, setSalleUpdate] = useState<SalleInputs>(salle);
-
-  const viewSalle = () => {
-    console.log(salleUpdate);
-  };
+  } = useForm<SalleInputs>({ defaultValues: { ...salleUpdate } });
 
   const [user] = useLocalStorage<OrganisateurData>("user");
   const MySwal = withReactContent(Swal);
@@ -89,9 +87,6 @@ const AddSalle = (salle: any) => {
       className={`flex align-middle justify-center rounded-md ${
         openForm && "openForm"
       }`}
-      onClick={() => {
-        viewSalle();
-      }}
     >
       {/* <input id="button" type="checkbox" /> */}
       <button
@@ -228,4 +223,4 @@ const AddSalle = (salle: any) => {
   );
 };
 
-export default AddSalle;
+export default EditSalle;

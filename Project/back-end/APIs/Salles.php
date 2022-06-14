@@ -29,6 +29,12 @@
             echo json_encode($salles);
         }
 
+        public function getSallesByOrganisateur() {
+            $organisateur_id = json_decode(file_get_contents('php://input'));
+            $salles = $this->salleModel->getSallesByOrganisateur($organisateur_id);
+            echo json_encode($salles);
+        }
+
         public function deleteSalle() {
             $id = json_decode(file_get_contents('php://input'));
             $salle = $this->salleModel->deleteSalle($id);

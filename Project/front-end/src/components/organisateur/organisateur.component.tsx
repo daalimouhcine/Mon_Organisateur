@@ -1,6 +1,8 @@
 import { Fragment, useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 import { Menu, Popover, Transition } from "@headlessui/react";
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { SearchIcon } from "@heroicons/react/solid";
 import useLocalStorage from "src/common/hooks/useLocaleStorage";
 import { logout } from "../../services/logout";
@@ -9,19 +11,16 @@ import { Default_image } from "src/common/images";
 import SallesComponent from "./salles.component";
 import ClientReservations from "./client.reservations";
 import OrgProfile from "./org.profile.component";
+import { NavLinks } from 'src/models';
+
 
 let default_image: string = Default_image;
 
-interface links {
-  name: string;
-  component: string;
-  current: boolean;
-}
 
 const OrganisateurHome: React.FC = () => {
   const [user] = useLocalStorage<OrganisateurData>("user");
 
-  const [navigation, setNavigation] = useState<Array<links>>([
+  const [navigation, setNavigation] = useState<Array<NavLinks>>([
     { name: "Home", component: "SallesComponent", current: true },
     { name: "Profile", component: "OrgProfile", current: false },
   ]);

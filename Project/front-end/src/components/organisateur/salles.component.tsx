@@ -2,16 +2,18 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { UserGroupIcon, CakeIcon, CogIcon } from "@heroicons/react/outline";
 import AddSalle from "./add_salle.component";
-import { SalleDetails, SalleInputs } from "src/models";
+import { OrganisateurData, SalleDetails, SalleInputs } from "src/models";
 import { Default_image } from "src/common/images";
 import { DotsVerticalIcon, LocationMarkerIcon } from "@heroicons/react/solid";
 
 import "./salles.component.css";
 import EditSalle from "./edit_salle.component";
+import useLocalStorage from "src/common/hooks/useLocaleStorage";
 
 let default_image = Default_image;
 
 const SallesComponent = () => {
+  const [user] = useLocalStorage<OrganisateurData>('user');
   const [addSalle, setAddSalle] = useState(false);
   const addedSalle = () => {
     setAddSalle(!addSalle);
@@ -20,9 +22,10 @@ const SallesComponent = () => {
   const [salles, setSalles] = useState<Array<SalleDetails>>();
 
   const fetchSalles = async () => {
-    const response = await axios.get(
-      "http://localhost/mon_organisateur/salles/getSalles"
+    const response = await axios.post(
+      "http://localhost/mon_organisateur/salles/getSallesByOrganisateur" ,  user.id 
     );
+    console.log(response.data);
     setSalles(response.data);
   };
 

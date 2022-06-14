@@ -15,6 +15,7 @@ import "../../common/styles/index";
 import "./app.component.css";
 import useLocalStorage from "../../common/hooks/useLocaleStorage";
 import { OrganisateurData } from "../../models";
+import ClientHomePage from "src/pages/home/client/client.home.page";
 
 const homePage = (user?: OrganisateurData) => {
   switch (user?.role) {
@@ -22,7 +23,7 @@ const homePage = (user?: OrganisateurData) => {
       return <AdminHomePage />;
 
     case "client":
-      return <Home />;
+      return <ClientHomePage />;
 
     case "organisateur":
       return <OrganisateurHomePage />;

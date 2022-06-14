@@ -4,6 +4,12 @@ export interface FAQ {
   status: boolean;
 }
 
+export interface NavLinks {
+  name: string;
+  component: string;
+  current: boolean;
+}
+
 export interface RegisterInputs {
   nom: string;
   prenom: string;

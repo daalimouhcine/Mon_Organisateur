@@ -31,7 +31,6 @@ CREATE TABLE IF NOT EXISTS clients (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nom VARCHAR(255) NOT NULL,
     prenom VARCHAR(255) NOT NULL,
-    image_profile VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     mot_de_passe VARCHAR(255) NOT NULL,
     telephone VARCHAR(255) NOT NULL,

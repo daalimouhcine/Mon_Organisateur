@@ -1,0 +1,5 @@
+<?php
+
+define("CLOUDINARY_URL", "cloudinary://162644775298171:Qa9qSjTYU7ZM4kbTpFIoiy24CqA@dbzzjmggw");
+define("CLOUDINARY_API_KEY", "162644775298171");
+define("CLOUDINARY_API_SECRET", "Qa9qSjTYU7ZM4kbTpFIoiy24CqA");

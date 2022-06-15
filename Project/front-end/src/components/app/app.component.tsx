@@ -12,10 +12,11 @@ import OrganisateurRegisterPage from "../../pages/auth/register/r-organisateur/o
 import Footer from "../footer/footer.component";
 
 import "../../common/styles/index";
-import "./app.component.css";
 import useLocalStorage from "../../common/hooks/useLocaleStorage";
 import { OrganisateurData } from "../../models";
 import ClientHomePage from "src/pages/home/client/client.home.page";
+
+import "./app.component.css";
 
 const homePage = (user?: OrganisateurData) => {
   switch (user?.role) {

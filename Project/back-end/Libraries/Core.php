@@ -1,7 +1,11 @@
 <?php
 
+    require_once "../vendor/autoload.php";
+
     require_once 'Controller.php';
     require_once 'Database.php';
+    require_once '../Config/cloudinary.php';
+    require_once '../helpers/cloudinary.php';
 
     class Core {
         protected $currentApi ='Errors';

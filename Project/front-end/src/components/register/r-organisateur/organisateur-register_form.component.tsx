@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { OrganiserRegisterInputs, RegisterMessage } from "../../../models";
 import axios from "axios";
@@ -8,6 +8,7 @@ import { Default_image } from '../../../common/images';
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import storage from "../../../services/firebase";
+import { getSignature } from 'src/services/cloudinary';
 
 import { PhoneIcon } from "../../icons/contact/phone-icon";
 import { UserIcon } from "../../icons/user-icon";
@@ -18,6 +19,14 @@ import { FacebookIcon, TwitterIcon, InstagramIcon } from "../../icons/social";
 const MAX_STEPS = 3;
 
 const OrganisateurRegisterForm: React.FC = () => {
+  
+  const [cloudinaryResponse, setCloudinaryResponse] = useState<any>(null);
+  useEffect(() => {
+    setCloudinaryResponse(getSignature);
+    console.log(cloudinaryResponse);
+  }, []);
+  
+
   const {
     register,
     handleSubmit,

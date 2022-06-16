@@ -1,0 +1,153 @@
+.modal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.309);
+  height: 1px;
+  overflow-x: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: width 0.5s ease 0.5s, height 0.5s ease;
+  transition: width 0.5s ease 0.5s, height 0.5s ease;
+  width: 0;
+  z-index: 3;
+}
+
+.modal::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.modal {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.content {
+  color: transparent;
+  font-family: "Consolas", arial, sans-serif;
+  font-size: 2em;
+  position: absolute;
+  top: 50%;
+  text-align: center;
+  -webkit-transform: translate3d(0, -50%, 0);
+  transform: translate3d(0, -50%, 0);
+  -webkit-transition: color 0.5s ease;
+  transition: color 0.5s ease;
+  width: 100%;
+}
+
+.openForm {
+  height: 0;
+  opacity: 0;
+  width: 0;
+}
+
+.openForm:focus {
+  outline: none;
+}
+
+.openForm {
+  height: 40px;
+  opacity: 1;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  z-index: 4;
+  -webkit-appearance: none;
+  width: 40px;
+}
+
+.openForm::after,
+.openForm::before {
+  border-top: 3px solid #fff;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  z-index: 100;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  width: 100%;
+  pointer-events: none;
+  
+}
+
+.openForm::after {
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  
+}
+#label_button {
+  display: none;
+}
+.openForm #label_button {
+  display: block;
+
+}
+.openForm button {
+  background-color: red;
+  z-index: 50;
+  -webkit-appearance: none;
+  opacity: 0;
+  height: 0;
+  opacity: 0;
+  width: 0;
+}
+
+@-webkit-keyframes outofform {
+  0% {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  50% {
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+  }
+  100% {
+    -webkit-transform: rotate(225deg);
+    transform: rotate(225deg);
+  }
+}
+
+@keyframes outofform {
+  0% {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  50% {
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+  }
+  100% {
+    -webkit-transform: rotate(225deg);
+    transform: rotate(225deg);
+  }
+}
+
+.openForm button#label_button {
+  -webkit-transition: color 0.5s ease;
+  transition: color 0.5s ease;
+}
+
+.openForm .modal {
+  height: 100%;
+  width: 100%;
+  -webkit-transition: width 0.5s ease, height 0.5s ease 0.5s;
+  transition: width 0.5s ease, height 0.5s ease 0.5s;
+}
+
+.openForm .modal .content {
+  color: #fff;
+  -webkit-transition: color 0.5s ease 0.5s;
+  transition: color 0.5s ease 0.5s;
+}
+

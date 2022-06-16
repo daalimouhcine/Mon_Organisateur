@@ -27,23 +27,33 @@ const ClientHome = () => {
     sallesRequest();
   }, []);
 
-  const [showCalender, setShowCalender] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
   const toggleCalender = () => {
-    setShowCalender(!showCalender);
+    console.log('hello');
+    setShowCalendar(!showCalendar);
   };
-  const [calender, setCalender] = useState<Array<any>>();
+  const [calendar, setCalendar] = useState<Array<any>>();
 
   //   const reservations = async () => {
   //     const response = await axios.get("http://localhost/mon_organisateur/reservations/getReservations");
   //   }
 
+
+
+
   return (
     <div>
+      {/* {showCalender && (
+        <div className="absolute top-2/2 right-1/2 bg-white z-20 p-10">
+          <SalleCalendar  />
+        </div>
+      )} */}
+      <SalleCalendar showCalendar={showCalendar} closeCalendar={toggleCalender} />
       <NavBar />
       <div className="w-10/12 mx-auto">
         {salles &&
           salles.map((salle) => (
-            <div className="bg-white rounded-lg shadow-sm hover:shadow-lg duration-500 px-2 sm:px-6 md:px-2 py-4 my-6">
+            <div key={salle.id} className="bg-white rounded-lg shadow-sm hover:shadow-lg duration-500 px-2 sm:px-6 md:px-2 py-4 my-6">
               <div className="grid grid-cols-12 gap-3">
                 <div className="relative sm:col-span-5 text-center hidden sm:flex ">
                   <div className="flex justify-center relative rounded-lg overflow-hidden h-52 my-auto">
@@ -76,7 +86,7 @@ const ClientHome = () => {
                       </div>
                     </div>
 
-                    <span className="absolute top-0 left-0 inline-flex mt-3 ml-3 px-3 py-2 rounded-lg z-10 bg-red-500 text-sm font-medium text-white select-none">
+                    <span className="absolute top-0 left-0 inline-flex mt-3 ml-3 px-3 py-2 rounded-lg z-1 bg-red-500 text-sm font-medium text-white select-none">
                       {salle.type}
                     </span>
                   </div>
@@ -114,7 +124,7 @@ const ClientHome = () => {
                         </div>
                       </div>
 
-                      <span className="absolute top-0 left-0 inline-flex mt-3 ml-3 px-3 py-2 rounded-lg z-10 bg-red-500 text-sm font-medium text-white select-none">
+                      <span className="absolute top-0 left-0 inline-flex mt-3 ml-3 px-3 py-2 rounded-lg z-1 bg-red-500 text-sm font-medium text-white select-none">
                         {salle.type}
                       </span>
                     </div>
@@ -185,11 +195,6 @@ const ClientHome = () => {
             </div>
           ))}
       </div>
-      {showCalender && (
-        <div className="absolute top-1/2 ">
-          <SalleCalendar />
-        </div>
-      )}
     </div>
   );
 };

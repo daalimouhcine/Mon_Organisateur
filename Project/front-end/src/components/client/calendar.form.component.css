@@ -45,17 +45,17 @@
   width: 100%;
 }
 
-.openForm {
+.openCalendar .exit {
   height: 0;
   opacity: 0;
   width: 0;
 }
 
-.openForm:focus {
+.openCalendar .exit:focus {
   outline: none;
 }
 
-.openForm {
+.openCalendar .exit {
   height: 40px;
   opacity: 1;
   position: fixed;
@@ -66,8 +66,8 @@
   width: 40px;
 }
 
-.openForm::after,
-.openForm::before {
+.openCalendar .exit::after,
+.openCalendar .exit::before {
   border-top: 3px solid #fff;
   content: "";
   display: block;
@@ -81,7 +81,7 @@
   
 }
 
-.openForm::after {
+.openCalendar .exit::after {
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
   
@@ -89,11 +89,11 @@
 #label_button {
   display: none;
 }
-.openForm #label_button {
+.openCalendar #label_button {
   display: block;
 
 }
-.openForm button {
+.openCalendar #label_button {
   background-color: red;
   z-index: 50;
   -webkit-appearance: none;
@@ -133,19 +133,19 @@
   }
 }
 
-.openForm button#label_button {
+.openCalendar button#label_button {
   -webkit-transition: color 0.5s ease;
   transition: color 0.5s ease;
 }
 
-.openForm .modal {
+.openCalendar .modal {
   height: 100%;
   width: 100%;
   -webkit-transition: width 0.5s ease, height 0.5s ease 0.5s;
   transition: width 0.5s ease, height 0.5s ease 0.5s;
 }
 
-.openForm .modal .content {
+.openCalendar .modal .content {
   color: #fff;
   -webkit-transition: color 0.5s ease 0.5s;
   transition: color 0.5s ease 0.5s;

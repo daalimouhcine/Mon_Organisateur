@@ -64,18 +64,110 @@ const SalleCalendar = ({ showCalendar, closeCalendar }: any) => {
   );
 
   return (
-    <div className={` ${showCalendar && "openForm"}`}>
-      <button
+    <div className={` ${showCalendar && "openCalendar"}`}>
+      <div
+        className="exit cursor-pointer "
         onClick={() => {
           closeCalendar();
-          console.log(showCalendar);
         }}
-        type="button"
-        id="label_button"
-        className="z-20 w-10 h-20 cursor-pointer rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 sm:w-auto"
-      ></button>
-        <div className="modal">
-          <div className="content w-48 h-48 bg-red-500"></div>
+      ></div>
+      <div className="modal">
+        <div className="content">
+          <div className=" bg-white m-auto w-fit flex justify-center p-5">
+            <div className=" px-4 sm:px-7 md:px-6">
+              <div className="md:grid w-fit md:divide-gray-200">
+                <div className="">
+                  <div className="flex items-center">
+                    <h2 className="flex-auto font-semibold text-gray-900">
+                      {format(firstDayCurrentMonth, "MMMM yyyy")}
+                    </h2>
+                    <button
+                      type="button"
+                      onClick={previousMonth}
+                      className="-my-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
+                    >
+                      <span className="sr-only">Previous month</span>
+                      <ChevronLeftIcon className="w-5 h-5" aria-hidden="true" />
+                    </button>
+                    <button
+                      onClick={nextMonth}
+                      type="button"
+                      className="-my-1.5 -mr-1.5 ml-2 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
+                    >
+                      <span className="sr-only">Next month</span>
+                      <ChevronRightIcon
+                        className="w-5 h-5"
+                        aria-hidden="true"
+                      />
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-7 mt-10 text-xs leading-6 text-center text-gray-500">
+                    <div>S</div>
+                    <div>M</div>
+                    <div>T</div>
+                    <div>W</div>
+                    <div>T</div>
+                    <div>F</div>
+                    <div>S</div>
+                  </div>
+                  <div className="grid grid-cols-7 mt-2 text-sm">
+                    {days.map((day, dayIdx) => (
+                      <div
+                        key={day.toString()}
+                        className={classNames(
+                          dayIdx === 0 && colStartClasses[getDay(day)],
+                          "py-1.5"
+                        )}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => setSelectedDay(day)}
+                          className={classNames(
+                            isEqual(reservation, selectedDay) && "bg-green-300",
+                            isEqual(day, selectedDay) && "text-white",
+                            !isEqual(day, selectedDay) &&
+                              isToday(day) &&
+                              "text-red-500",
+                            !isEqual(day, selectedDay) &&
+                              !isToday(day) &&
+                              isSameMonth(day, firstDayCurrentMonth) &&
+                              "text-gray-900",
+                            !isEqual(day, selectedDay) &&
+                              !isToday(day) &&
+                              !isSameMonth(day, firstDayCurrentMonth) &&
+                              "text-gray-400",
+                            isEqual(day, selectedDay) &&
+                              isToday(day) &&
+                              "bg-red-500",
+                            isEqual(day, selectedDay) &&
+                              !isToday(day) &&
+                              "bg-gray-900",
+                            !isEqual(day, selectedDay) && "hover:bg-gray-200",
+                            (isEqual(day, selectedDay) || isToday(day)) &&
+                              "font-semibold",
+                            "mx-auto flex h-8 w-8 items-center justify-center rounded-full"
+                          )}
+                        >
+                          <time dateTime={format(day, "yyyy-MM-dd")}>
+                            {format(day, "d")}
+                          </time>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  <button
+                    className="bg-red-300"
+                    onClick={() => {
+                      console.log(selectedDay);
+                    }}
+                  >
+                    hello
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -90,5 +182,12 @@ let colStartClasses = [
   "col-start-6",
   "col-start-7",
 ];
+
+let reservation = new Date("Thu Jun 16 2022");
+// const reservations = [
+//   "Thu Jun 16 2022",
+//   "Fri Jun 24 2022",
+//   "Sat Jun 25 2022",
+// ];
 
 export default SalleCalendar;

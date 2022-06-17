@@ -1,5 +1,5 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from "react";
+import axios from "axios";
+import { Fragment, useEffect, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
 import { DotsVerticalIcon } from "@heroicons/react/outline";
@@ -19,6 +19,8 @@ import {
 } from "date-fns";
 
 import "./calendar.form.component.css";
+import useLocalStorage from "src/common/hooks/useLocaleStorage";
+import { ClientData, reservationData } from "src/models";
 
 const meetings = [
   {
@@ -38,7 +40,24 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const SalleCalendar = ({ showCalendar, closeCalendar }: any) => {
+const SalleCalendar = ({ showCalendar, closeCalendar, salleId }: any) => {
+
+  const [user] = useLocalStorage<ClientData>('user');
+  const [reservationDates, setReservationDates] = useState<Array<string>>();
+
+  const salleReservation = async () => {
+    const response = await axios.post(
+      "http://localhost/mon_organisateur/reservations/getReservationDates",
+      salleId
+    );
+    setReservationDates(response.data);
+  };
+
+  useEffect(() => {
+    salleReservation();
+    console.log(reservationDates);
+  }, []);
+
   let today = startOfToday();
   let [selectedDay, setSelectedDay] = useState(today);
   let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy"));
@@ -59,9 +78,21 @@ const SalleCalendar = ({ showCalendar, closeCalendar }: any) => {
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
   }
 
-  let selectedDayMeetings = meetings.filter((meeting) =>
-    isSameDay(parseISO(meeting.startDatetime), selectedDay)
-  );
+  const reserveSalleRequest = async (reservationData: reservationData) => {
+    const response = await axios.post("http://localhost/mon_organisateur/reservations/reserveSalle", reservationData);
+    return response;
+  }
+
+  const reserveSalle = () => {
+    let reservation: reservationData = {
+      clientId: user.id ,
+      salleId: salleId,
+      date: format(selectedDay, "yyy/MM/dd")
+    }
+    reserveSalleRequest(reservation).then(res => {
+      console.log(res.data);
+    })
+  };
 
   return (
     <div className={` ${showCalendar && "openCalendar"}`}>
@@ -73,7 +104,12 @@ const SalleCalendar = ({ showCalendar, closeCalendar }: any) => {
       ></div>
       <div className="modal">
         <div className="content">
-          <div className=" bg-white m-auto w-fit flex justify-center p-5">
+          <div
+            className=" bg-white m-auto w-fit flex justify-center p-5"
+            // onClick={() => {
+            //   console.log(reservationDates);
+            // }}
+          >
             <div className=" px-4 sm:px-7 md:px-6">
               <div className="md:grid w-fit md:divide-gray-200">
                 <div className="">
@@ -122,8 +158,9 @@ const SalleCalendar = ({ showCalendar, closeCalendar }: any) => {
                         <button
                           type="button"
                           onClick={() => setSelectedDay(day)}
+                          disabled={isEqual(reservation, day) ? true : false}
                           className={classNames(
-                            isEqual(reservation, selectedDay) && "bg-green-300",
+                            isEqual(reservation, day) && "disable_date",
                             isEqual(day, selectedDay) && "text-white",
                             !isEqual(day, selectedDay) &&
                               isToday(day) &&
@@ -158,10 +195,10 @@ const SalleCalendar = ({ showCalendar, closeCalendar }: any) => {
                   <button
                     className="bg-red-300"
                     onClick={() => {
-                      console.log(selectedDay);
+                      reserveSalle();
                     }}
                   >
-                    hello
+                    Reserve
                   </button>
                 </div>
               </div>
@@ -183,7 +220,7 @@ let colStartClasses = [
   "col-start-7",
 ];
 
-let reservation = new Date("Thu Jun 16 2022");
+let reservation = new Date("June/2022/23");
 // const reservations = [
 //   "Thu Jun 16 2022",
 //   "Fri Jun 24 2022",

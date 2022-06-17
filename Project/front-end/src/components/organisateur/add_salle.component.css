@@ -87,7 +87,7 @@
   
 }
 
-.openForm button {
+.openForm #label_button {
   z-index: 50;
   -webkit-appearance: none;
   opacity: 0;
@@ -203,7 +203,7 @@
   letter-spacing: 4px;
 }
 
-.modal button:hover {
+.modal #label_button:hover {
   background: #6366f1;
   color: #fff;
   border-radius: 5px;
@@ -213,12 +213,12 @@
     0 0 100px #6366f1;
 }
 
-.modal button span {
+.modal #label_button span {
   position: absolute;
   display: block;
 }
 
-.modal button span:nth-child(1) {
+.modal #label_button span:nth-child(1) {
   top: 0;
   left: -100%;
   width: 100%;

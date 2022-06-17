@@ -66,8 +66,7 @@ CREATE TABLE IF NOT EXISTS reservations (
     id INT PRIMARY KEY AUTO_INCREMENT,
     client_id INT NOT NULL,
     salle_id INT NOT NULL,
-    date_reservation VARCHAR(255) NOT NULL,
-    date_debut DATE NOT NULL,
+    date VARCHAR(255) NOT NULL,
     FOREIGN KEY (client_id) REFERENCES clients(id) 
         ON UPDATE CASCADE 
         ON DELETE CASCADE,

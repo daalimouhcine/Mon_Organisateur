@@ -78,20 +78,17 @@
   transform: rotate(45deg);
   width: 100%;
   pointer-events: none;
-  
 }
 
 .openCalendar .exit::after {
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  
 }
 #label_button {
   display: none;
 }
 .openCalendar #label_button {
   display: block;
-
 }
 .openCalendar #label_button {
   background-color: red;
@@ -150,4 +147,33 @@
   -webkit-transition: color 0.5s ease 0.5s;
   transition: color 0.5s ease 0.5s;
 }
+
+.disable_date {
+  position: relative;
+  z-index: 4;
+  -webkit-appearance: none;
+  background-color: rgb(229, 231, 235);
+
+}
+
+.disable_date::after,
+.disable_date::before {
+  border-top: 3px solid #fff;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  z-index: 100;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  width: 100%;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.disable_date::after {
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
 

@@ -31,7 +31,7 @@ const ClientHome = () => {
   const toggleCalender = () => {
     setShowCalendar(!showCalendar);
   };
-  const [calendar, setCalendar] = useState<Array<any>>();
+  const [salleId, setSalleId] = useState<number>();
 
   //   const reservations = async () => {
   //     const response = await axios.get("http://localhost/mon_organisateur/reservations/getReservations");
@@ -47,7 +47,7 @@ const ClientHome = () => {
           <SalleCalendar  />
         </div>
       )} */}
-      <SalleCalendar showCalendar={showCalendar} closeCalendar={toggleCalender} />
+      <SalleCalendar showCalendar={showCalendar} closeCalendar={toggleCalender} salleId={salleId} />
       <NavBar />
       <div className="w-10/12 mx-auto">
         {salles &&
@@ -183,6 +183,7 @@ const ClientHome = () => {
                     <button
                       className="ml-auto w-fit bg-gray-300 px-3 py-1 rounded-sm"
                       onClick={() => {
+                        setSalleId(salle.id);
                         toggleCalender();
                       }}
                     >

@@ -4,11 +4,11 @@ import { OrganiserRegisterInputs, RegisterMessage } from "../../../models";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { Default_image } from '../../../common/images';
+import { Default_image } from "../../../common/images";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import storage from "../../../services/firebase";
-import { getSignature } from 'src/services/cloudinary';
+import { getSignature } from "src/services/cloudinary";
 
 import { PhoneIcon } from "../../icons/contact/phone-icon";
 import { UserIcon } from "../../icons/user-icon";
@@ -19,13 +19,13 @@ import { FacebookIcon, TwitterIcon, InstagramIcon } from "../../icons/social";
 const MAX_STEPS = 3;
 
 const OrganisateurRegisterForm: React.FC = () => {
-  
-  const [cloudinaryResponse, setCloudinaryResponse] = useState<any>(null);
+  const [cloudinaryResponse, setCloudinaryResponse] = useState<any>();
+
   useEffect(() => {
-    setCloudinaryResponse(getSignature);
-    console.log(cloudinaryResponse);
+    getSignature().then((res) => {
+      setCloudinaryResponse(res.data);
+    });
   }, []);
-  
 
   const {
     register,
@@ -88,9 +88,15 @@ const OrganisateurRegisterForm: React.FC = () => {
       .then((res) => {
         if (!res.data.error) {
           // store image in firebase storage
-          const storagRef = ref(storage, `Orga/${dataOrganisateur.image_profile}`);
-          const uploadTask = uploadBytesResumable(storagRef, dataInput.image_profile[0]);
-      
+          const storagRef = ref(
+            storage,
+            `Orga/${dataOrganisateur.image_profile}`
+          );
+          const uploadTask = uploadBytesResumable(
+            storagRef,
+            dataInput.image_profile[0]
+          );
+
           uploadTask.on(
             "state_changed",
             // (snapshot) => {
@@ -115,21 +121,23 @@ const OrganisateurRegisterForm: React.FC = () => {
               getDownloadURL(uploadTask.snapshot.ref).then((url) => {
                 console.log(url);
               });
-              }
-          );   
+            }
+          );
 
           setRegisterMessage({
             message: "Votre compte a été créé avec succès",
             type: "success",
           });
 
-          MySwal.fire("Demande est faite avec succes", "Votre demande est encoure de traitment", "success").then(
-            () => {
-              return setTimeout(() => {
-                navigate("/");
-              }, 500);
-            }
-          );
+          MySwal.fire(
+            "Demande est faite avec succes",
+            "Votre demande est encoure de traitment",
+            "success"
+          ).then(() => {
+            return setTimeout(() => {
+              navigate("/");
+            }, 500);
+          });
         } else {
           setRegisterMessage({ message: res.data.error, type: "error" });
         }
@@ -143,7 +151,7 @@ const OrganisateurRegisterForm: React.FC = () => {
     RegisterRequest(values);
   };
 
-  let [image, setImage] = React.useState<File | any>( Default_image );
+  let [image, setImage] = React.useState<File | any>(Default_image);
 
   return (
     <div className=" bg-green-800 w-full h-fit">
@@ -155,7 +163,12 @@ const OrganisateurRegisterForm: React.FC = () => {
           Become a new member in 3 easy steps
         </p>
       </div>
-      <div className="max-w-3xl w-full mb-24 rounded-lg shadow-2xl bg-white mx-auto overflow-hidden z-10">
+      <div
+        className="max-w-3xl w-full mb-24 rounded-lg shadow-2xl bg-white mx-auto overflow-hidden z-10"
+        onClick={() => {
+          console.log(cloudinaryResponse);
+        }}
+      >
         {formStep < 3 && (
           <div className="h-2 w-full bg-gray-200">
             <div

@@ -29,7 +29,6 @@ const ClientHome = () => {
 
   const [showCalendar, setShowCalendar] = useState(false);
   const toggleCalender = () => {
-    console.log('hello');
     setShowCalendar(!showCalendar);
   };
   const [calendar, setCalendar] = useState<Array<any>>();

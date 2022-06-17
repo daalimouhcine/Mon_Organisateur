@@ -65,6 +65,21 @@ export interface OrganisateurData {
   instagram?: string;
 }
 
+export interface ClientData {
+  id: number;
+  nom: string;
+  prenom: string;
+  email: string;
+  telephone: number;
+  role: string;
+}
+
+export interface reservationData {
+  clientId: number;
+  salleId: number;
+  date: string;
+}
+
 export interface Type {
   id: number;
   nom: string;

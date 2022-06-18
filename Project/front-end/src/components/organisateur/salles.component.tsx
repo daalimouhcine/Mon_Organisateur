@@ -25,7 +25,6 @@ const SallesComponent = () => {
     const response = await axios.post(
       "http://localhost/mon_organisateur/salles/getSallesByOrganisateur" ,  user.id 
     );
-    console.log(response.data);
     setSalles(response.data);
   };
 
@@ -41,14 +40,13 @@ const SallesComponent = () => {
 
   const editSalle = (salle: any) => {
     let data: SalleInputs = {
-      organisateur_id: salle.organisateur_id,
+      salleId: salle.id,
       titre: salle.titre,
       ville: salle.ville,
       address: salle.address,
       nombre_places: salle.nombre_places,
       type_id: salle.type_id,
       description: salle.description,
-      images: salle.images,
       prix: salle.prix,
     };
     return data;
@@ -132,7 +130,7 @@ const SallesComponent = () => {
                         >
                           <DotsVerticalIcon className=" rounded-md hover:opacity-80 hover:shadow-xl text-white shadow-slate-900 transition-all" />
                           <div className="options flex absolute flex-col">
-                            <EditSalle salle={editSalle(salle)} />
+                            <EditSalle salle={editSalle(salle)} showUpdate={addedSalle} />
                             <button
                               className="m-1 p-2 text-sm bg-red-400 rounded-md hover:bg-red-500"
                               onClick={() => {
@@ -161,7 +159,7 @@ const SallesComponent = () => {
                         </p>
                       </div>
 
-                      <div className="grid grid-cols-2 grid-rows-2 my-4">
+                      <div className="grid grid-cols-2 my-4">
                         <p className="text-xs font-medium text-gray-600">
                           {" "}
                           {salle.description}{" "}

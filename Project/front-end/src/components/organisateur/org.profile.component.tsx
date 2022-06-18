@@ -1,16 +1,19 @@
 import { HomeIcon, PhoneIcon, UserIcon } from "@heroicons/react/solid";
+import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useLocalStorage from "src/common/hooks/useLocaleStorage";
 import { Default_image } from "src/common/images";
 import { OrganisateurData, OrganiserRegisterInputs } from "src/models";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import { MapPinIcon } from "../icons/map-pin-icon";
 import { FacebookIcon, TwitterIcon, InstagramIcon } from "../icons/social";
-import OrganisateurRegisterForm from "../register/r-organisateur/organisateur-register_form.component";
 
 const default_image = Default_image;
 
 const OrgProfile = () => {
-  const [user] = useLocalStorage<OrganisateurData>("user");
+  const [user, setUser] = useLocalStorage<OrganisateurData>("user");
 
   const {
     register,
@@ -18,9 +21,33 @@ const OrgProfile = () => {
     formState: { errors, isValid },
   } = useForm<OrganiserRegisterInputs>({defaultValues: user});
 
+  const MySwal = withReactContent(Swal);
+
   const onSubmit = (data: OrganiserRegisterInputs) => {
     console.log(data);
+    axios
+    .post("http://localhost/mon_organisateur/organisateurs/updateOrganisateur", data)
+    .then((res) => {
+      if (res.data.error) {
+        MySwal.fire(
+          res.data.error,
+          "😢",
+          "error"
+        )
+      } else if(res.data.success) {
+        MySwal.fire(
+          res.data.success,
+          "😍",
+          "success"
+        ).then(() => {
+          setUser(res.data.user);
+        });
+      }
+    });
   };
+
+  // const [image, setImage] = useState<File | any>();
+
 
   return (
     <form

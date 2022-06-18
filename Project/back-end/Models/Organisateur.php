@@ -82,10 +82,9 @@
         }
 
         public function getAllOrganisateurs() {
-            $this->db->query('SELECT * FROM organisateurs');
+            $this->db->query('SELECT * FROM organisateurs ORDER BY id DESC');
             if($this->db->execute()) {
                 return $this->db->resultSet();
-
             } else {
                 return false;
             }

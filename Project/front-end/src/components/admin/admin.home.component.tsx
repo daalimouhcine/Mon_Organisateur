@@ -2,13 +2,13 @@ import { Fragment, useState } from "react";
 import OrganisateurPart from "./organisateur.part";
 import { Dialog, Transition } from "@headlessui/react";
 import {
-  CalendarIcon,
-  ChartBarIcon,
-  FolderIcon,
+  // CalendarIcon,
+  // ChartBarIcon,
+  // FolderIcon,
+  // InboxIcon,
+  // UsersIcon,
   HomeIcon,
-  InboxIcon,
   MenuIcon,
-  UsersIcon,
   XIcon,
   LogoutIcon,
 } from "@heroicons/react/outline";
@@ -18,11 +18,11 @@ import { useNavigate } from "react-router-dom";
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Team", href: "#", icon: UsersIcon, current: false },
-  { name: "Projects", href: "#", icon: FolderIcon, current: false },
-  { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
-  { name: "Documents", href: "#", icon: InboxIcon, current: false },
-  { name: "Reports", href: "#", icon: ChartBarIcon, current: false },
+  // { name: "Team", href: "#", icon: UsersIcon, current: false },
+  // { name: "Projects", href: "#", icon: FolderIcon, current: false },
+  // { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
+  // { name: "Documents", href: "#", icon: InboxIcon, current: false },
+  // { name: "Reports", href: "#", icon: ChartBarIcon, current: false },
 ];
 
 function classNames(...classes: string[]) {

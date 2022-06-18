@@ -1,8 +1,6 @@
 import axios from "axios";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
-import { Menu, Transition } from "@headlessui/react";
-import { DotsVerticalIcon } from "@heroicons/react/outline";
 import {
   add,
   eachDayOfInterval,
@@ -10,53 +8,42 @@ import {
   format,
   getDay,
   isEqual,
-  isSameDay,
   isSameMonth,
   isToday,
   parse,
-  parseISO,
   startOfToday,
 } from "date-fns";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 import "./calendar.form.component.css";
 import useLocalStorage from "src/common/hooks/useLocaleStorage";
 import { ClientData, reservationData } from "src/models";
-
-const meetings = [
-  {
-    id: 1,
-    name: "Leslie Alexander",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    start: "1:00 PM",
-    startDatetime: "2022-01-21T13:00",
-    end: "2:30 PM",
-    endDatetime: "2022-01-21T14:30",
-  },
-  // More meetings...
-];
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 const SalleCalendar = ({ showCalendar, closeCalendar, salleId }: any) => {
+  const [user] = useLocalStorage<ClientData>("user");
+  const [reservationDates, setReservationDates] = useState<Array<Date>>([]);
 
-  const [user] = useLocalStorage<ClientData>('user');
-  const [reservationDates, setReservationDates] = useState<Array<string>>();
-
-  const salleReservation = async () => {
-    const response = await axios.post(
-      "http://localhost/mon_organisateur/reservations/getReservationDates",
-      salleId
-    );
-    setReservationDates(response.data);
+  const salleReservations = async () => {
+    await axios
+      .post(
+        "http://localhost/mon_organisateur/reservations/getReservationDates",
+        salleId
+      )
+      .then((res) => {
+        setReservationDates([
+          ...res.data.map((dates: any) => new Date(dates.date)),
+        ]);
+      });
   };
 
   useEffect(() => {
-    salleReservation();
-    console.log(reservationDates);
-  }, []);
+    salleReservations();
+  }, [salleId]);
 
   let today = startOfToday();
   let [selectedDay, setSelectedDay] = useState(today);
@@ -79,19 +66,29 @@ const SalleCalendar = ({ showCalendar, closeCalendar, salleId }: any) => {
   }
 
   const reserveSalleRequest = async (reservationData: reservationData) => {
-    const response = await axios.post("http://localhost/mon_organisateur/reservations/reserveSalle", reservationData);
+    const response = await axios.post(
+      "http://localhost/mon_organisateur/reservations/reserveSalle",
+      reservationData
+    );
     return response;
-  }
+  };
+
+  const MySwal = withReactContent(Swal);
 
   const reserveSalle = () => {
     let reservation: reservationData = {
-      clientId: user.id ,
+      clientId: user.id,
       salleId: salleId,
-      date: format(selectedDay, "yyy/MM/dd")
-    }
-    reserveSalleRequest(reservation).then(res => {
-      console.log(res.data);
-    })
+      date: format(selectedDay, "yyy/MM/dd"),
+    };
+    reserveSalleRequest(reservation).then((res) => {
+      closeCalendar();
+      MySwal.fire(
+        "La Salle a été réservée avec succès",
+        "le billet est va telecharger dans votre navigateur",
+        "success"
+      );
+    });
   };
 
   return (
@@ -102,13 +99,10 @@ const SalleCalendar = ({ showCalendar, closeCalendar, salleId }: any) => {
           closeCalendar();
         }}
       ></div>
-      <div className="modal">
-        <div className="content">
+      <div className="modal_calendar">
+        <div className="content_calendar">
           <div
             className=" bg-white m-auto w-fit flex justify-center p-5"
-            // onClick={() => {
-            //   console.log(reservationDates);
-            // }}
           >
             <div className=" px-4 sm:px-7 md:px-6">
               <div className="md:grid w-fit md:divide-gray-200">
@@ -120,6 +114,7 @@ const SalleCalendar = ({ showCalendar, closeCalendar, salleId }: any) => {
                     <button
                       type="button"
                       onClick={previousMonth}
+                      id="label_button_calendar"
                       className="-my-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
                     >
                       <span className="sr-only">Previous month</span>
@@ -157,29 +152,31 @@ const SalleCalendar = ({ showCalendar, closeCalendar, salleId }: any) => {
                       >
                         <button
                           type="button"
+                          disabled={
+                            reservationDates!.some((date: Date) => isEqual(date, day)) ? true : false
+                          }
                           onClick={() => setSelectedDay(day)}
-                          disabled={isEqual(reservation, day) ? true : false}
                           className={classNames(
-                            isEqual(reservation, day) && "disable_date",
-                            isEqual(day, selectedDay) && "text-white",
+                            reservationDates.map((date: Date) => (isEqual(date, day) && " disable_date ")),
+                            isEqual(day, selectedDay) && " text-white ",
                             !isEqual(day, selectedDay) &&
                               isToday(day) &&
-                              "text-red-500",
+                              " text-red-500 ",
                             !isEqual(day, selectedDay) &&
                               !isToday(day) &&
                               isSameMonth(day, firstDayCurrentMonth) &&
-                              "text-gray-900",
+                              " text-gray-900 ",
                             !isEqual(day, selectedDay) &&
                               !isToday(day) &&
                               !isSameMonth(day, firstDayCurrentMonth) &&
-                              "text-gray-400",
+                              " text-gray-400 ",
                             isEqual(day, selectedDay) &&
                               isToday(day) &&
-                              "bg-red-500",
+                              " bg-red-500 ",
                             isEqual(day, selectedDay) &&
                               !isToday(day) &&
                               "bg-gray-900",
-                            !isEqual(day, selectedDay) && "hover:bg-gray-200",
+                            !isEqual(day, selectedDay) && " hover:bg-gray-200 ",
                             (isEqual(day, selectedDay) || isToday(day)) &&
                               "font-semibold",
                             "mx-auto flex h-8 w-8 items-center justify-center rounded-full"
@@ -219,12 +216,5 @@ let colStartClasses = [
   "col-start-6",
   "col-start-7",
 ];
-
-let reservation = new Date("June/2022/23");
-// const reservations = [
-//   "Thu Jun 16 2022",
-//   "Fri Jun 24 2022",
-//   "Sat Jun 25 2022",
-// ];
 
 export default SalleCalendar;

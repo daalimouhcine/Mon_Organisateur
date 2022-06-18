@@ -27,11 +27,13 @@ const ClientHome = () => {
     sallesRequest();
   }, []);
 
+  const [salleId, setSalleId] = useState<number | null>();
+
   const [showCalendar, setShowCalendar] = useState(false);
   const toggleCalender = () => {
     setShowCalendar(!showCalendar);
+    salleId && setSalleId(null);
   };
-  const [salleId, setSalleId] = useState<number>();
 
   //   const reservations = async () => {
   //     const response = await axios.get("http://localhost/mon_organisateur/reservations/getReservations");

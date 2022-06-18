@@ -1,0 +1,30 @@
+
+.openProfile .exit {
+  height: 30px;
+  opacity: 1;
+  position: fixed;
+  right: 5px;
+  top: 5px;
+  z-index: 4;
+  -webkit-appearance: none;
+  width: 30px;
+}
+
+.openProfile .exit::after,
+.openProfile .exit::before {
+  border-top: 3px solid gray;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  z-index: 100;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  width: 100%;
+  pointer-events: none;
+}
+
+.openProfile .exit::after {
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}

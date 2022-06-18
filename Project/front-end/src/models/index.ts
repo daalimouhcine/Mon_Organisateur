@@ -77,7 +77,7 @@ export interface ClientData {
 export interface reservationData {
   clientId: number;
   salleId: number;
-  date: string;
+  date: any;
 }
 
 export interface Type {
@@ -86,7 +86,8 @@ export interface Type {
 }
 
 export interface SalleInputs {
-  organisateur_id: number;
+  salleId?: number;
+  organisateur_id?: number;
   titre: string;
   ville: string;
   address: string;

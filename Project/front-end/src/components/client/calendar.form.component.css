@@ -1,4 +1,4 @@
-.modal {
+.modal_calender {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -7,7 +7,7 @@
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content: center;
+  justify-content_calendar: center;
   background: rgba(0, 0, 0, 0.309);
   height: 1px;
   overflow-x: hidden;
@@ -22,16 +22,16 @@
   z-index: 3;
 }
 
-.modal::-webkit-scrollbar {
+.modal_calender::-webkit-scrollbar {
   display: none;
 }
 /* Hide scrollbar for IE, Edge and Firefox */
-.modal {
+.modal_calender {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
 
-.content {
+.content_calendar {
   color: transparent;
   font-family: "Consolas", arial, sans-serif;
   font-size: 2em;
@@ -69,7 +69,7 @@
 .openCalendar .exit::after,
 .openCalendar .exit::before {
   border-top: 3px solid #fff;
-  content: "";
+  content_calendar: "";
   display: block;
   position: absolute;
   top: 50%;
@@ -84,13 +84,13 @@
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
-#label_button {
+#label_button_calendar {
   display: none;
 }
-.openCalendar #label_button {
+.openCalendar #label_button_calendar {
   display: block;
 }
-.openCalendar #label_button {
+.openCalendar #label_button_calendar {
   background-color: red;
   z-index: 50;
   -webkit-appearance: none;
@@ -130,19 +130,19 @@
   }
 }
 
-.openCalendar button#label_button {
+.openCalendar button#label_button_calendar {
   -webkit-transition: color 0.5s ease;
   transition: color 0.5s ease;
 }
 
-.openCalendar .modal {
+.openCalendar .modal_calender {
   height: 100%;
   width: 100%;
   -webkit-transition: width 0.5s ease, height 0.5s ease 0.5s;
   transition: width 0.5s ease, height 0.5s ease 0.5s;
 }
 
-.openCalendar .modal .content {
+.openCalendar .modal_calender .content_calendar {
   color: #fff;
   -webkit-transition: color 0.5s ease 0.5s;
   transition: color 0.5s ease 0.5s;
@@ -153,7 +153,6 @@
   z-index: 4;
   -webkit-appearance: none;
   background-color: rgb(229, 231, 235);
-
 }
 
 .disable_date::after,
@@ -175,5 +174,3 @@
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
-
-

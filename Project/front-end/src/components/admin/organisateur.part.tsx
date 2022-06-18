@@ -3,6 +3,8 @@ import axios from "axios";
 import { OrganisateurData } from "../../models";
 import OrganisateurProfile from "./organisateur_profile";
 import { Default_image } from "../../common/images";
+import { getCloudinaryImgUrl } from "src/services/cloudinary";
+
 
 const default_image: string = Default_image;
 
@@ -54,19 +56,16 @@ const OrganisateurPart = () => {
   const openMoreProfile = (person: OrganisateurData) => {
     setPerson(person);
     setOpenMore(!openMore);
-    console.log(openMore);
-
   };
 
   const closeMoreProfile = () => {
     setOpenMore(!openMore);
-    console.log(openMore);
   }
 
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
-      <OrganisateurProfile person={person} openMore={openMore} setOpenMore={() => {closeMoreProfile()}} />
+      <OrganisateurProfile person={person} openMore={openMore} setOpenMore={closeMoreProfile} />
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold text-gray-900">Organisateurs</h1>
@@ -126,7 +125,7 @@ const OrganisateurPart = () => {
                               src={`${
                                 person.image_profile === "default.png"
                                   ? default_image
-                                  : "https://firebasestorage.googleapis.com/v0/b/mon-organisateur.appspot.com/o/Orga%2person.image_profile?alt=media"
+                                  : getCloudinaryImgUrl(person.image_profile)
                               }`}
                               alt=""
                             />

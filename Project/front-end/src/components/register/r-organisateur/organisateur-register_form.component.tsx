@@ -8,7 +8,7 @@ import { Default_image } from "../../../common/images";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import storage from "../../../services/firebase";
-import { getSignature } from "src/services/cloudinary";
+import { getSignature, cloudinaryInfo, toFormData } from "src/services/cloudinary";
 
 import { PhoneIcon } from "../../icons/contact/phone-icon";
 import { UserIcon } from "../../icons/user-icon";
@@ -57,12 +57,21 @@ const OrganisateurRegisterForm: React.FC = () => {
     // change name of the image to start with org_ and add random number to avoid duplicate name and add extension
 
     if (dataInput.image_profile[0] !== undefined) {
-      let image = dataInput.image_profile[0];
-      let imageName: string = image.name;
-      let imageExtension = imageName.split(".").pop();
-      newImageName = `org_${Math.floor(
-        Math.random() * 100000
-      )}.${imageExtension}`;
+          // store image in cloudinary storage
+          let cloudinaryData = {
+            timestamp: cloudinaryResponse.timestamp,
+            signature: cloudinaryResponse.signature,
+            api_key: cloudinaryInfo.apiKey,
+            file: dataInput.image_profile[0],
+            folder: cloudinaryInfo.folder,
+          };
+
+          const formData = toFormData(cloudinaryData);
+        const url = `https://api.cloudinary.com/v1_1/${cloudinaryInfo.cloudName}/image/upload`;
+        const imageData = await axios
+          .post(url, formData)
+          .then((res) => res.data);
+        newImageName = imageData.public_id;
     }
 
     let dataOrganisateur = {
@@ -87,42 +96,7 @@ const OrganisateurRegisterForm: React.FC = () => {
       )
       .then((res) => {
         if (!res.data.error) {
-          // store image in firebase storage
-          const storagRef = ref(
-            storage,
-            `Orga/${dataOrganisateur.image_profile}`
-          );
-          const uploadTask = uploadBytesResumable(
-            storagRef,
-            dataInput.image_profile[0]
-          );
 
-          uploadTask.on(
-            "state_changed",
-            // (snapshot) => {
-            //   // Observe state change events such as progress, pause, and resume
-            //   // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-            //   var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            //   console.log("Upload is " + progress + "% done");
-            //   switch (snapshot.state) {
-            //     case "paused": // or 'paused'
-            //       console.log("Upload is paused");
-            //       break;
-            //     case "running": // or 'running'
-            //       console.log("Upload is running");
-            //       break;
-            //   }
-            // },
-            // (error) => {
-            //   // Handle unsuccessful uploads
-            //   console.log(error);
-            // },
-            () => {
-              getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                console.log(url);
-              });
-            }
-          );
 
           setRegisterMessage({
             message: "Votre compte a été créé avec succès",
@@ -141,7 +115,6 @@ const OrganisateurRegisterForm: React.FC = () => {
         } else {
           setRegisterMessage({ message: res.data.error, type: "error" });
         }
-        console.log(res);
       });
   };
 
@@ -165,9 +138,6 @@ const OrganisateurRegisterForm: React.FC = () => {
       </div>
       <div
         className="max-w-3xl w-full mb-24 rounded-lg shadow-2xl bg-white mx-auto overflow-hidden z-10"
-        onClick={() => {
-          console.log(cloudinaryResponse);
-        }}
       >
         {formStep < 3 && (
           <div className="h-2 w-full bg-gray-200">

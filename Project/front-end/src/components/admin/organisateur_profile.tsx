@@ -5,25 +5,25 @@ import { CheckIcon } from "@heroicons/react/outline";
 import { OrganisateurData } from "../../models";
 import { Default_image } from "../../common/images";
 
+import "./organisateur_profile.css";
+import { getCloudinaryImgUrl } from "src/services/cloudinary";
 
 const default_image: string = Default_image;
 
-
 interface OrganisateurProfileProps {
-    person?: OrganisateurData;
-    openMore: boolean;
-    setOpenMore: () => void;
+  person?: OrganisateurData;
+  openMore: boolean;
+  setOpenMore: () => void;
 }
 
-const OrganisateurProfile = ({person, openMore, setOpenMore}: OrganisateurProfileProps) => {
-
-    return (
-    <Transition.Root 
-    show={openMore} as={Fragment}
-    >
-      <Dialog as="div" className="relative z-10" 
-      onClose={setOpenMore}
-      >
+const OrganisateurProfile = ({
+  person,
+  openMore,
+  setOpenMore,
+}: OrganisateurProfileProps) => {
+  return (
+    <Transition.Root show={openMore} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={setOpenMore}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -47,19 +47,23 @@ const OrganisateurProfile = ({person, openMore, setOpenMore}: OrganisateurProfil
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-sm sm:w-full sm:p-6">
-
-
-                <div className=" gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              <Dialog.Panel className="openProfile relative bg-white rounded-lg px-4 pt- pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-sm sm:w-full sm:p-9">
+                <div
+                  className="exit cursor-pointer"
+                  onClick={() => {
+                    setOpenMore();
+                  }}
+                ></div>
+                <div className="gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                   <div className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
                     <div className="flex-1 flex flex-col p-8">
                       <img
                         className="w-32 h-32 flex-shrink-0 mx-auto rounded-full"
                         src={`${
-                            person!.image_profile === "default.png"
-                              ? default_image
-                              : "https://firebasestorage.googleapis.com/v0/b/mon-organisateur.appspot.com/o/Orga%2person.image_profile?alt=media"
-                          }`}
+                          person!.image_profile === "default.png"
+                            ? default_image
+                            : getCloudinaryImgUrl(person!.image_profile)
+                        }`}
                         alt=""
                       />
                       <Dialog.Title
@@ -76,19 +80,26 @@ const OrganisateurProfile = ({person, openMore, setOpenMore}: OrganisateurProfil
                         </dd>
                         <dt className="sr-only">Role</dt>
                         <dd className="mt-3">
-                          <span className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
-                            person!.status === 0
-                              ? "bg-yellow-100 text-yellow-500"
-                              : person!.status === -1
-                              ? "bg-red-100 text-red-500"
-                              : "bg-green-100 text-green-500"
-                          } `}>
+                          <span
+                            className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
+                              person!.status === 0
+                                ? "bg-yellow-100 text-yellow-500"
+                                : person!.status === -1
+                                ? "bg-red-100 text-red-500"
+                                : "bg-green-100 text-green-500"
+                            } `}
+                          >
                             {person!.status === 0
-                            ? "Pending"
-                            : person!.status === -1
-                            ? "Rejected"
-                            : "Approved"}
+                              ? "Pending"
+                              : person!.status === -1
+                              ? "Rejected"
+                              : "Approved"}
                           </span>
+                        </dd>
+                        <dt className="sr-only">Adresse</dt>
+                        <dd className="mt-3">
+                        <p> hello </p>
+
                         </dd>
                       </dl>
                     </div>

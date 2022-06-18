@@ -57,6 +57,19 @@
             return $this->db->execute();
         }
 
+        public function updateSalle($data) {
+            $this->db->query('UPDATE salles SET titre = :titre, ville = :ville, address = :address, nombre_places = :nombre_places, type_id = :type_id, description = :description, prix = :prix WHERE id = :id');
+            $this->db->bind(':id', $data->salleId);
+            $this->db->bind(':titre', $data->titre);
+            $this->db->bind(':ville', $data->ville);
+            $this->db->bind(':address', $data->address);
+            $this->db->bind(':type_id', $data->type_id);
+            $this->db->bind(':nombre_places', $data->nombre_places);
+            $this->db->bind(':description', $data->description);
+            $this->db->bind(':prix', $data->prix);
+            return $this->db->execute();
+        }
+
 
     }
 

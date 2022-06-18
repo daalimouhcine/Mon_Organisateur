@@ -18,9 +18,16 @@
         }
 
         public function reserveSalle($reservationData) {
-            $this->db->query('INSERT INTO reservations (client_id, salle_id, date) VALUES (clientId, :salleId, :date)');
+            $this->db->query('INSERT INTO reservations (client_id, salle_id, date) VALUES (:clientId, :salleId, :date)');
             $this->db->bind(':clientId', $reservationData->clientId);
             $this->db->bind(':salleId', $reservationData->salleId);
+            $this->db->bind(':date', $reservationData->date);
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
 
     }

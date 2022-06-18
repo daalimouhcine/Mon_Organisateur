@@ -41,6 +41,12 @@
             echo json_encode($salle);
         }
 
+        public function updateSalle() {
+            $data = json_decode(file_get_contents('php://input'));
+            $salle = $this->salleModel->updateSalle($data);
+            echo json_encode($salle);
+        }
+
        
 
     }

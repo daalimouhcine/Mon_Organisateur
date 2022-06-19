@@ -35,4 +35,11 @@
         $reservations = $this->reservationModel->getReservationsByClient($clientId);
         echo json_encode($reservations);
        }
+
+       public function deleteReservation() {
+        $reservationId = json_decode(file_get_contents('php://input'));
+        $response = $this->reservationModel->deleteReservation($reservationId);
+        echo json_encode($response);
+
+       }
     }

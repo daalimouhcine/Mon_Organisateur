@@ -1,4 +1,4 @@
-.modal_calender {
+.modal_calendar {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -7,7 +7,7 @@
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content_calendar: center;
+  justify-content: center;
   background: rgba(0, 0, 0, 0.309);
   height: 1px;
   overflow-x: hidden;
@@ -22,11 +22,11 @@
   z-index: 3;
 }
 
-.modal_calender::-webkit-scrollbar {
+.modal_calendar::-webkit-scrollbar {
   display: none;
 }
 /* Hide scrollbar for IE, Edge and Firefox */
-.modal_calender {
+.modal_calendar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
@@ -69,7 +69,7 @@
 .openCalendar .exit::after,
 .openCalendar .exit::before {
   border-top: 3px solid #fff;
-  content_calendar: "";
+  content: "";
   display: block;
   position: absolute;
   top: 50%;
@@ -135,14 +135,14 @@
   transition: color 0.5s ease;
 }
 
-.openCalendar .modal_calender {
+.openCalendar .modal_calendar {
   height: 100%;
   width: 100%;
   -webkit-transition: width 0.5s ease, height 0.5s ease 0.5s;
   transition: width 0.5s ease, height 0.5s ease 0.5s;
 }
 
-.openCalendar .modal_calender .content_calendar {
+.openCalendar .modal_calendar .content_calendar {
   color: #fff;
   -webkit-transition: color 0.5s ease 0.5s;
   transition: color 0.5s ease 0.5s;

@@ -12,6 +12,8 @@ import {
   UserIcon,
   UserRemoveIcon,
 } from "@heroicons/react/solid";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfReservation from "src/services/generate_pdf.reservation";
 
@@ -43,6 +45,44 @@ const Reservations = () => {
     getReservations();
   }, []);
 
+  const MySwal = withReactContent(Swal);
+
+  const deleteReservation = async (id: number) => {
+    MySwal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+            axios
+            .post(
+              "http://localhost/mon_organisateur/reservations/deleteReservation",
+              id
+            )
+            .then((res) => {
+              if (res.data) {
+                MySwal.fire(
+                  "La reservation a été supprimée avec succès",
+                  "👍",
+                  "success"
+                ).then(() => getReservations());
+              } else {
+                MySwal.fire(
+                  "Une erreur est survenue lors de la suppression de la reservation",
+                  "👎",
+                  "error"
+                );
+              }
+            });
+        }
+      })
+  };
+
   return (
     <>
       <NavBar />
@@ -64,13 +104,18 @@ const Reservations = () => {
                         )}
                       </p>
                     </div>
-                    <PDFDownloadLink
+                    {/* <PDFDownloadLink
                       document={<PdfReservation />}
                       fileName="reservation.pdf"
                     >
                         {({loading}) => (loading ? <p>Loading...</p> : <DownloadIcon className="text-green-500" />)}
-                    </PDFDownloadLink>
+                    </PDFDownloadLink> */}
 
+                    <button className="text-green-500">
+                      <p>
+                        <DownloadIcon className="w-6 h-6" />
+                      </p>
+                    </button>
                   </div>
                   <div className="mt-2 sm:flex sm:justify-between">
                     <div className="sm:flex">
@@ -100,7 +145,10 @@ const Reservations = () => {
                         </time>
                       </p>
                     </div>
-                    <button className="text-red-500">
+                    <button
+                      className="text-red-500"
+                      onClick={() => deleteReservation(reservation.id)}
+                    >
                       <p>
                         <DocumentRemoveIcon className="w-6 h-6" />
                       </p>

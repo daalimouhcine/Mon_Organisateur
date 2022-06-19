@@ -1,12 +1,16 @@
-import { MailIcon, PhoneIcon } from "@heroicons/react/solid";
-import { Fragment, useState } from "react";
+import {
+  LocationMarkerIcon,
+  MailIcon,
+  PhoneIcon,
+} from "@heroicons/react/solid";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/outline";
 import { OrganisateurData } from "../../models";
 import { Default_image } from "../../common/images";
 
 import "./organisateur_profile.css";
 import { getCloudinaryImgUrl } from "src/services/cloudinary";
+import { FacebookIcon, InstagramIcon, TwitterIcon } from "../icons/social";
 
 const default_image: string = Default_image;
 
@@ -37,7 +41,7 @@ const OrganisateurProfile = ({
         </Transition.Child>
 
         <div className="fixed z-10 inset-0 overflow-y-auto">
-          <div className="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
+          <div className="flex items-center sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -47,7 +51,7 @@ const OrganisateurProfile = ({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="openProfile relative bg-white rounded-lg px-4 pt- pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-sm sm:w-full sm:p-9">
+              <Dialog.Panel className="openProfile relative bg-white rounded-lg px-4 pt-4 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-sm sm:w-full sm:p-9">
                 <div
                   className="exit cursor-pointer"
                   onClick={() => {
@@ -96,11 +100,27 @@ const OrganisateurProfile = ({
                               : "Approved"}
                           </span>
                         </dd>
-                        <dt className="sr-only">Adresse</dt>
-                        <dd className="mt-3">
-                        <p> hello </p>
-
+                        <dd className="flex justify-center mt-3 text-gray-500 text-sm">
+                          <LocationMarkerIcon className="w-5 h-5 mr-1" />
+                          {person!.adresse}
                         </dd>
+                        <div className={`${person!.twitter || person!.instagram || person!.facebook ? "flex justify-center text-gray-500 mt-3" : ""}`}>
+                          {person!.twitter && (
+                            <a href={person!.twitter} target="_blank" rel="noreferrer">
+                              <TwitterIcon className="w-5 h-5 m-1" />
+                            </a>
+                          )}
+                          {person!.instagram && (
+                            <a href={person!.instagram} target="_blank" rel="noreferrer">
+                              <InstagramIcon className="w-5 h-5 m-1" />
+                            </a>
+                          )}
+                          {person!.facebook && (
+                            <a href={person!.facebook} target="_blank" rel="noreferrer">
+                              <FacebookIcon className="w-5 h-5 m-1" />
+                            </a>
+                          )}
+                        </div>
                       </dl>
                     </div>
                     <div>

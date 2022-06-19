@@ -30,11 +30,21 @@
         }
 
         public function getReservationsByClient($clientId) {
-            $this->db->query('SELECT reservations.*, salles.titre, salles.ville, salles.address, salles.nombre_places, salles.type_id, salles.description, salles.images, salles.prix FROM reservations INNER JOIN salles ON reservations.salle_id = salles.id WHERE reservations.client_id = :clientId');
+            $this->db->query('SELECT reservations.*, salles.titre, salles.ville, salles.address, salles.nombre_places, salles.type_id, salles.description, salles.images, salles.prix FROM reservations INNER JOIN salles ON reservations.salle_id = salles.id WHERE reservations.client_id = :clientId ORDER BY reservations.id DESC');
             $this->db->bind(':clientId', $clientId);
             $reservations = $this->db->execute();
             if($reservations) {
                 return $this->db->resultSet();
+            } else {
+                return false;
+            }
+        }
+
+        public function deleteReservation($id) {
+            $this->db->query('DELETE FROM reservations WHERE id = :id');
+            $this->db->bind(':id', $id);
+            if($this->db->execute()) {
+                return true;
             } else {
                 return false;
             }

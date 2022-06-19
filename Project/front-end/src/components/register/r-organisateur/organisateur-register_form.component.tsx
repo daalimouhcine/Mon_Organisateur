@@ -57,23 +57,7 @@ const OrganisateurRegisterForm = () => {
 
     let newImageName: string = "default.png";
     // change name of the image to start with org_ and add random number to avoid duplicate name and add extension
-
-    if (dataInput.image_profile[0] !== undefined) {
-      // store image in cloudinary storage
-      let cloudinaryData = {
-        timestamp: cloudinaryResponse.timestamp,
-        signature: cloudinaryResponse.signature,
-        api_key: cloudinaryInfo.apiKey,
-        file: dataInput.image_profile[0],
-        folder: cloudinaryInfo.folder,
-      };
-
-      const formData = toFormData(cloudinaryData);
-      const url = `https://api.cloudinary.com/v1_1/${cloudinaryInfo.cloudName}/image/upload`;
-      const imageData = await axios.post(url, formData).then((res) => res.data);
-      newImageName = imageData.public_id;
-    }
-
+   
     let dataOrganisateur = {
       nom: dataInput.nom,
       prenom: dataInput.prenom,
@@ -89,6 +73,33 @@ const OrganisateurRegisterForm = () => {
       instagram: dataInput.instagram,
     };
 
+    if (dataInput.image_profile[0] !== undefined) {
+      // store image in cloudinary storage
+      let cloudinaryData = {
+        timestamp: cloudinaryResponse.timestamp,
+        signature: cloudinaryResponse.signature,
+        api_key: cloudinaryInfo.apiKey,
+        file: dataInput.image_profile[0],
+        folder: cloudinaryInfo.folder,
+      };
+
+      await axios.post("http://localhost/mon_organisateur/organisateurs/validateOrganisateurData", dataOrganisateur).then((res) => {
+        if (!res.data.error) {
+          const formData = toFormData(cloudinaryData);
+          const url = `https://api.cloudinary.com/v1_1/${cloudinaryInfo.cloudName}/image/upload`;
+          const imageData = axios.post(url, formData).then((res) => res.data);
+          imageData.then(res =>  newImageName = res.public_id);
+         
+        } else {
+          setRegisterMessage({ message: res.data.error, type: "error" });
+
+        }
+
+      });
+    }
+
+  
+
     await axios
       .post(
         "http://localhost/mon_organisateur/organisateurs/register",
@@ -102,7 +113,7 @@ const OrganisateurRegisterForm = () => {
           });
 
           MySwal.fire(
-            "Demande est faite avec succes",
+            "Demande est faite avec succès",
             "Votre demande est encoure de traitment",
             "success"
           ).then(() => {

@@ -31,7 +31,7 @@
         }
 
         public function getSalles() {
-            $this->db->query('SELECT salles.*,organisateurs.nom_entreprise, organisateurs.nom, organisateurs.prenom, organisateurs.image_profile, organisateurs.telephone, organisateurs.email, types.nom AS type FROM salles INNER JOIN organisateurs ON salles.organisateur_id = organisateurs.id INNER JOIN types ON salles.type_id = types.id ORDER BY id DESC');
+            $this->db->query('SELECT salles.*,organisateurs.nom_entreprise, organisateurs.nom, organisateurs.prenom, organisateurs.image_profile, organisateurs.telephone, organisateurs.facebook, organisateurs.twitter, organisateurs.instagram, organisateurs.adresse AS org_adresse ,organisateurs.email, types.nom AS type FROM salles INNER JOIN organisateurs ON salles.organisateur_id = organisateurs.id INNER JOIN types ON salles.type_id = types.id ORDER BY id DESC');
             $salles = $this->db->execute();
             if($salles) {
                 return $this->db->resultSet();

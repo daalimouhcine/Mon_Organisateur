@@ -90,6 +90,37 @@
             }
         }
 
+        public function getOrganisateurById($id) {
+            $this->db->query('SELECT * FROM organisateurs WHERE id = :id');
+            $this->db->bind(':id', $id);
+            if($this->db->execute()) {
+                return $this->db->single();
+            } else {
+                return false;
+            }
+        }
+
+        public function updateOrganisateur($data) {
+            $this->db->query('UPDATE organisateurs SET nom = :nom, prenom = :prenom, cin = :cin, adresse = :adresse, email = :email, telephone = :telephone, nom_entreprise = :nom_entreprise, facebook = :facebook, twitter = :twitter, instagram = :instagram WHERE id = :id');
+            $this->db->bind(':id', $data->id);
+            $this->db->bind(':nom', $data->nom);
+            $this->db->bind(':prenom', $data->prenom);
+            $this->db->bind(':cin', $data->cin);
+            $this->db->bind(':adresse', $data->adresse);
+            $this->db->bind(':email', $data->email);
+            $this->db->bind(':telephone', $data->telephone);
+            $this->db->bind(':nom_entreprise', $data->nom_entreprise);
+            $this->db->bind(':facebook', $data->facebook);
+            $this->db->bind(':twitter', $data->twitter);
+            $this->db->bind(':instagram', $data->instagram);
+            if($this->db->execute()) {
+                return $this->getOrganisateurById($data->id);
+            } else {
+                return false;
+            }
+        }
+            
+
         public function validateOrganisateur($orgId) {
             $this->db->query('UPDATE organisateurs SET status = 1 WHERE id = :id');
             $this->db->bind(':id', $orgId);

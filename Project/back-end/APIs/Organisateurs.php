@@ -99,10 +99,39 @@ class Organisateurs extends Controller {
                     $this->organisateurModel->unSuspendOrganisateur($data->id);
                     echo json_encode('Organisateur unsuspend');
                     break;
-
             }
-            
+        }
 
+        public function updateOrganisateur() {
+            // get data 
+            $data = json_decode(file_get_contents('php://input'));
+            // check if user already exists
+            $orgEmail = $this->organisateurModel->getOrganisateurByEmail($data->email);
+            $orgPhone = $this->organisateurModel->getOrganisateurByTelephone($data->telephone);
+            $orgCin = $this->organisateurModel->getOrganisateurByCin($data->cin);
+            $orgNomEntreprise = $this->organisateurModel->getOrganisateurByNomEntreprise($data->nom_entreprise);
+
+            if($orgEmail && $orgEmail->id != $data->id) {
+                echo json_encode(['error' => 'Email already exists']);
+                return;
+            } else if($orgPhone && $orgPhone->id != $data->id) {
+                echo json_encode(['error' => 'Number already exists']);
+                return;
+            } else if($orgCin && $orgCin->id != $data->id) {
+                echo json_encode(['error' => 'CIN already exists']);
+                return;
+            } else if($orgNomEntreprise && $orgNomEntreprise->id != $data->id) {
+                echo json_encode(['error' => 'Nom de l\'entreprise already exists']);
+                return;
+            } else {
+                // update organisateur
+                if($this->organisateurModel->updateOrganisateur($data)) {
+                    echo json_encode(['done' => 'Organisateur updated', 'user' => $data]);
+                } else {
+                    echo json_encode(['error' => 'Organisateur not updated please try again']);
+                }
+            }
+           
         }
 
 

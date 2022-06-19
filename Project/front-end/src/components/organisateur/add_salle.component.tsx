@@ -5,10 +5,20 @@ import { SalleInputs, Type, OrganisateurData } from "src/models";
 import useLocalStorage from "../../common/hooks/useLocaleStorage";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { getSignature, cloudinaryInfo, toFormData } from "src/services/cloudinary";
+
 
 import "./add_salle.component.css";
 
 const AddSalle = (props: any) => {
+  const [cloudinaryResponse, setCloudinaryResponse] = useState<any>();
+
+  useEffect(() => {
+    getSignature().then((res) => {
+      setCloudinaryResponse(res.data);
+    });
+  }, []);
+
   const [types, setTypes] = useState<Array<Type>>();
   const response = async () => {
     await axios
@@ -32,21 +42,26 @@ const AddSalle = (props: any) => {
   const [user] = useLocalStorage<OrganisateurData>("user");
   const MySwal = withReactContent(Swal);
 
-  const onSubmit: SubmitHandler<SalleInputs> = (data) => {
+  const onSubmit: SubmitHandler<SalleInputs> = async (data) => {
     let dataInput: SalleInputs = { ...data };
 
-    // change name of the image to start with org_ and add random number to avoid duplicate name and add extension
-    let image = dataInput.images[0];
-    let imageName: string = image.name;
-    let imageExtension = imageName.split(".").pop();
-    let newImageName = `salle_${Math.floor(
-      Math.random() * 100000
-    )}.${imageExtension}`;
+    let cloudinaryData = {
+      timestamp: cloudinaryResponse.timestamp,
+      signature: cloudinaryResponse.signature,
+      api_key: cloudinaryInfo.apiKey,
+      file: dataInput.images[0],
+      folder: cloudinaryInfo.folder,
+    };
+    
+    const formData = toFormData(cloudinaryData);
+    const url = `https://api.cloudinary.com/v1_1/${cloudinaryInfo.cloudName}/image/upload`;
+    const imageData = await axios.post(url, formData).then((res) => res.data);
+    const salleImageName = imageData.public_id;
 
     let salleData = {
       ...data,
       organisateur_id: user.id,
-      images: newImageName,
+      images: salleImageName,
     };
 
     axios

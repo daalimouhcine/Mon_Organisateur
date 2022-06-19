@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { MapPinIcon } from "../icons/map-pin-icon";
 import { FacebookIcon, TwitterIcon, InstagramIcon } from "../icons/social";
+import { getCloudinaryImgUrl } from "src/services/cloudinary";
 
 const default_image = Default_image;
 
@@ -19,35 +20,29 @@ const OrgProfile = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<OrganiserRegisterInputs>({defaultValues: user});
+  } = useForm<OrganiserRegisterInputs>({ defaultValues: user });
 
   const MySwal = withReactContent(Swal);
 
   const onSubmit = (data: OrganiserRegisterInputs) => {
-    console.log(data);
     axios
-    .post("http://localhost/mon_organisateur/organisateurs/updateOrganisateur", data)
-    .then((res) => {
-      if (res.data.error) {
-        MySwal.fire(
-          res.data.error,
-          "😢",
-          "error"
-        )
-      } else if(res.data.success) {
-        MySwal.fire(
-          res.data.success,
-          "😍",
-          "success"
-        ).then(() => {
-          setUser(res.data.user);
-        });
-      }
-    });
+      .post(
+        "http://localhost/mon_organisateur/organisateurs/updateOrganisateur",
+        data
+      )
+      .then((res) => {
+        if (res.data.error) {
+          MySwal.fire(res.data.error, "😢", "error");
+        } else if (res.data.done) {
+          MySwal.fire(res.data.done, "😍", "success").then(() => {
+            // console.log(res.data.user);
+            setUser(res.data.user);
+          });
+        }
+      });
   };
 
   // const [image, setImage] = useState<File | any>();
-
 
   return (
     <form
@@ -56,48 +51,6 @@ const OrgProfile = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="space-y-8 divide-y divide-gray-200">
-        <div>
-          <div>
-            <h3 className="text-lg leading-6 font-medium text-gray-900">
-              Profile
-            </h3>
-            <p className="mt-1 text-sm text-gray-500">
-              This information will be displayed publicly so be careful what you
-              share.
-            </p>
-          </div>
-
-          <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            <div className="sm:col-span-6">
-              <label
-                htmlFor="photo"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Photo
-              </label>
-              <div className="mt-1 flex items-center">
-                <span className="h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-                  <img
-                    className="w-full h-full rounded-full"
-                    src={`${
-                      user.image_profile === "default.png"
-                        ? default_image
-                        : "https://firebasestorage.googleapis.com/v0/b/mon-organisateur.appspot.com/o/Orga%2person.image_profile?alt=media"
-                    }`}
-                    alt=""
-                  />
-                </span>
-                <button
-                  type="button"
-                  className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  Change
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div className="pt-8">
           <section className="mb-5">
             <h2 className="font-semibold text-3xl mb-8">
@@ -274,5 +227,5 @@ const OrgProfile = () => {
     </form>
   );
 };
- 
+
 export default OrgProfile;

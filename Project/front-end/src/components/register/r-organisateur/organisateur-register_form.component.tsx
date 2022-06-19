@@ -3,12 +3,14 @@ import { useForm } from "react-hook-form";
 import { OrganiserRegisterInputs, RegisterMessage } from "../../../models";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { Default_image } from "../../../common/images";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import storage from "../../../services/firebase";
-import { getSignature, cloudinaryInfo, toFormData } from "src/services/cloudinary";
+import {
+  getSignature,
+  cloudinaryInfo,
+  toFormData,
+} from "src/services/cloudinary";
 
 import { PhoneIcon } from "../../icons/contact/phone-icon";
 import { UserIcon } from "../../icons/user-icon";
@@ -18,7 +20,7 @@ import { FacebookIcon, TwitterIcon, InstagramIcon } from "../../icons/social";
 
 const MAX_STEPS = 3;
 
-const OrganisateurRegisterForm: React.FC = () => {
+const OrganisateurRegisterForm = () => {
   const [cloudinaryResponse, setCloudinaryResponse] = useState<any>();
 
   useEffect(() => {
@@ -57,21 +59,19 @@ const OrganisateurRegisterForm: React.FC = () => {
     // change name of the image to start with org_ and add random number to avoid duplicate name and add extension
 
     if (dataInput.image_profile[0] !== undefined) {
-          // store image in cloudinary storage
-          let cloudinaryData = {
-            timestamp: cloudinaryResponse.timestamp,
-            signature: cloudinaryResponse.signature,
-            api_key: cloudinaryInfo.apiKey,
-            file: dataInput.image_profile[0],
-            folder: cloudinaryInfo.folder,
-          };
+      // store image in cloudinary storage
+      let cloudinaryData = {
+        timestamp: cloudinaryResponse.timestamp,
+        signature: cloudinaryResponse.signature,
+        api_key: cloudinaryInfo.apiKey,
+        file: dataInput.image_profile[0],
+        folder: cloudinaryInfo.folder,
+      };
 
-          const formData = toFormData(cloudinaryData);
-        const url = `https://api.cloudinary.com/v1_1/${cloudinaryInfo.cloudName}/image/upload`;
-        const imageData = await axios
-          .post(url, formData)
-          .then((res) => res.data);
-        newImageName = imageData.public_id;
+      const formData = toFormData(cloudinaryData);
+      const url = `https://api.cloudinary.com/v1_1/${cloudinaryInfo.cloudName}/image/upload`;
+      const imageData = await axios.post(url, formData).then((res) => res.data);
+      newImageName = imageData.public_id;
     }
 
     let dataOrganisateur = {
@@ -96,8 +96,6 @@ const OrganisateurRegisterForm: React.FC = () => {
       )
       .then((res) => {
         if (!res.data.error) {
-
-
           setRegisterMessage({
             message: "Votre compte a été créé avec succès",
             type: "success",
@@ -136,9 +134,7 @@ const OrganisateurRegisterForm: React.FC = () => {
           Become a new member in 3 easy steps
         </p>
       </div>
-      <div
-        className="max-w-3xl w-full mb-24 rounded-lg shadow-2xl bg-white mx-auto overflow-hidden z-10"
-      >
+      <div className="max-w-3xl w-full mb-24 rounded-lg shadow-2xl bg-white mx-auto overflow-hidden z-10">
         {formStep < 3 && (
           <div className="h-2 w-full bg-gray-200">
             <div

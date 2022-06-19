@@ -17,6 +17,7 @@ import { OrganisateurData } from "../../models";
 import ClientHomePage from "src/pages/home/client/client.home.page";
 
 import "./app.component.css";
+import ReservationPage from "src/pages/home/client/reservation.page";
 
 const homePage = (user?: OrganisateurData) => {
   switch (user?.role) {
@@ -51,6 +52,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/register/client" element={<ClientRegisterPage />} />
+        <Route path="/client/reservations" element={<ReservationPage />} />
         <Route
           path="/register/organisateur"
           element={<OrganisateurRegisterPage />}

@@ -38,6 +38,7 @@ ul {
   left: 0;
   text-decoration: none;
   font-size: 24px;
+  color: #e5e7eb;
   background: #2b3033;
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -115,3 +116,7 @@ ul {
     transform: scale(0.8) rotate(90deg);
   }
 }
+
+.animatedReservation {
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }

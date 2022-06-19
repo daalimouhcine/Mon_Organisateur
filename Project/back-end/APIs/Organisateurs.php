@@ -16,6 +16,36 @@ class Organisateurs extends Controller {
 
         }
 
+        public function validateOrganisateurData() {
+            $data = json_decode(file_get_contents('php://input'));
+
+            // check if user already exists 
+            if($this->organisateurModel->getOrganisateurByCin($data->cin)) {
+                echo json_encode(
+                    array('error' => 'CIN already exists')
+                );
+                return;
+
+            } else if($this->organisateurModel->getOrganisateurByNomEntreprise($data->nom_entreprise)) {
+                echo json_encode(
+                    array('error' => "Nom de l'entreprise already exists")
+                );
+                return;
+
+            } else if($this->organisateurModel->getOrganisateurByTelephone($data->telephone) || $this->clientModel->getClientByTelephone($data->telephone)) {
+                echo json_encode(['error' => 'number already exists']);
+                return;
+
+            } else if($this->organisateurModel->getOrganisateurByEmail($data->email) || $this->clientModel->getClientByEmail($data->email)) {
+                echo json_encode(['error' => 'email already exists']);
+                return;
+        
+            } else {
+                echo json_encode(['done' => 'done']);
+                return;
+            }
+        }
+
         public function register() {
             // get data
             $data = json_decode(file_get_contents('php://input'));

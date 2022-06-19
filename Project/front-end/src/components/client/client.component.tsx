@@ -7,10 +7,11 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Default_image } from "src/common/images";
-import { SalleDetails } from "src/models";
+import { OrganisateurData, SalleDetails } from "src/models";
 import SalleCalendar from "./calender.component";
 import NavBar from "./navbar.component";
 import { getCloudinaryImgUrl } from "src/services/cloudinary";
+import OrganisateurProfile from "./organisateur_profile";
 
 
 let default_image = Default_image;
@@ -41,12 +42,37 @@ const ClientHome = () => {
   //     const response = await axios.get("http://localhost/mon_organisateur/reservations/getReservations");
   //   }
 
+  const [openMore, setOpenMore] = useState<boolean>(false);
+  const [organisateur, setOrganisateur] = useState<OrganisateurData>();
 
+  const openMoreProfile = (salle: any) => {
+    let organisateur: any = {
+      nom: salle.nom,
+      prenom: salle.prenom,
+      email: salle.email,
+      telephone: salle.telephone,
+      facebook: salle.facebook,
+      instagram: salle.instagram,
+      twitter: salle.twitter,
+      image_profile: salle.image_profile,
+      adresse: salle.org_adresse,
+    }
+    setOrganisateur(organisateur);
+    setOpenMore(!openMore);
+  };
+
+  const closeMoreProfile = () => {
+    setOpenMore(!openMore);
+  };
 
 
   return (
     <div>
       <SalleCalendar showCalendar={showCalendar} closeCalendar={toggleCalender} salleId={salleId} />
+      {
+        organisateur && <OrganisateurProfile organisateur={organisateur} openMore={openMore} setOpenMore={closeMoreProfile} />
+      }
+      {/* <OrganisateurProfile organisateur={organisateur} openMore={openMore} setOpenMore={closeMoreProfile} /> */}
       <NavBar />
       <div className="w-10/12 mx-auto">
         {salles &&
@@ -154,8 +180,10 @@ const ClientHome = () => {
                   </div>
 
                   <div className="grid grid-cols-2 mt-4 my-auto">
-                    <div className="col-none mr-2 lg:block lg:col-start-9 lg:col-end-12">
-                      <a href="_#" className="flex items-center">
+                    <div className="col-none mr-2 lg:block lg:col-start-9 lg:col-end-12"
+                    onClick={() => openMoreProfile(salle)}>
+                          
+                      <div className="flex items-center cursor-pointer" >
                         <img
                           src={`${
                             salle.image_profile === "default.png"
@@ -169,7 +197,7 @@ const ClientHome = () => {
                         <div className="text-gray-600 font-bold text-sm hover:underline">
                           {salle.nom_entreprise}
                         </div>
-                      </a>
+                      </div>
                     </div>
                   </div>
                   <div className="w-full flex justify-end">

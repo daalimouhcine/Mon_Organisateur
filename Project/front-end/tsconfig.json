@@ -31,6 +31,6 @@
     "additional.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx"
-  ],
+, "src/services/generate_pdf.reservation.jsx"  ],
   "exclude": ["node_modules"]
 }

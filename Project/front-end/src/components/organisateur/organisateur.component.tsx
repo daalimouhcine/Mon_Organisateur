@@ -1,6 +1,4 @@
 import { Fragment, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
 import { Menu, Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { SearchIcon } from "@heroicons/react/solid";
@@ -12,6 +10,7 @@ import SallesComponent from "./salles.component";
 import ClientReservations from "./client.reservations";
 import OrgProfile from "./org.profile.component";
 import { NavLinks } from 'src/models';
+import { getCloudinaryImgUrl } from "src/services/cloudinary";
 
 
 let default_image: string = Default_image;
@@ -89,7 +88,7 @@ const OrganisateurHome: React.FC = () => {
                             src={`${
                               user.image_profile === "default.png"
                                 ? default_image
-                                : "https://firebasestorage.googleapis.com/v0/b/mon-organisateur.appspot.com/o/Orga%2person.image_profile?alt=media"
+                                : getCloudinaryImgUrl(user.image_profile)
                             }`}
                             alt=""
                           />
@@ -259,7 +258,7 @@ const OrganisateurHome: React.FC = () => {
                                 src={`${
                                   user.image_profile === "default.png"
                                     ? default_image
-                                    : "https://firebasestorage.googleapis.com/v0/b/mon-organisateur.appspot.com/o/Orga%2person.image_profile?alt=media"
+                                    : getCloudinaryImgUrl(user.image_profile)
                                 }`}
                                 alt=""
                               />
@@ -322,7 +321,7 @@ const OrganisateurHome: React.FC = () => {
                                 src={`${
                                   user.image_profile === "default.png"
                                     ? default_image
-                                    : "https://firebasestorage.googleapis.com/v0/b/mon-organisateur.appspot.com/o/Orga%2person.image_profile?alt=media"
+                                    : getCloudinaryImgUrl(user.image_profile)
                                 }`}
                                 alt=""
                               />

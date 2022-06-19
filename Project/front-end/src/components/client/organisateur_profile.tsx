@@ -1,0 +1,164 @@
+import {
+  LocationMarkerIcon,
+  MailIcon,
+  PhoneIcon,
+} from "@heroicons/react/solid";
+import { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { OrganisateurData } from "../../models";
+import { Default_image } from "../../common/images";
+
+import { getCloudinaryImgUrl } from "src/services/cloudinary";
+import { FacebookIcon, InstagramIcon, TwitterIcon } from "../icons/social";
+
+const default_image: string = Default_image;
+
+interface OrganisateurProfileProps {
+  organisateur?: OrganisateurData;
+  openMore: boolean;
+  setOpenMore: () => void;
+}
+
+const OrganisateurProfile = ({
+  organisateur,
+  openMore,
+  setOpenMore,
+}: OrganisateurProfileProps) => {
+  return (
+    <Transition.Root show={openMore} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={setOpenMore}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed z-10 inset-0 overflow-y-auto">
+          <div className="flex items-center sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            >
+              <Dialog.Panel className="openProfile relative bg-white rounded-lg px-4 pt-4 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-sm sm:w-full sm:p-9">
+                <div
+                  className="exit cursor-pointer"
+                  onClick={() => {
+                    setOpenMore();
+                  }}
+                ></div>
+                <div className="gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                  <div className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
+                    <div className="flex-1 flex flex-col p-8">
+                      <img
+                        className="w-32 h-32 flex-shrink-0 mx-auto rounded-full"
+                        src={`${
+                          organisateur!.image_profile === "default.png"
+                            ? default_image
+                            : getCloudinaryImgUrl(organisateur!.image_profile)
+                        }`}
+                        alt=""
+                      />
+                      <Dialog.Title
+                        as="h3"
+                        className="text-lg leading-6 font-medium text-gray-900"
+                      >
+                        {organisateur!.nom + " " + organisateur!.prenom}
+                      </Dialog.Title>
+
+                      <dl className="mt-1 flex-grow flex flex-col justify-between">
+                        <dt className="sr-only">Title</dt>
+                        <dd className="text-gray-500 text-sm">
+                          {organisateur!.nom_entreprise}
+                        </dd>
+                        <dt className="sr-only">Role</dt>
+                        <dd className="mt-3">
+                          <span
+                            className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
+                              organisateur!.status === 0
+                                ? "bg-yellow-100 text-yellow-500"
+                                : organisateur!.status === -1
+                                ? "bg-red-100 text-red-500"
+                                : "bg-green-100 text-green-500"
+                            } `}
+                          >
+                            {organisateur!.status === 0
+                              ? "Pending"
+                              : organisateur!.status === -1
+                              ? "Rejected"
+                              : "Approved"}
+                          </span>
+                        </dd>
+                        <dd className="flex justify-center mt-3 text-gray-500 text-sm">
+                          <LocationMarkerIcon className="w-5 h-5 mr-1" />
+                          {organisateur!.adresse}
+                        </dd>
+                        <div className={`${organisateur!.twitter || organisateur!.instagram || organisateur!.facebook ? "flex justify-center text-gray-500 mt-3" : ""}`}>
+                          {organisateur!.twitter && (
+                            <a href={organisateur!.twitter} target="_blank" rel="noreferrer">
+                              <TwitterIcon className="w-5 h-5 m-1" />
+                            </a>
+                          )}
+                          {organisateur!.instagram && (
+                            <a href={organisateur!.instagram} target="_blank" rel="noreferrer">
+                              <InstagramIcon className="w-5 h-5 m-1" />
+                            </a>
+                          )}
+                          {organisateur!.facebook && (
+                            <a href={organisateur!.facebook} target="_blank" rel="noreferrer">
+                              <FacebookIcon className="w-5 h-5 m-1" />
+                            </a>
+                          )}
+                        </div>
+                      </dl>
+                    </div>
+                    <div>
+                      <div className="-mt-px flex divide-x divide-gray-200">
+                        <div className="w-0 flex-1 flex">
+                          <a
+                            href={`mailto:${organisateur!.email}`}
+                            className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
+                          >
+                            <MailIcon
+                              className="w-5 h-5 text-gray-400"
+                              aria-hidden="true"
+                            />
+                            <span className="ml-3">Email</span>
+                          </a>
+                        </div>
+                        <div className="-ml-px w-0 flex-1 flex">
+                          <a
+                            href={`tel:${organisateur!.telephone}`}
+                            className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
+                          >
+                            <PhoneIcon
+                              className="w-5 h-5 text-gray-400"
+                              aria-hidden="true"
+                            />
+                            <span className="ml-3">Call</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition.Root>
+  );
+};
+
+export default OrganisateurProfile;

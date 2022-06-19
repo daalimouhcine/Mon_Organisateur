@@ -29,4 +29,10 @@
             $dates = $this->reservationModel->getReservationDates($salleId);
             echo json_encode($dates);
        }
+
+       public function getReservationsByClient() {
+        $clientId = json_decode(file_get_contents('php://input'));
+        $reservations = $this->reservationModel->getReservationsByClient($clientId);
+        echo json_encode($reservations);
+       }
     }

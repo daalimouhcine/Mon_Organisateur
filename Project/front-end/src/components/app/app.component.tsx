@@ -15,9 +15,9 @@ import "../../common/styles/index";
 import useLocalStorage from "../../common/hooks/useLocaleStorage";
 import { OrganisateurData } from "../../models";
 import ClientHomePage from "src/pages/home/client/client.home.page";
+import ReservationPage from "src/pages/home/client/reservation.page";
 
 import "./app.component.css";
-import ReservationPage from "src/pages/home/client/reservation.page";
 
 const homePage = (user?: OrganisateurData) => {
   switch (user?.role) {

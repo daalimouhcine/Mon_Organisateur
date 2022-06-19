@@ -114,7 +114,6 @@ const SalleCalendar = ({ showCalendar, closeCalendar, salleId }: any) => {
                     <button
                       type="button"
                       onClick={previousMonth}
-                      id="label_button_calendar"
                       className="-my-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
                     >
                       <span className="sr-only">Previous month</span>

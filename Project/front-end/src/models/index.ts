@@ -19,6 +19,7 @@ export interface RegisterInputs {
 }
 
 export interface OrganiserRegisterInputs {
+  id: number;
   nom: string;
   prenom: string;
   image_profile: any;

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { OrganiserRegisterInputs, RegisterMessage } from "../../../models";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Default_image } from "../../../common/images";
+import { Default_image } from "../../../common/images/default_image";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import {
@@ -17,6 +17,7 @@ import { UserIcon } from "../../icons/user-icon";
 import { MapPinIcon } from "../../icons/map-pin-icon";
 import { HomeIcon } from "../../icons/home-icon";
 import { FacebookIcon, TwitterIcon, InstagramIcon } from "../../icons/social";
+import LoadingSpinner from "./loading.component";
 
 const MAX_STEPS = 3;
 
@@ -48,6 +49,8 @@ const OrganisateurRegisterForm = () => {
     }
   );
 
+  const [showLoading, setShowLoading] = React.useState<boolean>(false);
+
   const navigate = useNavigate();
 
   const MySwal = withReactContent(Swal);
@@ -57,7 +60,7 @@ const OrganisateurRegisterForm = () => {
 
     let newImageName: string = "default.png";
     // change name of the image to start with org_ and add random number to avoid duplicate name and add extension
-   
+
     let dataOrganisateur = {
       nom: dataInput.nom,
       prenom: dataInput.prenom,
@@ -83,22 +86,26 @@ const OrganisateurRegisterForm = () => {
         folder: cloudinaryInfo.folder,
       };
 
-      await axios.post("http://localhost/mon_organisateur/organisateurs/validateOrganisateurData", dataOrganisateur).then((res) => {
-        if (!res.data.error) {
-          const formData = toFormData(cloudinaryData);
-          const url = `https://api.cloudinary.com/v1_1/${cloudinaryInfo.cloudName}/image/upload`;
-          const imageData = axios.post(url, formData).then((res) => res.data);
-          imageData.then(res =>  newImageName = res.public_id);
-         
-        } else {
-          setRegisterMessage({ message: res.data.error, type: "error" });
-
-        }
-
-      });
+      await axios
+        .post(
+          "http://localhost/mon_organisateur/organisateurs/validateOrganisateurData",
+          dataOrganisateur
+        )
+        .then((res) => {
+          if (!res.data.error) {
+            setShowLoading(true);
+            const formData = toFormData(cloudinaryData);
+            const url = `https://api.cloudinary.com/v1_1/${cloudinaryInfo.cloudName}/image/upload`;
+            const imageData = axios.post(url, formData).then((res) => res.data);
+            imageData.then((res) => {
+              setShowLoading(false);
+              newImageName = res.public_id;
+            });
+          } else {
+            setRegisterMessage({ message: res.data.error, type: "error" });
+          }
+        });
     }
-
-  
 
     await axios
       .post(
@@ -136,13 +143,14 @@ const OrganisateurRegisterForm = () => {
   let [image, setImage] = React.useState<File | any>(Default_image);
 
   return (
-    <div className=" bg-green-800 w-full h-fit">
+    <div className=" bg-[#100D3F] w-full h-fit">
+      { showLoading && <LoadingSpinner /> }
       <div className="mx-auto text-center my-10">
         <h1 className="text-white text-5xl font-semibold">
-          Welcome to <span className="text-yellow-500">Mon Organisateur</span>
+          Bienvenue à <span className="text-[#BA9672]">MonOrganisateur</span>
         </h1>
-        <p className="text-green-200 mt-2">
-          Become a new member in 3 easy steps
+        <p className="text-[#FFEBC4] mt-2">
+          Devenez un nouveau membre en 3 étapes faciles
         </p>
       </div>
       <div className="max-w-3xl w-full mb-24 rounded-lg shadow-2xl bg-white mx-auto overflow-hidden z-10">
@@ -150,7 +158,7 @@ const OrganisateurRegisterForm = () => {
           <div className="h-2 w-full bg-gray-200">
             <div
               style={{ width: `${((formStep + 1) / MAX_STEPS) * 100}%` }}
-              className="h-full bg-yellow-400"
+              className="h-full bg-[#BA9672]"
             ></div>
           </div>
         )}
@@ -461,7 +469,7 @@ const OrganisateurRegisterForm = () => {
                 disabled={!isValid}
                 onClick={formStep === 2 ? undefined : handleStepCompletion}
                 type={formStep === 2 ? "submit" : "button"}
-                className="mt-6 bg-green-600 text-white rounded px-8 py-6 w-full disabled:bg-gray-400"
+                className="mt-6 bg-[#BA9672] text-white rounded px-8 py-6 w-full disabled:bg-gray-400"
               >
                 {formStep === 2 ? "Register" : "Next"}
               </button>

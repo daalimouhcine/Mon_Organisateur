@@ -100,7 +100,7 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="flex md:w-1/2 justify-center pb-10 items-center bg-white mt-12 mx-auto">
+    <div className="flex w-fit h-fit justify-center p-10 items-center bg-white rounded-md m-auto">
       <form className="bg-white mx-5" onSubmit={handleSubmit(onSubmit)}>
         <h3
           className={`font-bold text-xl mb-7 ${
@@ -109,8 +109,8 @@ const LoginForm: React.FC = () => {
         >
           {loginMessage.message}
         </h3>
-        <h1 className="text-gray-800 font-bold text-2xl mb-1">Hello Again!</h1>
-        <p className="text-sm font-normal text-gray-600 mb-7">Welcome Back</p>
+        <h1 className="text-gray-800 font-bold text-2xl mb-1">Bonjour encore !</h1>
+        <p className="text-sm font-normal text-gray-600 mb-7">Bienvenue</p>
         <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -160,13 +160,13 @@ const LoginForm: React.FC = () => {
         <p className="text-red-500">{errors.mot_de_passe?.message}</p>
         <input
           type="submit"
-          className="block w-full bg-indigo-600 mt-4 py-2 rounded-md text-white font-semibold mb-2 cursor-pointer"
+          className="block w-full bg-[#100D3F] hover:bg-[#201b6a] mt-4 py-2 rounded-md text-white font-semibold mb-2 cursor-pointer"
           value="S'inscrire"
         />
         <span className="text-sm ml-2">
-          Don't have account?{" "}
-          <NavLink to="/register" className="text-blue-500">
-            Register
+        Vous n'avez pas de compte ?{" "}
+          <NavLink to="/register" className="text-[#BA9672]">
+            Registre
           </NavLink>
         </span>
       </form>

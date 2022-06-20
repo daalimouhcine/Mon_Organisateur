@@ -5,6 +5,11 @@ const AboutComponent: React.FC = () => {
         <div className="box-border mx-auto border-solid lg:pl-8 max-w-7xl">
           <div className="flex flex-col items-center leading-7 text-gray-900 border-0 border-gray-200 lg:flex-row">
             <div className="box-border flex flex-col justify-center w-full h-full p-8 text-gray-900 border-solid lg:w-1/2 md:p-16 lg:p-0 lg:pl-10 lg:pr-20">
+              <img
+                className="w-36 mx-auto mb-8"
+                src={require("src/common/images/normal-vertical.png")}
+                alt=""
+              />
               <h2 className="m-0 text-3xl font-medium leading-tight tracking-tight text-left text-black sm:text-4xl md:text-5xl">
                 Why Choose Us
               </h2>
@@ -13,7 +18,7 @@ const AboutComponent: React.FC = () => {
               </p>
               <div className="grid gap-4 mt-8 leading-7 border-0 border-gray-200 sm:mt-10 sm:gap-6 lg:mt-12 lg:gap-8">
                 <div className="box-border flex items-start text-gray-900 border-solid">
-                  <div className="flex items-center justify-center w-12 h-12 leading-7 bg-blue-600 border-0 border-gray-200 rounded-full">
+                  <div className="flex items-center justify-center w-12 h-12 leading-7 bg-[#100D3F] border-0 border-gray-200 rounded-full">
                     <p className="box-border m-0 text-xl text-white border-solid">
                       <svg
                         className="w-6 h-6"
@@ -42,7 +47,7 @@ const AboutComponent: React.FC = () => {
                   </div>
                 </div>
                 <div className="box-border flex items-start text-gray-900 border-solid">
-                  <div className="flex items-center justify-center w-12 h-12 leading-7 bg-blue-600 border-0 border-gray-200 rounded-full">
+                  <div className="flex items-center justify-center w-12 h-12 leading-7 bg-[#100D3F] border-0 border-gray-200 rounded-full">
                     <p className="box-border m-0 text-xl text-white border-solid">
                       <svg
                         className="w-6 h-6"
@@ -71,7 +76,7 @@ const AboutComponent: React.FC = () => {
                   </div>
                 </div>
                 <div className="box-border flex items-start text-gray-900 border-solid">
-                  <div className="flex items-center justify-center w-12 h-12 leading-7 bg-blue-600 border-0 border-gray-200 rounded-full">
+                  <div className="flex items-center justify-center w-12 h-12 leading-7 bg-[#100D3F] border-0 border-gray-200 rounded-full">
                     <p className="box-border m-0 text-xl text-white border-solid">
                       <svg
                         className="w-6 h-6"
@@ -103,7 +108,7 @@ const AboutComponent: React.FC = () => {
             </div>
             <div className="w-full h-full overflow-hidden leading-7 text-gray-900 border-0 border-gray-200 lg:w-1/2">
               <img
-                src="https://images.unsplash.com/photo-1553484771-047a44eee27a?ixlib=rb-1.2.1&amp;ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;auto=format&amp;fit=crop&amp;w=1234&amp;h=1600&amp;q=80"
+                src={require("src/common/images/about.jpg")}
                 className="object-cover w-full h-full"
                 alt="hero"
               />

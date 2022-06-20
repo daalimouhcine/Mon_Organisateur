@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/solid";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Default_image } from "src/common/images";
+import { Default_image } from "src/common/images/default_image";
 import { OrganisateurData, SalleDetails } from "src/models";
 import SalleCalendar from "./calender.component";
 import NavBar from "./navbar.component";

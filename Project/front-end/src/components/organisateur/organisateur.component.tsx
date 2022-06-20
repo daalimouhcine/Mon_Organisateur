@@ -5,7 +5,7 @@ import { SearchIcon } from "@heroicons/react/solid";
 import useLocalStorage from "src/common/hooks/useLocaleStorage";
 import { logout } from "../../services/logout";
 import { OrganisateurData } from "src/models";
-import { Default_image } from "src/common/images";
+import { Default_image } from "src/common/images/default_image";
 import SallesComponent from "./salles.component";
 import ClientReservations from "./client.reservations";
 import OrgProfile from "./org.profile.component";

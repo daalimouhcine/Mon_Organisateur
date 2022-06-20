@@ -164,12 +164,12 @@ const ClientRegisterForm: React.FC = () => {
         <p className="text-red-500">{errors.mot_de_passe?.message}</p>
         <input
           type="submit"
-          className="block w-full bg-indigo-600 mt-4 py-2 rounded-md text-white font-semibold mb-2 cursor-pointer"
+          className="block w-full bg-[#BA9672] mt-4 py-2 rounded-md text-white font-semibold mb-2 cursor-pointer"
           value="S'inscrire"
         />
         <span className="text-sm ml-2">
-          Have an account?{" "}
-          <NavLink to="/login" className="text-blue-500">
+        Vous avez un compte ?{" "}
+          <NavLink to="/login" className="text-[#100D3F] ">
             Login
           </NavLink>
         </span>

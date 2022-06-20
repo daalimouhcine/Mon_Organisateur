@@ -3,7 +3,7 @@ import axios from "axios";
 import { UserGroupIcon, CakeIcon, CogIcon } from "@heroicons/react/outline";
 import AddSalle from "./add_salle.component";
 import { OrganisateurData, SalleDetails, SalleInputs } from "src/models";
-import { Default_image } from "src/common/images";
+import { Default_image } from "src/common/images/default_image";
 import { DotsVerticalIcon, LocationMarkerIcon } from "@heroicons/react/solid";
 import { getCloudinaryImgUrl } from "src/services/cloudinary";
 

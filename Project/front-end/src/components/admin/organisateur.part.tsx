@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { OrganisateurData } from "../../models";
 import OrganisateurProfile from "./organisateur_profile";
-import { Default_image } from "../../common/images";
+import { Default_image } from "../../common/images/default_image";
 import { getCloudinaryImgUrl } from "src/services/cloudinary";
 
 

@@ -6,7 +6,7 @@ import {
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { OrganisateurData } from "../../models";
-import { Default_image } from "../../common/images";
+import { Default_image } from "../../common/images/default_image";
 
 import "./organisateur_profile.css";
 import { getCloudinaryImgUrl } from "src/services/cloudinary";

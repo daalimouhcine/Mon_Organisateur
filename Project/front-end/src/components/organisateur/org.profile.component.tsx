@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useLocalStorage from "src/common/hooks/useLocaleStorage";
-import { Default_image } from "src/common/images";
+import { Default_image } from "src/common/images/default_image";
 import { OrganisateurData, OrganiserRegisterInputs } from "src/models";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";

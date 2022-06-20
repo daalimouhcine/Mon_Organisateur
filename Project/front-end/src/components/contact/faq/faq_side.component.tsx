@@ -4,7 +4,7 @@ const FaqSide: React.FC = () => {
   return (
 
     <div className="w-full max-w-2xl mx-auto lg:mx-0 lg:w-1/2 lg:pl-8 xl:pl-14">
-    <svg viewBox="0 0 1206 983" className="w-full h-auto text-green-400" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+    <svg viewBox="0 0 1206 983" className="w-full h-auto text-[#BA9672]" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
       <defs>
         <path d="M12.523 1.003c18.717-3.21 43.243 9.086 63.469 58.048 20.226 48.963 10.984 127.352 10.984 127.352l-9.158-.743s3.453-20.728.281-38.964c-5.37-30.868-27.596-67.919-47.84-84.982" />
         <path d="M30.259 59.714C8.802 41.628-11.087 8.433 7.807.352l1.127.272c41.487 42.562 63.594 77.816 71.484 122.59 6.863 38.95 3.757 57.488 2.894 60.891l-5.494-.445s3.453-20.728.281-38.964" />

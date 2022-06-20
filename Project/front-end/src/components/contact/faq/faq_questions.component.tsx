@@ -45,21 +45,21 @@ const FaqQuestions: React.FC = () => {
 
   return (
     <div className="w-full max-w-2xl px-8 pb-24 mx-auto lg:mx-0 lg:w-1/2 lg:pb-0 lg:pl-14 xl:pl-24 lg:pr-4 xl:pr-6">
-      <h2 className="mt-0 mb-2 text-3xl font-bold text-green-900 lg:mt-6 md:text-4xl">
+      <h2 className="mt-0 mb-2 text-3xl font-bold text-[#100D3F] lg:mt-6 md:text-4xl">
         FAQs
       </h2>
-      <div className="w-20 h-1 bg-green-400 md:w-24" />
+      <div className="w-20 h-1 bg-[#BA9672] md:w-24" />
       <div className="relative mt-7">
         {questions.map((question, index) => {
           return (
             <div className="relative overflow-hidden select-none" key={index}>
               <h4
                 onClick={() => toggleQuestion(index)}
-                className="flex items-center justify-between py-3 text-lg font-medium text-gray-900 cursor-pointer xl:py-5 sm:text-xl hover:text-green-500"
+                className="flex items-center justify-between py-3 text-lg font-medium text-gray-900 cursor-pointer xl:py-5 sm:text-xl hover:text-[#BA9672]"
               >
                 <span>{question.question}</span>
                 <svg
-                  className={`w-6 h-6 text-green-400 transition-all duration-200 ease-out transform rotate-0 fill-current ${
+                  className={`w-6 h-6 text-[#BA9672] transition-all duration-200 ease-out transform rotate-0 fill-current ${
                     question.status && "-rotate-45"
                   } `}
                   stroke="currentColor"

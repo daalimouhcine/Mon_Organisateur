@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Header from "../header/header.component";
 import Home from "../../pages/home/home.page";
 import AdminHomePage from "../../pages/home/admin/admin.home.page";
@@ -37,12 +37,14 @@ const homePage = (user?: OrganisateurData) => {
 
 // const user = JSON.parse(localStorage.getItem("user")!) ? true : false;
 
+
 const App = () => {
   const [user] = useLocalStorage<OrganisateurData>("user");
+  const location = useLocation()
 
   return (
-    <Router>
-      {!user && <Header />}
+    <>
+      {location.pathname !== '/' && (!user && <Header />)}
 
       {/* <Header /> */}
       <Routes>
@@ -61,7 +63,7 @@ const App = () => {
       {!user && <Footer />}
 
       {/* <Footer /> */}
-    </Router>
+    </>
   );
 };
 

@@ -15,6 +15,7 @@ const default_image = Default_image;
 
 const OrgProfile = () => {
   const { storedValue: user, setValue: setUser} = useLocalStorage<OrganisateurData>("user");
+  
 
   const {
     register,

@@ -54,7 +54,7 @@ const OrgProfile = () => {
         <div className="pt-8">
           <section className="mb-5">
             <h2 className="font-semibold text-3xl mb-8">
-              Personal Information
+            Informations personnelles
             </h2>
             <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
               <UserIcon className="h-5 w-5 text-gray-400" />
@@ -135,7 +135,7 @@ const OrgProfile = () => {
 
           <section className="mb-5">
             <h2 className="font-semibold text-3xl mb-8">
-              Contact Informations
+            Informations de contact
             </h2>
             <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
               <svg

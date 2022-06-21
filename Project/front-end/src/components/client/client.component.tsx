@@ -74,7 +74,8 @@ const ClientHome = () => {
       }
       {/* <OrganisateurProfile organisateur={organisateur} openMore={openMore} setOpenMore={closeMoreProfile} /> */}
       <NavBar />
-      <div className="w-10/12 mx-auto">
+      <img src={require("src/common/images/normal-horizontal.png")} className="w-36 mx-auto" alt="" />
+      <div className="w-10/12 mx-auto shadow animatedReservation ml-[70px] sm:ml-[100px] mr-5 sm:mr-10 mt-[-3vh] sm:mt-[6vh]">
         {salles &&
           salles.map((salle) => (
             <div key={salle.id} className="bg-white rounded-lg shadow-sm hover:shadow-lg duration-500 px-2 sm:px-6 md:px-2 py-4 my-6">
@@ -208,14 +209,18 @@ const ClientHome = () => {
                       </p>
                     </div>
                     <button
-                      className="ml-auto w-fit bg-gray-300 px-3 py-1 rounded-sm"
+                      className="px-5 py-2.5 ml-auto mt-2 relative rounded group overflow-hidden font-medium bg-[#100d3f64] text-[#100D3F] inline-block"
                       onClick={() => {
                         setSalleId(salle.id);
                         toggleCalender();
                       }}
                     >
-                      hello
+                      <span className="absolute top-0 left-0 flex w-full h-0 mb-0 transition-all duration-200 ease-out transform translate-y-0 bg-[#100D3F] group-hover:h-full opacity-90"></span>
+                      <span className="relative group-hover:text-white">
+                        Calendrier
+                      </span>
                     </button>
+
                   </div>
                 </div>
               </div>

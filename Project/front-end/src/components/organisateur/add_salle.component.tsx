@@ -9,6 +9,7 @@ import { getSignature, cloudinaryInfo, toFormData } from "src/services/cloudinar
 
 
 import "./add_salle.component.css";
+import LoadingSpinner from "./loading.component";
 
 const AddSalle = (props: any) => {
   const [cloudinaryResponse, setCloudinaryResponse] = useState<any>();
@@ -39,6 +40,8 @@ const AddSalle = (props: any) => {
     formState: { errors }, // to get the form state
   } = useForm<SalleInputs>();
 
+  const [showLoading, setShowLoading] = useState<boolean>(false);
+
   const [user] = useLocalStorage<OrganisateurData>("user");
   const MySwal = withReactContent(Swal);
 
@@ -52,6 +55,8 @@ const AddSalle = (props: any) => {
       file: dataInput.images[0],
       folder: cloudinaryInfo.folder,
     };
+
+    setShowLoading(true);
     
     const formData = toFormData(cloudinaryData);
     const url = `https://api.cloudinary.com/v1_1/${cloudinaryInfo.cloudName}/image/upload`;
@@ -68,6 +73,7 @@ const AddSalle = (props: any) => {
       .post("http://localhost/mon_organisateur/salles/addSalle", salleData)
       .then((res) => {
         if (res.data) {
+          setShowLoading(false);
           handleCloseForm();
           props.close();
           MySwal.fire(
@@ -99,14 +105,14 @@ const AddSalle = (props: any) => {
         openForm && "openForm"
       }`}
     >
-      {/* <input id="button" type="checkbox" /> */}
+      { showLoading && <LoadingSpinner /> }
       <button
         onClick={() => handleCloseForm()}
         type="button"
         id="label_button"
-        className="inline-flex items-center justify-center cursor-pointer rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
+        className="inline-flex items-center justify-center cursor-pointer rounded-md border border-transparent bg-[#BA9672] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#a5805b] focus:outline-none focus:ring-2 focus:ring-[#BA9672] focus:ring-offset-2 sm:w-auto"
       >
-        Add Salle
+        Ajouter un service
       </button>
       <div className="modal">
         <form
@@ -134,7 +140,7 @@ const AddSalle = (props: any) => {
             />
           </div>
           <p className="text-red-500">{errors.ville?.message}</p>
-          <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
+          <div className="user-box">
             {/* <svg/> */}
             <input
               className="pl-2 w-full outline-none border-none"
@@ -144,7 +150,7 @@ const AddSalle = (props: any) => {
             />
           </div>
           <p className="text-red-500">{errors.address?.message}</p>
-          <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
+          <div className="user-box">
             {/* <svg/> */}
             <input
               className="pl-2 w-full outline-none border-none"
@@ -156,7 +162,7 @@ const AddSalle = (props: any) => {
             />
           </div>
           <p className="text-red-500">{errors.nombre_places?.message}</p>
-          <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
+          <div className="user-box">
             {/* <svg/> */}
             <input
               className="pl-2 w-full outline-none border-none"
@@ -166,7 +172,7 @@ const AddSalle = (props: any) => {
             />
           </div>
           <p className="text-red-500">{errors.prix?.message}</p>
-          <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
+          <div className="user-box">
             {/* <svg/> */}
             <select {...register("type_id")}>
               {types?.map((type: Type) => (
@@ -177,12 +183,14 @@ const AddSalle = (props: any) => {
             </select>
           </div>
           <p className="text-red-500">{errors.prix?.message}</p>
+          <div className="user-box mt-5">
           <textarea
             placeholder="Description"
             {...register("description", {
               required: "Description est obligatoire",
             })}
           />
+          </div>
           <p className="text-red-500">{errors.description?.message}</p>
           <div className="mt-6 flex flex-col">
             <label
@@ -225,7 +233,7 @@ const AddSalle = (props: any) => {
 
           <input
             type="submit"
-            className="block w-full bg-indigo-600 mt-4 py-2 rounded-md text-white font-semibold mb-2 cursor-pointer"
+            className="block w-full bg-[#BA9672] hover:bg-[#BA9672] mt-4 py-2 rounded-md text-white font-semibold mb-2 cursor-pointer"
             value="Ajouter"
           />
         </form>

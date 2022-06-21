@@ -16,9 +16,10 @@ import {
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import "./calendar.form.component.css";
 import useLocalStorage from "src/common/hooks/useLocaleStorage";
 import { ClientData, reservationData } from "src/models";
+
+import "./calendar.form.component.css";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
@@ -101,9 +102,7 @@ const SalleCalendar = ({ showCalendar, closeCalendar, salleId }: any) => {
       ></div>
       <div className="modal_calendar">
         <div className="content_calendar">
-          <div
-            className=" bg-white m-auto w-fit flex justify-center p-5"
-          >
+          <div className=" bg-white m-auto w-fit flex justify-center p-5">
             <div className=" px-4 sm:px-7 md:px-6">
               <div className="md:grid w-fit md:divide-gray-200">
                 <div className="">
@@ -152,11 +151,18 @@ const SalleCalendar = ({ showCalendar, closeCalendar, salleId }: any) => {
                         <button
                           type="button"
                           disabled={
-                            reservationDates!.some((date: Date) => isEqual(date, day)) ? true : false
+                            reservationDates!.some((date: Date) =>
+                              isEqual(date, day)
+                            )
+                              ? true
+                              : false
                           }
                           onClick={() => setSelectedDay(day)}
                           className={classNames(
-                            reservationDates.map((date: Date) => (isEqual(date, day) && " disable_date ")),
+                            reservationDates.map(
+                              (date: Date) =>
+                                isEqual(date, day) && " disable_date "
+                            ),
                             isEqual(day, selectedDay) && " text-white ",
                             !isEqual(day, selectedDay) &&
                               isToday(day) &&
@@ -189,12 +195,13 @@ const SalleCalendar = ({ showCalendar, closeCalendar, salleId }: any) => {
                     ))}
                   </div>
                   <button
-                    className="bg-red-300"
+                    className=" rounded px-4 pb-2 my-3 mt-5 overflow-hidden group bg-[#BA9672] relative hover:bg-gradient-to-r hover:from-[#BA9672] hover:to-[#d4b18d] text-white hover:ring-2 hover:ring-offset-2 hover:ring-[#d4b18d] transition-all ease-out duration-300"
                     onClick={() => {
                       reserveSalle();
                     }}
                   >
-                    Reserve
+                    <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                    <span className="relative text-2xl">Reserver</span>
                   </button>
                 </div>
               </div>

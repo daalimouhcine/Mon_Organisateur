@@ -19,7 +19,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfReservation from "src/services/generate_pdf.reservation";
 
 const Reservations = () => {
-  const [user] = useLocalStorage<ClientData>("user");
+  const { storedValue: user} = useLocalStorage<ClientData>("user");
   const [types, setTypes] = useState<Array<Type>>();
 
   const getTypes = async () => {

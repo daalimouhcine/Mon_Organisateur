@@ -73,9 +73,13 @@ const Header: React.FC = () => {
           </NavLink>
           <NavLink
             to="/register"
-            className="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-blue-600 border border-blue-700 rounded-md shadow-sm focus:ring-offset-gray-900 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="relative px-5 py-2 font-medium text-white group"
           >
-            Register
+            <span className="absolute inset-0 w-full h-full transition-all duration-300 ease-out transform translate-x-0 -skew-x-12 bg-[#BA9672] group-hover:bg-[#977655] group-hover:skew-x-12"></span>
+            <span className="absolute inset-0 w-full h-full transition-all duration-300 ease-out transform skew-x-12 bg-[#977655] group-hover:bg-[#BA9672] group-hover:-skew-x-12"></span>
+            <span className="absolute bottom-0 left-0 hidden w-10 h-20 transition-all duration-100 ease-out transform -translate-x-8 translate-y-10 bg-[#a17d5a] -rotate-12"></span>
+            <span className="absolute bottom-0 right-0 hidden w-10 h-20 transition-all duration-100 ease-out transform translate-x-10 translate-y-8 bg-[#ddb790] -rotate-12"></span>
+            <span className="relative">S'inscrire</span>
           </NavLink>
         </nav>
 

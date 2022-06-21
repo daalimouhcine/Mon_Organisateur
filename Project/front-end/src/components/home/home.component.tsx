@@ -71,9 +71,13 @@ const HomeComponent: React.FC = () => {
                     </NavLink>
                     <NavLink
                       to="/register"
-                      className="inline-flex items-center justify-center px-4 py-2 text-base font-medium uppercase leading-6 text-white whitespace-no-wrap bg-[#BA9672] border-[#977655] rounded-md shadow-sm focus:ring-offset-[#a07d59] hover:bg-[#a07d59] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#a07d59]"
+                      className="relative px-5 py-2 font-medium text-white group"
                     >
-                      S'inscrire
+                      <span className="absolute inset-0 w-full h-full transition-all duration-300 ease-out transform translate-x-0 -skew-x-12 bg-[#BA9672] group-hover:bg-[#977655] group-hover:skew-x-12"></span>
+                      <span className="absolute inset-0 w-full h-full transition-all duration-300 ease-out transform skew-x-12 bg-[#977655] group-hover:bg-[#BA9672] group-hover:-skew-x-12"></span>
+                      <span className="absolute bottom-0 left-0 hidden w-10 h-20 transition-all duration-100 ease-out transform -translate-x-8 translate-y-10 bg-[#a17d5a] -rotate-12"></span>
+                      <span className="absolute bottom-0 right-0 hidden w-10 h-20 transition-all duration-100 ease-out transform translate-x-10 translate-y-8 bg-[#ddb790] -rotate-12"></span>
+                      <span className="relative">S'inscrire</span>
                     </NavLink>
                   </div>
                 </nav>
@@ -150,20 +154,36 @@ const HomeComponent: React.FC = () => {
                   occaecat fugiat aliqua.
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                  <div className="rounded-md shadow">
+                  <div className="rounded-md">
                     <NavLink
                       to="/register"
-                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#100D3F] hover:bg-[#2b248d] md:py-4 md:text-lg md:px-10"
+                      className="relative inline-block text-lg group"
                     >
-                      Get started
+                      <span className="relative z-10 block px-6 py-3 overflow-hidden font-medium leading-tight text-[#1c1761] transition-colors duration-300 ease-out border-2 border-[#100D3F] rounded-lg group-hover:text-white">
+                        <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
+                        <span className="absolute left-0 w-48 h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-[#100D3F] group-hover:-rotate-180 ease"></span>
+                        <span className="relative">Get started</span>
+                      </span>
+                      <span
+                        className="absolute bottom-0 right-0 w-full h-12 -mb-1 -mr-1 transition-all duration-200 ease-linear bg-[#100D3F] rounded-lg group-hover:mb-0 group-hover:mr-0"
+                        data-rounded="rounded-lg"
+                      ></span>
                     </NavLink>
                   </div>
                   <div className="mt-3 sm:mt-0 sm:ml-3">
                     <NavLink
                       to="/contact"
-                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#BA9672] hover:bg-[#d7b089] md:py-4 md:text-lg md:px-10"
+                      className="relative inline-block text-lg group"
                     >
-                      Contactez-Nous
+                      <span className="relative z-10 block px-6 py-3 overflow-hidden font-medium leading-tight text-[#d0aa84] transition-colors duration-300 ease-out border-2 border-[#BA9672] rounded-lg group-hover:text-white">
+                        <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
+                        <span className="absolute left-0 w-48 h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-[#BA9672] group-hover:-rotate-180 ease"></span>
+                        <span className="relative">Contactez-Nous</span>
+                      </span>
+                      <span
+                        className="absolute bottom-0 right-0 w-full h-12 -mb-1 -mr-1 transition-all duration-200 ease-linear bg-[#BA9672] rounded-lg group-hover:mb-0 group-hover:mr-0"
+                        data-rounded="rounded-lg"
+                      ></span>
                     </NavLink>
                   </div>
                 </div>
@@ -356,10 +376,12 @@ const HomeComponent: React.FC = () => {
           </div>
           <NavLink
             to="/register"
-            className="relative flex-shrink-0 px-10 py-5 text-xl font-medium text-center text-white bg-[#BA9672] border-[#977655] rounded-md shadow-sm focus:ring-offset-[#a07d59] hover:bg-[#a07d59] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#a07d59]"
+            className="rounded relative px-10 py-5 inline-flex group items-center justify-center m-1 font-semibold text-xl cursor-pointer border-b-4 border-l-2 active:border-[#BA9672] active:shadow-none shadow-lg bg-gradient-to-tr from-[#BA9672] to-[#d0ab85] border-[#a48261] text-white"
           >
-            Sign Up Today
+            <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
+            <span className="relative">S'inscrire aujourd'hui</span>
           </NavLink>
+
         </div>
       </section>
     </>

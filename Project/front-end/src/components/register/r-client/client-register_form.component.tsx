@@ -162,14 +162,18 @@ const ClientRegisterForm: React.FC = () => {
           />
         </div>
         <p className="text-red-500">{errors.mot_de_passe?.message}</p>
-        <input
+        <button
           type="submit"
-          className="block w-full bg-[#BA9672] mt-4 py-2 rounded-md text-white font-semibold mb-2 cursor-pointer"
-          value="S'inscrire"
-        />
-        <span className="text-sm ml-2">
-        Vous avez un compte ?{" "}
-          <NavLink to="/login" className="text-[#100D3F] ">
+          className="rounded-md w-[60%] block px-3.5 mt-4 py-2 mx-auto mb-2 overflow-hidden relative group cursor-pointer border-2 font-semibold border-[#BA9672] text-[#BA9672]"
+        >
+          <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-[#BA9672] top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
+          <span className="relative text-[#BA9672] transition duration-300 group-hover:text-white ease">
+            S'inscrire
+          </span>
+        </button>
+        <span className="block text-sm ml-2">
+          Vous avez un compte ?{" "}
+          <NavLink to="/login" className="text-[#BA9672] ">
             Login
           </NavLink>
         </span>

@@ -70,8 +70,7 @@ const OrganisateurPart = () => {
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold text-gray-900">Organisateurs</h1>
           <p className="mt-2 text-sm text-gray-700">
-            A list of all the users in your account including their name, title,
-            email and role.
+          Une liste de tous les organisateurs, avec leur nom, leur titre, leur adresse électronique et leur rôle.
           </p>
         </div>
       </div>

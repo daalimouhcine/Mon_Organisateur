@@ -5,8 +5,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import type { LoginInputs, LoginMessage } from "../../models";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import useLocalStorage from '../../common/hooks/useLocaleStorage';
-import { OrganisateurData } from '../../models';
+import useLocalStorage from "../../common/hooks/useLocaleStorage";
+import { OrganisateurData } from "../../models";
 
 import "./login.component.css";
 
@@ -27,7 +27,7 @@ const LoginForm: React.FC = () => {
 
   const MySwal = withReactContent(Swal);
 
-  const [user, setUser] = useLocalStorage<OrganisateurData>('user');
+  const [user, setUser] = useLocalStorage<OrganisateurData>("user");
 
   const requestLogin: SubmitHandler<LoginInputs> = async (data) => {
     await axios
@@ -39,7 +39,6 @@ const LoginForm: React.FC = () => {
           return setTimeout(() => {
             navigate("/");
           }, 500);
-          
         } else if (res.data.type) {
           setLoginMessage({ message: res.data.error, type: "error" });
         } else {
@@ -52,7 +51,6 @@ const LoginForm: React.FC = () => {
                 return setTimeout(() => {
                   navigate("/");
                 }, 500);
-
               } else if (res.data.type) {
                 setLoginMessage({ message: res.data.error, type: "error" });
               } else {
@@ -109,7 +107,9 @@ const LoginForm: React.FC = () => {
         >
           {loginMessage.message}
         </h3>
-        <h1 className="text-gray-800 font-bold text-2xl mb-1">Bonjour encore !</h1>
+        <h1 className="text-gray-800 font-bold text-2xl mb-1">
+          Bonjour encore !
+        </h1>
         <p className="text-sm font-normal text-gray-600 mb-7">Bienvenue</p>
         <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
           <svg
@@ -158,13 +158,26 @@ const LoginForm: React.FC = () => {
           />
         </div>
         <p className="text-red-500">{errors.mot_de_passe?.message}</p>
-        <input
+        <button
+          type="submit"
+          className="relative block px-5 py-2 mt-4 mb-2 mx-auto overflow-hidden font-semibold text-[#100D3F] bg-[#BA9672] border border-[#BA9672] rounded-lg shadow-inner group"
+        >
+          <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease"></span>
+          <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full ease"></span>
+          <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full ease"></span>
+          <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full ease"></span>
+          <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-[#100D3F] opacity-0 group-hover:opacity-100"></span>
+          <span className="relative transition-colors duration-300 delay-200 group-hover:text-[#BA9672] ease">
+            S'inscrire
+          </span>
+        </button>
+        {/* <input
           type="submit"
           className="block w-full bg-[#100D3F] hover:bg-[#201b6a] mt-4 py-2 rounded-md text-white font-semibold mb-2 cursor-pointer"
           value="S'inscrire"
-        />
+        /> */}
         <span className="text-sm ml-2">
-        Vous n'avez pas de compte ?{" "}
+          Vous n'avez pas de compte ?{" "}
           <NavLink to="/register" className="text-[#BA9672]">
             Registre
           </NavLink>

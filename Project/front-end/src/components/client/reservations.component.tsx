@@ -11,6 +11,7 @@ import {
   LocationMarkerIcon,
   UserIcon,
   UserRemoveIcon,
+  UsersIcon,
 } from "@heroicons/react/solid";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -86,7 +87,8 @@ const Reservations = () => {
   return (
     <>
       <NavBar />
-      <div className="animatedReservation bg-white shadow overflow-hidden sm:rounded-md ml-[70px] sm:ml-[100px] mr-5 sm:mr-10 mt-[10vh] sm:mt-[15vh]">
+      <img src={require("src/common/images/normal-horizontal.png")} className="w-36 mx-auto" alt="" />
+      <div className="animatedReservation bg-white shadow overflow-hidden sm:rounded-md ml-[70px] sm:ml-[100px] mr-5 sm:mr-10 mt-[1vh] sm:mt-[6vh]">
         <div role="list" className="divide-y divide-gray-200">
           {reservations.map((reservation: any) => (
             <li key={reservation.id}>
@@ -111,11 +113,11 @@ const Reservations = () => {
                         {({loading}) => (loading ? <p>Loading...</p> : <DownloadIcon className="text-green-500" />)}
                     </PDFDownloadLink> */}
 
-                    <button className="text-green-500">
+                    {/* <button className="text-green-500">
                       <p>
                         <DownloadIcon className="w-6 h-6" />
                       </p>
-                    </button>
+                    </button> */}
                   </div>
                   <div className="mt-2 sm:flex sm:justify-between">
                     <div className="sm:flex">
@@ -133,6 +135,13 @@ const Reservations = () => {
                         />
                         {reservation.address}
                       </p>
+                      <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
+                      <UsersIcon
+                        className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                        />
+                        {reservation.nombre_places}
+                        </p>
                     </div>
                     <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
                       <CalendarIcon

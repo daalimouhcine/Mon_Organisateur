@@ -58,25 +58,10 @@ const OrganisateurRegisterForm = () => {
   const RegisterRequest = async (data: Object) => {
     let dataInput: any = { ...data };
 
-    let newImageName: string = "default.png";
     // change name of the image to start with org_ and add random number to avoid duplicate name and add extension
 
-    let dataOrganisateur = {
-      nom: dataInput.nom,
-      prenom: dataInput.prenom,
-      email: dataInput.email,
-      mot_de_passe: dataInput.mot_de_passe,
-      telephone: dataInput.telephone,
-      cin: dataInput.cin,
-      nom_entreprise: dataInput.nom_entreprise,
-      image_profile: newImageName,
-      adresse: dataInput.adresse,
-      facebook: dataInput.facebook,
-      twitter: dataInput.twitter,
-      instagram: dataInput.instagram,
-    };
-
     if (dataInput.image_profile[0] !== undefined) {
+      console.log("inside image condition");
       // store image in cloudinary storage
       let cloudinaryData = {
         timestamp: cloudinaryResponse.timestamp,
@@ -86,6 +71,20 @@ const OrganisateurRegisterForm = () => {
         folder: cloudinaryInfo.folder,
       };
 
+      let dataOrganisateur = {
+        nom: dataInput.nom,
+        prenom: dataInput.prenom,
+        email: dataInput.email,
+        mot_de_passe: dataInput.mot_de_passe,
+        telephone: dataInput.telephone,
+        cin: dataInput.cin,
+        nom_entreprise: dataInput.nom_entreprise,
+        adresse: dataInput.adresse,
+        facebook: dataInput.facebook,
+        twitter: dataInput.twitter,
+        instagram: dataInput.instagram,
+      };
+
       await axios
         .post(
           "http://localhost/mon_organisateur/organisateurs/validateOrganisateurData",
@@ -93,45 +92,105 @@ const OrganisateurRegisterForm = () => {
         )
         .then((res) => {
           if (!res.data.error) {
+            console.log("inside validation condition");
+
             setShowLoading(true);
             const formData = toFormData(cloudinaryData);
             const url = `https://api.cloudinary.com/v1_1/${cloudinaryInfo.cloudName}/image/upload`;
             const imageData = axios.post(url, formData).then((res) => res.data);
             imageData.then((res) => {
-              setShowLoading(false);
-              newImageName = res.public_id;
+              console.log("inside uploading image");
+
+              let dataOrganisateur = {
+                nom: dataInput.nom,
+                prenom: dataInput.prenom,
+                email: dataInput.email,
+                mot_de_passe: dataInput.mot_de_passe,
+                telephone: dataInput.telephone,
+                cin: dataInput.cin,
+                nom_entreprise: dataInput.nom_entreprise,
+                image_profile: res.public_id,
+                adresse: dataInput.adresse,
+                facebook: dataInput.facebook,
+                twitter: dataInput.twitter,
+                instagram: dataInput.instagram,
+              };
+              axios
+                .post(
+                  "http://localhost/mon_organisateur/organisateurs/register",
+                  dataOrganisateur
+                )
+                .then((res) => {
+                  if (!res.data.error) {
+                    setRegisterMessage({
+                      message: "Votre compte a été créé avec succès",
+                      type: "success",
+                    });
+
+                    setShowLoading(false);
+
+                    MySwal.fire(
+                      "Demande est faite avec succès",
+                      "Votre demande est encoure de traitment",
+                      "success"
+                    ).then(() => {
+                      return setTimeout(() => {
+                        navigate("/login");
+                      }, 500);
+                    });
+                  } else {
+                    setRegisterMessage({
+                      message: res.data.error,
+                      type: "error",
+                    });
+                  }
+                });
+            });
+          } else {
+            setRegisterMessage({ message: res.data.error, type: "error" });
+          }
+        });
+    } else {
+      let dataOrganisateur = {
+        nom: dataInput.nom,
+        prenom: dataInput.prenom,
+        email: dataInput.email,
+        mot_de_passe: dataInput.mot_de_passe,
+        telephone: dataInput.telephone,
+        cin: dataInput.cin,
+        nom_entreprise: dataInput.nom_entreprise,
+        image_profile: "default.png",
+        adresse: dataInput.adresse,
+        facebook: dataInput.facebook,
+        twitter: dataInput.twitter,
+        instagram: dataInput.instagram,
+      };
+      await axios
+        .post(
+          "http://localhost/mon_organisateur/organisateurs/register",
+          dataOrganisateur
+        )
+        .then((res) => {
+          if (!res.data.error) {
+            setRegisterMessage({
+              message: "Votre compte a été créé avec succès",
+              type: "success",
+            });
+
+            MySwal.fire(
+              "Demande est faite avec succès",
+              "Votre demande est encoure de traitment",
+              "success"
+            ).then(() => {
+              return setTimeout(() => {
+                navigate("/login");
+              }, 500);
             });
           } else {
             setRegisterMessage({ message: res.data.error, type: "error" });
           }
         });
     }
-
-    await axios
-      .post(
-        "http://localhost/mon_organisateur/organisateurs/register",
-        dataOrganisateur
-      )
-      .then((res) => {
-        if (!res.data.error) {
-          setRegisterMessage({
-            message: "Votre compte a été créé avec succès",
-            type: "success",
-          });
-
-          MySwal.fire(
-            "Demande est faite avec succès",
-            "Votre demande est encoure de traitment",
-            "success"
-          ).then(() => {
-            return setTimeout(() => {
-              navigate("/");
-            }, 500);
-          });
-        } else {
-          setRegisterMessage({ message: res.data.error, type: "error" });
-        }
-      });
   };
 
   const handleFormCompletion = (values: any) => {
@@ -144,7 +203,7 @@ const OrganisateurRegisterForm = () => {
 
   return (
     <div className=" bg-[#100D3F] w-full h-fit">
-      { showLoading && <LoadingSpinner /> }
+      {showLoading && <LoadingSpinner />}
       <div className="mx-auto text-center my-10">
         <h1 className="text-white text-5xl font-semibold">
           Bienvenue à <span className="text-[#BA9672]">MonOrganisateur</span>

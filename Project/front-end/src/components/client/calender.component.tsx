@@ -26,7 +26,7 @@ function classNames(...classes: any[]) {
 }
 
 const SalleCalendar = ({ showCalendar, closeCalendar, salleId }: any) => {
-  const [user] = useLocalStorage<ClientData>("user");
+  const { storedValue: user} = useLocalStorage<ClientData>("user");
   const [reservationDates, setReservationDates] = useState<Array<Date>>([]);
 
   const salleReservations = async () => {

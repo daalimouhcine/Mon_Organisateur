@@ -42,7 +42,7 @@ const AddSalle = (props: any) => {
 
   const [showLoading, setShowLoading] = useState<boolean>(false);
 
-  const [user] = useLocalStorage<OrganisateurData>("user");
+  const { storedValue: user} = useLocalStorage<OrganisateurData>("user");
   const MySwal = withReactContent(Swal);
 
   const onSubmit: SubmitHandler<SalleInputs> = async (data) => {

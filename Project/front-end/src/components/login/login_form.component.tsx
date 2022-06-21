@@ -9,6 +9,8 @@ import useLocalStorage from "../../common/hooks/useLocaleStorage";
 import { OrganisateurData } from "../../models";
 
 import "./login.component.css";
+import { useAppDispatch, useAppSelector } from "src/common/hooks/reduxHooks";
+import { setUser } from "src/slices/profile";
 
 const LoginForm: React.FC = () => {
   const [loginMessage, setLoginMessage] = useState<LoginMessage>({
@@ -24,10 +26,11 @@ const LoginForm: React.FC = () => {
   } = useForm<LoginInputs>();
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const MySwal = withReactContent(Swal);
 
-  const [user, setUser] = useLocalStorage<OrganisateurData>("user");
+  const { setValue } = useLocalStorage<OrganisateurData>("user");
 
   const requestLogin: SubmitHandler<LoginInputs> = async (data) => {
     await axios
@@ -35,10 +38,9 @@ const LoginForm: React.FC = () => {
       .then((res) => {
         if (res.data.user) {
           let user = res.data.user;
-          setUser(user);
-          return setTimeout(() => {
-            navigate("/");
-          }, 500);
+          dispatch(setUser(user));
+          setValue(user);
+          navigate("/");
         } else if (res.data.type) {
           setLoginMessage({ message: res.data.error, type: "error" });
         } else {
@@ -47,10 +49,9 @@ const LoginForm: React.FC = () => {
             .then((res) => {
               if (res.data.user) {
                 let user = res.data.user;
-                setUser(user);
-                return setTimeout(() => {
-                  navigate("/");
-                }, 500);
+                dispatch(setUser(user));
+                setValue(user);
+                navigate("/");
               } else if (res.data.type) {
                 setLoginMessage({ message: res.data.error, type: "error" });
               } else {
@@ -75,10 +76,9 @@ const LoginForm: React.FC = () => {
                         );
                       } else {
                         let user = res.data.user;
-                        setUser(user);
-                        setTimeout(() => {
-                          navigate("/");
-                        }, 500);
+                        dispatch(setUser(user));
+                        setValue(user);
+                        navigate("/");
                       }
                     } else {
                       setLoginMessage({

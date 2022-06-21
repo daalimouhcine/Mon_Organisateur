@@ -7,7 +7,6 @@ import { Default_image } from "src/common/images/default_image";
 import { DotsVerticalIcon, LocationMarkerIcon } from "@heroicons/react/solid";
 import { getCloudinaryImgUrl } from "src/services/cloudinary";
 
-
 import "./salles.component.css";
 import EditSalle from "./edit_salle.component";
 import useLocalStorage from "src/common/hooks/useLocaleStorage";
@@ -15,7 +14,7 @@ import useLocalStorage from "src/common/hooks/useLocaleStorage";
 let default_image = Default_image;
 
 const SallesComponent = () => {
-  const [user] = useLocalStorage<OrganisateurData>('user');
+  const [user] = useLocalStorage<OrganisateurData>("user");
   const [addSalle, setAddSalle] = useState(false);
   const addedSalle = () => {
     setAddSalle(!addSalle);
@@ -25,11 +24,11 @@ const SallesComponent = () => {
 
   const fetchSalles = async () => {
     const response = await axios.post(
-      "http://localhost/mon_organisateur/salles/getSallesByOrganisateur" ,  user.id 
+      "http://localhost/mon_organisateur/salles/getSallesByOrganisateur",
+      user.id
     );
     setSalles(response.data);
   };
-
 
   useEffect(() => {
     fetchSalles();
@@ -68,8 +67,8 @@ const SallesComponent = () => {
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold text-gray-900">Salles</h1>
           <p className="mt-2 text-sm text-gray-700">
-            A list of all the users in your account including their name, title,
-            email and role.
+            Une liste de tous les services de votre compte, avec leur titre,
+            leur adresse électronique et leur prix etc...
           </p>
         </div>
         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
@@ -130,9 +129,12 @@ const SallesComponent = () => {
                             displayOptionsCondition(e);
                           }}
                         >
-                          <DotsVerticalIcon className=" rounded-md hover:opacity-80 hover:shadow-xl text-white shadow-slate-900 transition-all" />
+                          <DotsVerticalIcon className=" rounded-md hover:opacity-80 hover:shadow-xl text-[#100D3F] shadow-slate-900 transition-all" />
                           <div className="options flex absolute flex-col">
-                            <EditSalle salle={editSalle(salle)} showUpdate={addedSalle} />
+                            <EditSalle
+                              salle={editSalle(salle)}
+                              showUpdate={addedSalle}
+                            />
                             <button
                               className="m-1 p-2 text-sm bg-red-400 rounded-md hover:bg-red-500"
                               onClick={() => {

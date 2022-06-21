@@ -9,12 +9,10 @@ import { Default_image } from "src/common/images/default_image";
 import SallesComponent from "./salles.component";
 import ClientReservations from "./client.reservations";
 import OrgProfile from "./org.profile.component";
-import { NavLinks } from 'src/models';
+import { NavLinks } from "src/models";
 import { getCloudinaryImgUrl } from "src/services/cloudinary";
 
-
 let default_image: string = Default_image;
-
 
 const OrganisateurHome: React.FC = () => {
   const [user] = useLocalStorage<OrganisateurData>("user");
@@ -51,7 +49,7 @@ const OrganisateurHome: React.FC = () => {
       <div className="min-h-full">
         <Popover
           as="header"
-          className="pb-24 bg-gradient-to-r from-sky-800 to-cyan-600"
+          className="pb-24 bg-gradient-to-r from-[#100D3F] to-[#BA9672]"
         >
           {({ open }: any) => (
             <>
@@ -59,21 +57,11 @@ const OrganisateurHome: React.FC = () => {
                 <div className="relative flex flex-wrap items-center justify-center lg:justify-between">
                   {/* Logo */}
                   <div className="absolute left-0 py-5 flex-shrink-0 lg:static">
-                    <a href="_#">
-                      <span className="sr-only">Workflow</span>
-                      {/* https://tailwindui.com/img/logos/workflow-mark-cyan-200.svg */}
-                      <svg
-                        className="h-8 w-auto"
-                        fill="none"
-                        viewBox="0 0 35 32"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill="#A5F3FC"
-                          d="M15.258 26.865a4.043 4.043 0 01-1.133 2.917A4.006 4.006 0 0111.253 31a3.992 3.992 0 01-2.872-1.218 4.028 4.028 0 01-1.133-2.917c.009-.698.2-1.382.557-1.981.356-.6.863-1.094 1.47-1.433-.024.109.09-.055 0 0l1.86-1.652a8.495 8.495 0 002.304-5.793c0-2.926-1.711-5.901-4.17-7.457.094.055-.036-.094 0 0A3.952 3.952 0 017.8 7.116a3.975 3.975 0 01-.557-1.98 4.042 4.042 0 011.133-2.918A4.006 4.006 0 0111.247 1a3.99 3.99 0 012.872 1.218 4.025 4.025 0 011.133 2.917 8.521 8.521 0 002.347 5.832l.817.8c.326.285.668.551 1.024.798.621.33 1.142.826 1.504 1.431a3.902 3.902 0 01-1.504 5.442c.033-.067-.063.036 0 0a8.968 8.968 0 00-3.024 3.183 9.016 9.016 0 00-1.158 4.244zM19.741 5.123c0 .796.235 1.575.676 2.237a4.01 4.01 0 001.798 1.482 3.99 3.99 0 004.366-.873 4.042 4.042 0 00.869-4.386 4.02 4.02 0 00-1.476-1.806 3.994 3.994 0 00-5.058.501 4.038 4.038 0 00-1.175 2.845zM23.748 22.84c-.792 0-1.567.236-2.226.678a4.021 4.021 0 00-1.476 1.806 4.042 4.042 0 00.869 4.387 3.99 3.99 0 004.366.873A4.01 4.01 0 0027.08 29.1a4.039 4.039 0 00-.5-5.082 4 4 0 00-2.832-1.18zM34 15.994c0-.796-.235-1.574-.675-2.236a4.01 4.01 0 00-1.798-1.483 3.99 3.99 0 00-4.367.873 4.042 4.042 0 00-.869 4.387 4.02 4.02 0 001.476 1.806 3.993 3.993 0 002.226.678 4.003 4.003 0 002.832-1.18A4.04 4.04 0 0034 15.993z M5.007 11.969c-.793 0-1.567.236-2.226.678a4.021 4.021 0 00-1.476 1.807 4.042 4.042 0 00.869 4.386 4.001 4.001 0 004.366.873 4.011 4.011 0 001.798-1.483 4.038 4.038 0 00-.5-5.08 4.004 4.004 0 00-2.831-1.181z"
-                        />
-                      </svg>
-                    </a>
+                    <img
+                    className="w-32"
+                      src={require("src/common/images/negative-horizontal.png")}
+                    alt=""
+                    />
                   </div>
 
                   {/* Right section on desktop */}
@@ -124,7 +112,7 @@ const OrganisateurHome: React.FC = () => {
                     </Menu>
                   </div>
 
-                  <div className="w-full py-5 lg:border-t lg:border-white lg:border-opacity-20">
+                  <div className="w-full py-5 mt-10 lg:border-t lg:border-white lg:border-opacity-20">
                     <div className="lg:grid lg:grid-cols-3 lg:gap-8 lg:items-center">
                       {/* Left nav */}
                       <div className="hidden lg:block lg:col-span-2">
@@ -150,7 +138,7 @@ const OrganisateurHome: React.FC = () => {
                       </div>
                       <div className="px-12 lg:px-0">
                         {/* Search */}
-                        <div className="max-w-xs mx-auto w-full lg:max-w-md">
+                        {/* <div className="max-w-xs mx-auto w-full lg:max-w-md">
                           <label htmlFor="search" className="sr-only">
                             Search
                           </label>
@@ -169,7 +157,7 @@ const OrganisateurHome: React.FC = () => {
                               name="search"
                             />
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -224,8 +212,8 @@ const OrganisateurHome: React.FC = () => {
                           <div className="flex items-center justify-between px-4">
                             <div>
                               <img
-                                className="h-8 w-auto"
-                                src="https://tailwindui.com/img/logos/workflow-mark-cyan-600.svg"
+                                className="w-32"
+                                src={require("src/common/images/normal-horizontal.png")}
                                 alt="Workflow"
                               />
                             </div>
@@ -240,7 +228,9 @@ const OrganisateurHome: React.FC = () => {
                             {navigation.map((item) => (
                               <div
                                 key={item.name}
-                                className={`block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800 cursor-pointer ${item.current && "bg-gray-100"}`}
+                                className={`block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800 cursor-pointer ${
+                                  item.current && "bg-gray-100"
+                                }`}
                                 onClick={() => {
                                   changeNavigationCurrent(item.name);
                                 }}
@@ -274,7 +264,7 @@ const OrganisateurHome: React.FC = () => {
                                 {user.email}
                               </div>
                             </div>
-                            </div>
+                          </div>
                           <div className="mt-3 px-2 space-y-1">
                             {userNavigation.map((item) => (
                               <a
@@ -299,10 +289,10 @@ const OrganisateurHome: React.FC = () => {
           )}
         </Popover>
         <main className="-mt-24 pb-8">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <div className="max-w-xl mx-auto px-4 sm:px-6 lg:max-w-3xl lg:px-8">
             <h1 className="sr-only">Profile</h1>
             {/* Main 3 column grid */}
-            <div className="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
+            <div className="flex flex-col mx-auto w-fit  ">
               {/* Left column */}
               <div className="grid grid-cols-1 gap-4 lg:col-span-2">
                 {/* Welcome panel */}
@@ -328,7 +318,7 @@ const OrganisateurHome: React.FC = () => {
                             </div>
                             <div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                               <p className="text-sm font-medium text-gray-600">
-                                Welcome back,
+                              Bienvenue,
                               </p>
                               <p className="text-xl font-bold text-gray-900 sm:text-2xl">
                                 {user.nom + " " + user.prenom}{" "}
@@ -344,7 +334,7 @@ const OrganisateurHome: React.FC = () => {
                         </div>
                       </div>
                       <div className="border-t border-gray-200 bg-gray-50 grid grid-cols-1 divide-y divide-gray-200 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
-                        {stats.map((stat) => (
+                        {/* {stats.map((stat) => (
                           <div
                             key={stat.label}
                             className="px-6 py-5 text-sm font-medium text-center"
@@ -352,34 +342,45 @@ const OrganisateurHome: React.FC = () => {
                             <span className="text-gray-900">{stat.value}</span>{" "}
                             <span className="text-gray-600">{stat.label}</span>
                           </div>
-                        ))}
+                        ))} */}
                       </div>
                     </div>
                   </section>
 
-                  {
-                    navigation[0].current ? (
-                       <SallesComponent />
-                    ) : navigation[1].current ? (
-                      <OrgProfile />
-                    ) : ''
-                  }
+                  {navigation[0].current ? (
+                    <SallesComponent />
+                  ) : navigation[1].current ? (
+                    <OrgProfile />
+                  ) : (
+                    ""
+                  )}
                 </>
               </div>
 
               {/* Right column */}
-              <div className="grid grid-cols-1 gap-4">
-                {/* Recent Hires */}
-                <ClientReservations />
-              </div>
+              {/* <div className="grid grid-cols-1 gap-4"> */}
+              {/* Recent Hires */}
+              {/* <ClientReservations /> */}
+              {/* </div> */}
             </div>
           </div>
         </main>
         <footer>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-7xl">
             <div className="border-t border-gray-200 py-8 text-sm text-gray-500 text-center sm:text-left">
-              <span className="block sm:inline">
-                &copy; 2021 Tailwind Labs Inc.
+              <span className="flex flex-row sm:inline">
+                &copy;{" "}
+                <p className="order-last text-sm leading-tight text-[#BA9672] md:order-first">
+                  Built with ❤️ by{" "}
+                  <a
+                    href="https://portfolio-mouhcine-daali.netlify.app/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:text-[#BA9672]"
+                  >
+                    Mouhcine Daali
+                  </a>
+                </p>
               </span>{" "}
               <span className="block sm:inline">All rights reserved.</span>
             </div>

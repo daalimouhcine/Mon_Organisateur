@@ -5,7 +5,6 @@ import OrganisateurProfile from "./organisateur_profile";
 import { Default_image } from "../../common/images/default_image";
 import { getCloudinaryImgUrl } from "src/services/cloudinary";
 
-
 const default_image: string = Default_image;
 
 const OrganisateurPart = () => {
@@ -16,16 +15,16 @@ const OrganisateurPart = () => {
   const [openMore, setOpenMore] = useState<boolean>(false);
   const [person, setPerson] = useState<OrganisateurData>({
     id: NaN,
-    nom: '',
-    prenom: '',
-    image_profile: '',
-    email: '',
-    telephone: NaN ,
-    cin: '',
-    nom_entreprise: '',
-    role: '',
+    nom: "",
+    prenom: "",
+    image_profile: "",
+    email: "",
+    telephone: NaN,
+    cin: "",
+    nom_entreprise: "",
+    role: "",
     status: NaN,
-    adresse: '',
+    adresse: "",
   });
 
   const response = async () => {
@@ -60,17 +59,21 @@ const OrganisateurPart = () => {
 
   const closeMoreProfile = () => {
     setOpenMore(!openMore);
-  }
-
+  };
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
-      <OrganisateurProfile person={person} openMore={openMore} setOpenMore={closeMoreProfile} />
+      <OrganisateurProfile
+        person={person}
+        openMore={openMore}
+        setOpenMore={closeMoreProfile}
+      />
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold text-gray-900">Organisateurs</h1>
           <p className="mt-2 text-sm text-gray-700">
-          Une liste de tous les organisateurs, avec leur nom, leur titre, leur adresse électronique et leur rôle.
+            Une liste de tous les organisateurs, avec leur nom, leur titre, leur
+            adresse électronique et leur rôle.
           </p>
         </div>
       </div>
@@ -85,19 +88,19 @@ const OrganisateurPart = () => {
                       scope="col"
                       className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                     >
-                      Name
+                      Compte
                     </th>
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      Title
+                      Entreprise
                     </th>
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      Status
+                      Statut
                     </th>
                     <th
                       scope="col"
@@ -168,7 +171,13 @@ const OrganisateurPart = () => {
                           onClick={() => {
                             updateStatus(person.id, person.status, index);
                           }}
-                          className="text-indigo-600 hover:text-indigo-900"
+                          className={`px-5 py-2.5 mx-1 font-medium ${
+                            person.status === 0
+                              ? "bg-green-50 hover:bg-green-100 hover:text-green-600 text-green-500"
+                              : person.status === -1
+                              ? "bg-yellow-50 hover:bg-yellow-100 hover:text-yellow-600 text-yellow-500"
+                              : "bg-red-50 hover:bg-red-100 hover:text-red-600 text-red-500"
+                          } rounded-lg text-sm`}
                         >
                           {person.status === 0
                             ? "Accept"
@@ -181,7 +190,7 @@ const OrganisateurPart = () => {
                           onClick={() => {
                             openMoreProfile(person);
                           }}
-                          className="text-indigo-600 hover:text-indigo-900"
+                          className="px-5 py-2.5 mx-1 font-medium bg-blue-50 hover:bg-blue-100 hover:text-blue-600 text-blue-500 rounded-lg text-sm"
                         >
                           More Info
                           <span className="sr-only">, {person.nom}</span>

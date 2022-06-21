@@ -3,7 +3,6 @@ import { Menu, Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { SearchIcon } from "@heroicons/react/solid";
 import useLocalStorage from "src/common/hooks/useLocaleStorage";
-import { logout } from "../../services/logout";
 import { OrganisateurData } from "src/models";
 import { Default_image } from "src/common/images/default_image";
 import SallesComponent from "./salles.component";
@@ -11,11 +10,19 @@ import ClientReservations from "./client.reservations";
 import OrgProfile from "./org.profile.component";
 import { NavLinks } from "src/models";
 import { getCloudinaryImgUrl } from "src/services/cloudinary";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "src/common/hooks/reduxHooks";
+import { logout } from "src/services/logout";
+import { logOut } from "src/slices/profile";
 
 let default_image: string = Default_image;
 
-const OrganisateurHome: React.FC = () => {
-  const [user] = useLocalStorage<OrganisateurData>("user");
+const OrganisateurHome = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+
+  const { storedValue: user } = useLocalStorage<OrganisateurData>("user");
 
   const [navigation, setNavigation] = useState<Array<NavLinks>>([
     { name: "Home", component: "SallesComponent", current: true },
@@ -34,6 +41,7 @@ const OrganisateurHome: React.FC = () => {
   };
 
   const userNavigation = [{ name: "Sign out", href: "#" }];
+
   const stats = [
     { label: "Vacation days left", value: 12 },
     { label: "Sick days left", value: 4 },
@@ -58,9 +66,9 @@ const OrganisateurHome: React.FC = () => {
                   {/* Logo */}
                   <div className="absolute left-0 py-5 flex-shrink-0 lg:static">
                     <img
-                    className="w-32"
+                      className="w-32"
                       src={require("src/common/images/negative-horizontal.png")}
-                    alt=""
+                      alt=""
                     />
                   </div>
 
@@ -89,24 +97,17 @@ const OrganisateurHome: React.FC = () => {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="origin-top-right z-40 absolute -right-2 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          {userNavigation.map((item) => (
-                            <Menu.Item key={item.name}>
-                              {({ active }: any) => (
-                                <a
-                                  href={item.href}
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                  )}
+
+                                <button
+                                  className="bg-gray-100 w-full block px-4 py-2 text-sm text-gray-700"
                                   onClick={() => {
-                                    item.name === "Sign out" && logout();
+                                    dispatch(logOut());
+                                    logout() && navigate("/login");
                                   }}
                                 >
-                                  {item.name}
-                                </a>
-                              )}
-                            </Menu.Item>
-                          ))}
+                                  Log Out
+                                </button>
+
                         </Menu.Items>
                       </Transition>
                     </Menu>
@@ -165,7 +166,7 @@ const OrganisateurHome: React.FC = () => {
                   {/* Menu button */}
                   <div className="absolute right-0 flex-shrink-0 lg:hidden">
                     {/* Mobile menu button */}
-                    <Popover.Button className="bg-transparent p-2 rounded-md inline-flex items-center justify-center text-cyan-200 hover:text-white hover:bg-white hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white">
+                    <Popover.Button className="bg-transparent p-2 rounded-md inline-flex items-center justify-center  text-white hover:bg-white hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white">
                       <span className="sr-only">Open main menu</span>
                       {open ? (
                         <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -266,18 +267,15 @@ const OrganisateurHome: React.FC = () => {
                             </div>
                           </div>
                           <div className="mt-3 px-2 space-y-1">
-                            {userNavigation.map((item) => (
-                              <a
-                                key={item.name}
-                                href={item.href}
-                                className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800 cursor-pointer"
+                              <button
+                                className="block w-full rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800 cursor-pointer"
                                 onClick={() => {
-                                  item.name === "Sign out" && logout();
+                                  dispatch(logOut());
+                                  logout() && navigate("/login");
                                 }}
                               >
-                                {item.name}
-                              </a>
-                            ))}
+                                Log Out
+                              </button>
                           </div>
                         </div>
                       </div>
@@ -318,7 +316,7 @@ const OrganisateurHome: React.FC = () => {
                             </div>
                             <div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                               <p className="text-sm font-medium text-gray-600">
-                              Bienvenue,
+                                Bienvenue,
                               </p>
                               <p className="text-xl font-bold text-gray-900 sm:text-2xl">
                                 {user.nom + " " + user.prenom}{" "}

@@ -2,12 +2,15 @@ import { CalendarIcon, LogoutIcon, HomeIcon } from "@heroicons/react/outline";
 import { useState } from "react";
 
 import { NavLink, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "src/common/hooks/reduxHooks";
 import { logout } from "src/services/logout";
+import { logOut } from "src/slices/profile";
 
 import "./navbar.component.css";
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
   const openMenu = (e: any) => {
@@ -63,6 +66,7 @@ const NavBar = () => {
             <div
               className="nav__link c-red cursor-pointer"
               onClick={() => {
+                dispatch(logOut());
                 logout() && navigate("/login");
               }}
             >

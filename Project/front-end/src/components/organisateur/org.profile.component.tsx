@@ -14,7 +14,7 @@ import { getCloudinaryImgUrl } from "src/services/cloudinary";
 const default_image = Default_image;
 
 const OrgProfile = () => {
-  const [user, setUser] = useLocalStorage<OrganisateurData>("user");
+  const { storedValue: user, setValue: setUser} = useLocalStorage<OrganisateurData>("user");
 
   const {
     register,

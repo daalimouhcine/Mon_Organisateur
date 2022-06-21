@@ -14,7 +14,7 @@ import useLocalStorage from "src/common/hooks/useLocaleStorage";
 let default_image = Default_image;
 
 const SallesComponent = () => {
-  const [user] = useLocalStorage<OrganisateurData>("user");
+  const { storedValue: user} = useLocalStorage<OrganisateurData>("user");
   const [addSalle, setAddSalle] = useState(false);
   const addedSalle = () => {
     setAddSalle(!addSalle);
@@ -129,7 +129,7 @@ const SallesComponent = () => {
                             displayOptionsCondition(e);
                           }}
                         >
-                          <DotsVerticalIcon className=" rounded-md hover:opacity-80 hover:shadow-xl text-[#100D3F] shadow-slate-900 transition-all" />
+                          <DotsVerticalIcon className=" rounded-md hover:opacity-80 bg-gray-100 hover:shadow-xl text-[#100D3F] shadow-slate-900 transition-all" />
                           <div className="options flex absolute flex-col">
                             <EditSalle
                               salle={editSalle(salle)}
@@ -174,7 +174,7 @@ const SallesComponent = () => {
                         <div className="flex items-center">
                           <div className="relative">
                             <img
-                              className="w-6 h-6 md:w-8 md:h-8  rounded-full"
+                              className="h-auto w-10 md:w-48   rounded-full"
                               src={`${
                                 salle.image_profile === "default.png"
                                   ? default_image

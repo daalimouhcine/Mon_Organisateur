@@ -18,49 +18,78 @@ import ClientHomePage from "src/pages/home/client/client.home.page";
 import ReservationPage from "src/pages/home/client/reservation.page";
 
 import "./app.component.css";
+import { Children, ReactElement, useEffect, useState } from "react";
+import NotFound from "src/pages/404/404.page";
+import { useAppSelector } from "src/common/hooks/reduxHooks";
 
-const homePage = (user?: OrganisateurData) => {
-  switch (user?.role) {
-    case "admin":
-      return <AdminHomePage />;
-
-    case "client":
-      return <ClientHomePage />;
-
-    case "organisateur":
-      return <OrganisateurHomePage />;
-
-    default:
-      return <Home />;
-  }
+const HomeRendrer = ({ children }: { children: ReactElement }) => {
+  return <>{children}</>;
 };
 
 // const user = JSON.parse(localStorage.getItem("user")!) ? true : false;
 
-
 const App = () => {
-  const [user] = useLocalStorage<OrganisateurData>("user");
-  const location = useLocation()
+  const { storedValue } = useLocalStorage<OrganisateurData>("user");
+  const [currentHome, setCurrentHome] = useState<any>();
+  const { user, isAuthed } = useAppSelector((state) => state.profile);
+  const location = useLocation();
+
+  const homePage = (user?: OrganisateurData) => {
+    switch (user?.role) {
+      case "admin":
+        return <AdminHomePage />;
+
+      case "client":
+        return <ClientHomePage />;
+
+      case "organisateur":
+        return <OrganisateurHomePage />;
+
+      default:
+        return <Home />;
+    }
+  };
+
+  useEffect(() => {
+    console.log(storedValue);
+    // setCurrentHome(homePage(user));
+    if(user.role) {
+      setCurrentHome(homePage(user));
+    } else {
+      setCurrentHome(homePage(storedValue));
+    }
+  }, [user, storedValue]);
 
   return (
     <>
-      {location.pathname !== '/' && (!user && <Header />)}
+      {!isAuthed && (location.pathname !== "/" && !isAuthed && <Header />) }
+
 
       {/* <Header /> */}
       <Routes>
-        <Route path="/" element={homePage(user)} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/register/client" element={<ClientRegisterPage />} />
-        <Route path="/client/reservations" element={<ReservationPage />} />
-        <Route
-          path="/register/organisateur"
-          element={<OrganisateurRegisterPage />}
-        />
+        <Route path="/" element={<HomeRendrer>{currentHome}</HomeRendrer>} />
+
+        {!isAuthed && <Route path="/about" element={<About />} />}
+        {!isAuthed && <Route path="/contact" element={<Contact />} />}
+        {!isAuthed && <Route path="/login" element={<Login />} />}
+        {!isAuthed && <Route path="/register" element={<RegisterPage />} />}
+        {!isAuthed && (
+          <Route path="/register/client" element={<ClientRegisterPage />} />
+        )}
+        {isAuthed && (
+          <Route path="/client/reservations" element={<ReservationPage />} />
+        )}
+        {!isAuthed && (
+          <Route
+            path="/register/organisateur"
+            element={<OrganisateurRegisterPage />}
+          />
+        )}
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
-      {!user && <Footer />}
+
+      {!isAuthed && <Footer /> }
 
       {/* <Footer /> */}
     </>

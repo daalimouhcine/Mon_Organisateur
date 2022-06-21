@@ -12,8 +12,9 @@ import {
   XIcon,
   LogoutIcon,
 } from "@heroicons/react/outline";
-import { logout } from "../../services/logout";
-import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "src/common/hooks/reduxHooks";
+import { logout } from "src/services/logout";
+import { logOut } from "src/slices/profile";import { useNavigate } from "react-router-dom";
 import useLocalStorage from "src/common/hooks/useLocaleStorage";
 
 const navigation = [
@@ -29,9 +30,10 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const AdminHome: React.FC = () => {
-  const [user] = useLocalStorage<any>("user");
+const AdminHome = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { storedValue: user } = useLocalStorage<any>("user");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <>
@@ -149,6 +151,7 @@ const AdminHome: React.FC = () => {
                       <div
                         className="w-fit p-3 text-gray-400 group-hover:text-gray-500 cursor-pointer"
                         onClick={() => {
+                          dispatch(logOut());
                           logout() && navigate("/login");
                         }}
                       >
@@ -222,6 +225,7 @@ const AdminHome: React.FC = () => {
                 <div
                   className="w-fit p-3 text-gray-400 group-hover:text-gray-500 cursor-pointer"
                   onClick={() => {
+                    dispatch(logOut());
                     logout() && navigate("/login");
                   }}
                 >

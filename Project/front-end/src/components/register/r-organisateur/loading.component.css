@@ -76,7 +76,7 @@
           animation: rotate2 4s infinite linear;
 }
 
-div:hover {
+.loadingContainer div:hover {
   -webkit-animation-play-state: paused;
           animation-play-state: paused;
 }

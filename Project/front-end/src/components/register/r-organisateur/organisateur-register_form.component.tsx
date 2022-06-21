@@ -17,7 +17,7 @@ import { UserIcon } from "../../icons/user-icon";
 import { MapPinIcon } from "../../icons/map-pin-icon";
 import { HomeIcon } from "../../icons/home-icon";
 import { FacebookIcon, TwitterIcon, InstagramIcon } from "../../icons/social";
-import LoadingSpinner from "./loading.component";
+import LoadingSpinner from "../../organisateur/loading.component";
 
 const MAX_STEPS = 3;
 

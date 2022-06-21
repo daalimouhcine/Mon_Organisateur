@@ -153,11 +153,16 @@
   z-index: 4;
   -webkit-appearance: none;
   background-color: rgb(229, 231, 235);
+  background-color: #100D3F;
+  color: #fff;
+}
+.disable_date:hover {
+  background-color: #100D3F;
 }
 
 .disable_date::after,
 .disable_date::before {
-  border-top: 3px solid #fff;
+  border-top: 3px solid #BA9672;
   content: "";
   display: block;
   position: absolute;
@@ -167,7 +172,7 @@
   transform: rotate(45deg);
   width: 100%;
   pointer-events: none;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 .disable_date::after {

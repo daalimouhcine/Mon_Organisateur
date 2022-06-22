@@ -163,7 +163,7 @@ const SallesComponent = () => {
                         </p>
                       </div>
 
-                      <div className="grid grid-cols-2 my-4">
+                      <div className="grid my-4">
                         <p className="text-xs font-medium text-gray-600">
                           {" "}
                           {salle.description}{" "}
@@ -174,7 +174,7 @@ const SallesComponent = () => {
                         <div className="flex items-center">
                           <div className="relative">
                             <img
-                              className="h-auto w-10 md:w-48   rounded-full"
+                              className=" w-10 md:w-48  rounded-full"
                               src={`${
                                 salle.image_profile === "default.png"
                                   ? default_image

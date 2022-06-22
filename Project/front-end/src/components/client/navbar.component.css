@@ -39,11 +39,11 @@ ul {
   text-decoration: none;
   font-size: 24px;
   color: #e5e7eb;
-  background: #2b3033;
+  background: #100D3F;
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .nav__link:hover {
-  background: #272b2e;
+  background: #080624;
 }
 @media (max-width: 640px) {
   .nav {
@@ -61,12 +61,12 @@ ul {
   justify-content: center;
   align-items: center;
   z-index: 2;
-  background: #2b3033;
+  background: #100D3F;
   cursor: pointer;
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .burger:hover {
-  background: #272b2e;
+  background: #080624;
 }
 .burger__patty {
   position: relative;

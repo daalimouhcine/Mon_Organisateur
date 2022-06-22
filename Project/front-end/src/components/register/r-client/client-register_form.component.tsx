@@ -64,8 +64,8 @@ const ClientRegisterForm: React.FC = () => {
         >
           {registerMessage.message}
         </h3>
-        <h1 className="text-gray-800 font-bold text-2xl mb-1">Hello Again!</h1>
-        <p className="text-sm font-normal text-gray-600 mb-7">Welcome Back</p>
+        <h1 className="text-gray-800 font-bold text-2xl mb-1">Bonjour à nouveau !</h1>
+        <p className="text-sm font-normal text-gray-600 mb-7">Bienvenue</p>
         <div className="flex items-center border-2 py-2 px-3 rounded-md mt-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"

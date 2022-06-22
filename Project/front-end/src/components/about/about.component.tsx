@@ -11,10 +11,10 @@ const AboutComponent: React.FC = () => {
                 alt=""
               />
               <h2 className="m-0 text-3xl font-medium leading-tight tracking-tight text-left text-black sm:text-4xl md:text-5xl">
-                Why Choose Us
+              Pourquoi nous choisir
               </h2>
               <p className="mt-2 text-xl text-left border-0 border-gray-200 sm:text-2xl">
-                We offer the best features in the industry.
+              Nous offrons les meilleures fonctionnalités du secteur.
               </p>
               <div className="grid gap-4 mt-8 leading-7 border-0 border-gray-200 sm:mt-10 sm:gap-6 lg:mt-12 lg:gap-8">
                 <div className="box-border flex items-start text-gray-900 border-solid">

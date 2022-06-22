@@ -91,7 +91,7 @@ const Reservations = () => {
       <div className="animatedReservation bg-white shadow overflow-hidden sm:rounded-md ml-[70px] sm:ml-[100px] mr-5 sm:mr-10 mt-[1vh] sm:mt-[6vh]">
         <div role="list" className="divide-y divide-gray-200">
           {reservations.map((reservation: any) => (
-            <li key={reservation.id}>
+            <div key={reservation.id}>
               <div className="block hover:bg-gray-50">
                 <div className="px-4 py-4 sm:px-6">
                   <div className="flex items-center justify-between">
@@ -165,7 +165,7 @@ const Reservations = () => {
                   </div>
                 </div>
               </div>
-            </li>
+            </div>
           ))}
         </div>
       </div>

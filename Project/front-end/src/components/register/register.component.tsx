@@ -18,7 +18,7 @@ const Register: React.FC = () => {
             <div className="box-border leading-7 text-center text-gray-900 md:text-left">
               <NavLink
                 to="/register/client"
-                className="relative inline-flex items-center justify-center p-4 px-10 py-2.5 mx-2 overflow-hidden font-medium text-[#07051e] transition duration-300 ease-out border-2 border-[#100D3F] rounded-md shadow-md group"
+                className="relative inline-flex items-center justify-center p-4 px-10 py-2.5 mx-2 my-2 overflow-hidden font-medium text-[#07051e] transition duration-300 ease-out border-2 border-[#100D3F] rounded-md shadow-md group"
               >
                 <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-[#100D3F] group-hover:translate-x-0 ease">
                   <svg
@@ -43,7 +43,7 @@ const Register: React.FC = () => {
               </NavLink>
               <NavLink
                 to="/register/organisateur"
-                className="relative inline-flex items-center justify-center p-4 px-10 py-2.5 mx-2 overflow-hidden font-medium text-[#8f7051] transition duration-300 ease-out border-2 border-[#BA9672] rounded-md shadow-md group"
+                className="relative inline-flex items-center justify-center p-4 px-10 py-2.5 mx-2 my-2 overflow-hidden font-medium text-[#8f7051] transition duration-300 ease-out border-2 border-[#BA9672] rounded-md shadow-md group"
               >
                 <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-[#BA9672] group-hover:translate-x-0 ease">
                   <svg

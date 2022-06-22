@@ -48,7 +48,7 @@ const HomeComponent: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex md:ml-10 md:pr-4 md:space-x-8">
+                  <div className="hidden md:ml-10 md:pr-4 md:flex md:space-x-8">
                     {navigation.map((item) => (
                       <NavLink
                         key={item.name}
@@ -143,9 +143,11 @@ const HomeComponent: React.FC = () => {
             <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
               <div className="sm:text-center lg:text-left">
                 <h1 className="text-4xl tracking-tight font-extrabold text-[#100D3F] sm:text-5xl md:text-6xl">
-                  <span className="block xl:inline">Data to enrich your</span>{" "}
+                  <span className="block xl:inline">
+                    Des solutions pour enrichir vos
+                  </span>{" "}
                   <span className="block text-[#BA9672] xl:inline">
-                    online business
+                    activités online
                   </span>
                 </h1>
                 <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
@@ -162,7 +164,7 @@ const HomeComponent: React.FC = () => {
                       <span className="relative z-10 block px-6 py-3 overflow-hidden font-medium leading-tight text-[#1c1761] transition-colors duration-300 ease-out border-2 border-[#100D3F] rounded-lg group-hover:text-white">
                         <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
                         <span className="absolute left-0 w-48 h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-[#100D3F] group-hover:-rotate-180 ease"></span>
-                        <span className="relative">Get started</span>
+                        <span className="relative">Commencer</span>
                       </span>
                       <span
                         className="absolute bottom-0 right-0 w-full h-12 -mb-1 -mr-1 transition-all duration-200 ease-linear bg-[#100D3F] rounded-lg group-hover:mb-0 group-hover:mr-0"
@@ -220,7 +222,7 @@ const HomeComponent: React.FC = () => {
 
         <div className="flex flex-col items-center justify-center w-full p-10 md:w-1/2 lg:p-16 xl:p-24">
           <h2 className="max-w-lg text-4xl font-light leading-tight text-white md:text-3xl lg:text-4xl xl:text-5xl">
-            We have the tools you need to succeed
+            Nous avons les outils dont vous avez besoin pour réussir
           </h2>
           <p className="max-w-lg mt-5 text-xl text-gray-500 md:text-base lg:text-xl">
             Our powerful and revolutionary tools are designed to help your
@@ -229,13 +231,13 @@ const HomeComponent: React.FC = () => {
         </div>
       </section>
       <section className="relative block py-20 overflow-hidden leading-6 text-left text-indigo-900 bg-white">
-        <div className="w-full max-w-2xl px-16 mx-auto leading-6 text-left sm:px-12 md:px-8 xl:px-12">
+        <div className="w-full max-w-3xl px-16 mx-auto leading-6 text-left sm:px-12 md:px-8 xl:px-12">
           <div className="relative w-full px-4 leading-6 text-center xl:flex-grow-0 xl:flex-shrink-0 lg:flex-grow-0 lg:flex-shrink-0">
             <div className="box-border text-sm font-semibold text-[#BA9672] uppercase">
               hand-crafted components
             </div>
             <h2 className="box-border mx-0 mt-6 mb-0 font-sans text-4xl font-bold leading-tight text-[#100D3F] sm:text-5xl md:text-6xl">
-              Start Crafting Your Next Great Idea
+              Commencez à élaborer votre existance sur le web
             </h2>
           </div>
         </div>
@@ -257,11 +259,11 @@ const HomeComponent: React.FC = () => {
 
           <div className="relative z-20">
             <h3 className="text-5xl font-bold leading-tight text-left text-white md:text-6xl lg:text-7xl xl:text-7xl xl:leading-tight">
-              Every great design begins with an even greater story...
+              Tout grande Idée commence par une histoire encore plus grande...
             </h3>
             <div className="flex flex-col mt-14 sm:flex-row sm:items-center">
               <p className="text-xl font-normal text-left text-[#BA9672]">
-                Use our designs to tell your story
+                Utilisez notre plateforme pour raconter votre histoire
               </p>
               <div className="flex mt-5 space-x-1 sm:mt-1 sm:ml-3">
                 <div className="w-10 h-2 bg-[#BA9672] rounded-full opacity-100"></div>
@@ -367,11 +369,10 @@ const HomeComponent: React.FC = () => {
         <div className="flex flex-col items-center justify-between px-10 mx-auto max-w-7xl xl:px-12 lg:flex-row">
           <div className="relative mb-6 lg:mb-0">
             <h2 className="w-full mx-auto mb-2 text-4xl font-extrabold leading-none text-center text-white md:text-5xl xl:text-6xl lg:text-left">
-              Designed with you in mind.
+            Conçu avec vous en tête.
             </h2>
             <p className="w-full max-w-3xl mx-auto text-base text-center text-gray-100 xl:text-xl lg:text-left">
-              We have hand-crafted the best designs and templates, optimized for
-              conversion.
+            Nous avons créé à la main les meilleurs designs et modèles, optimisés pour la conversion.
             </p>
           </div>
           <NavLink
@@ -381,7 +382,6 @@ const HomeComponent: React.FC = () => {
             <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-white rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
             <span className="relative">S'inscrire aujourd'hui</span>
           </NavLink>
-
         </div>
       </section>
     </>
@@ -391,7 +391,7 @@ const HomeComponent: React.FC = () => {
 export default HomeComponent;
 
 const navigation = [
-  { name: "Accueil", href: "/home" },
+  { name: "Accueil", href: "/" },
   { name: "à propos", href: "/about" },
   { name: "Contacter", href: "/contact" },
 ];
